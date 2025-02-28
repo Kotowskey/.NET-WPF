@@ -23,6 +23,15 @@ namespace Bookstore
         public MainWindow()
         {
             InitializeComponent();
+            LoadMockData();
+        }
+
+        private void LoadMockData()
+        {
+            // Ta metoda może zostać użyta do załadowania przykładowych danych
+            // dla demonstracji interfejsu
+
+            // Implementacja zostanie dodana później
         }
     }
 }

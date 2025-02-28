@@ -5,8 +5,214 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookstore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Księgarnia - System zarządzania" Height="600" Width="1000">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Menu górne -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="Plik">
+                <MenuItem Header="Nowy"/>
+                <MenuItem Header="Otwórz"/>
+                <MenuItem Header="Zapisz"/>
+                <Separator/>
+                <MenuItem Header="Wyjście"/>
+            </MenuItem>
+            <MenuItem Header="Książki">
+                <MenuItem Header="Dodaj nową książkę"/>
+                <MenuItem Header="Zarządzaj kategoriami"/>
+                <MenuItem Header="Importuj katalog"/>
+                <MenuItem Header="Eksportuj katalog"/>
+            </MenuItem>
+            <MenuItem Header="Klienci">
+                <MenuItem Header="Dodaj nowego klienta"/>
+                <MenuItem Header="Zarządzaj kontami"/>
+                <MenuItem Header="Historia zamówień"/>
+            </MenuItem>
+            <MenuItem Header="Raporty">
+                <MenuItem Header="Sprzedaż dzienna"/>
+                <MenuItem Header="Sprzedaż miesięczna"/>
+                <MenuItem Header="Bestsellery"/>
+                <MenuItem Header="Stan magazynu"/>
+            </MenuItem>
+            <MenuItem Header="Pomoc">
+                <MenuItem Header="Instrukcja obsługi"/>
+                <MenuItem Header="O programie"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Główna zawartość -->
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="Katalog książek">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Panel wyszukiwania -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox Width="300" Margin="0,0,10,0" VerticalContentAlignment="Center" Height="30" Padding="5" ToolTip="Wpisz tytuł, autora lub ISBN"/>
+                        <Button Content="Szukaj" Width="100" Height="30"/>
+                        <ComboBox Width="150" Margin="10,0,0,0" VerticalContentAlignment="Center" Height="30">
+                            <ComboBoxItem Content="Wszystkie kategorie"/>
+                            <ComboBoxItem Content="Fantastyka"/>
+                            <ComboBoxItem Content="Kryminał"/>
+                            <ComboBoxItem Content="Romans"/>
+                            <ComboBoxItem Content="Biografia"/>
+                            <ComboBoxItem Content="Historia"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Lista książek -->
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ISBN" Width="100" Binding="{Binding ISBN}"/>
+                            <DataGridTextColumn Header="Tytuł" Width="250" Binding="{Binding Title}"/>
+                            <DataGridTextColumn Header="Autor" Width="200" Binding="{Binding Author}"/>
+                            <DataGridTextColumn Header="Kategoria" Width="100" Binding="{Binding Category}"/>
+                            <DataGridTextColumn Header="Cena" Width="80" Binding="{Binding Price}"/>
+                            <DataGridTextColumn Header="Na stanie" Width="80" Binding="{Binding Stock}"/>
+                            <DataGridTemplateColumn Header="Akcje" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Edytuj" Margin="5,0"/>
+                                            <Button Content="Usuń" Margin="5,0"/>
+                                            <Button Content="Szczegóły" Margin="5,0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sprzedaż">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Panel zakupów -->
+                    <GroupBox Header="Koszyk" Grid.Column="0" Margin="0,0,5,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <DataGrid Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ISBN" Width="100" Binding="{Binding ISBN}"/>
+                                    <DataGridTextColumn Header="Tytuł" Width="250" Binding="{Binding Title}"/>
+                                    <DataGridTextColumn Header="Cena" Width="80" Binding="{Binding Price}"/>
+                                    <DataGridTextColumn Header="Ilość" Width="80" Binding="{Binding Quantity}"/>
+                                    <DataGridTextColumn Header="Suma" Width="80" Binding="{Binding Total}"/>
+                                    <DataGridTemplateColumn Header="Akcje" Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Content="Usuń" Margin="5,0"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                <TextBlock Text="Suma: " FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock Text="0.00 zł" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                <Button Content="Wyczyść koszyk" Width="120" Margin="0,0,10,0"/>
+                                <Button Content="Finalizuj sprzedaż" Width="120" Background="#FF4CAF50" Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- Panel dodawania książek do koszyka -->
+                    <GroupBox Header="Dodaj książkę" Grid.Column="1" Margin="5,0,0,0">
+                        <StackPanel>
+                            <Label Content="ISBN:"/>
+                            <TextBox Margin="0,0,0,10"/>
+
+                            <Label Content="Tytuł:"/>
+                            <TextBox IsReadOnly="True" Background="#FFF0F0F0" Margin="0,0,0,10"/>
+
+                            <Label Content="Autor:"/>
+                            <TextBox IsReadOnly="True" Background="#FFF0F0F0" Margin="0,0,0,10"/>
+
+                            <Label Content="Cena jednostkowa:"/>
+                            <TextBox IsReadOnly="True" Background="#FFF0F0F0" Margin="0,0,0,10"/>
+
+                            <Label Content="Ilość:"/>
+                            <TextBox Text="1" Margin="0,0,0,10"/>
+
+                            <Button Content="Sprawdź" Width="100" HorizontalAlignment="Left" Margin="0,10,0,10"/>
+                            <Button Content="Dodaj do koszyka" Height="30" Background="#FF2196F3" Foreground="White"/>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Klienci">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Panel wyszukiwania klientów -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox Width="300" Margin="0,0,10,0" VerticalContentAlignment="Center" Height="30" Padding="5" ToolTip="Wpisz imię, nazwisko lub numer klienta"/>
+                        <Button Content="Szukaj" Width="100" Height="30"/>
+                        <Button Content="Dodaj nowego klienta" Width="150" Margin="10,0,0,0" Height="30" Background="#FF2196F3" Foreground="White"/>
+                    </StackPanel>
+
+                    <!-- Lista klientów -->
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Imię" Width="150" Binding="{Binding FirstName}"/>
+                            <DataGridTextColumn Header="Nazwisko" Width="150" Binding="{Binding LastName}"/>
+                            <DataGridTextColumn Header="Email" Width="200" Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="Telefon" Width="120" Binding="{Binding Phone}"/>
+                            <DataGridTextColumn Header="Lojalność" Width="80" Binding="{Binding LoyaltyPoints}"/>
+                            <DataGridTemplateColumn Header="Akcje" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Edytuj" Margin="5,0"/>
+                                            <Button Content="Historia" Margin="5,0"/>
+                                            <Button Content="Szczegóły" Margin="5,0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Pasek statusu -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="Zalogowany: Administrator"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="Baza danych: Połączono"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="Wersja: 1.0.0"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="Data: 28.02.2025"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
