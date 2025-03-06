@@ -3,10 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bookstore"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Księgarnia" Height="600" Width="800">
+
     <Grid>
-        
+        <DockPanel>
+            <!-- Pasek narzędzi -->
+            <ToolBar DockPanel.Dock="Top" Background="LightGray">
+                <TextBlock Text="Księgarnia" FontSize="20" FontWeight="Bold" Margin="10" />
+                <Button Content="Koszyk" Margin="5" Padding="10" />
+            </ToolBar>
+
+            <!-- Główna zawartość -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Lista książek -->
+                <ListView Grid.Row="0" Name="BookList" Margin="10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="{Binding Title}" FontSize="16" Margin="5" />
+                                <Button Content="Dodaj do koszyka" Margin="5" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Stopka -->
+                <TextBlock Grid.Row="1" Text="© 2025 Księgarnia" HorizontalAlignment="Center" Margin="10"/>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
