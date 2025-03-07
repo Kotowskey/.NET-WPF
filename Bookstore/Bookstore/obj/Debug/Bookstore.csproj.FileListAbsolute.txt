@@ -22,3 +22,4 @@ C:\Users\PC\Documents\GitHub\.NET-WPF\Bookstore\Bookstore\bin\Debug\MaterialDesi
 C:\Users\PC\Documents\GitHub\.NET-WPF\Bookstore\Bookstore\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 C:\Users\PC\Documents\GitHub\.NET-WPF\Bookstore\Bookstore\bin\Debug\Microsoft.Xaml.Behaviors.xml
 C:\Users\PC\Documents\GitHub\.NET-WPF\Bookstore\Bookstore\obj\Debug\Bookstore.csproj.Up2Date
+C:\Users\PC\Documents\GitHub\.NET-WPF\Bookstore\Bookstore\obj\Debug\App.baml

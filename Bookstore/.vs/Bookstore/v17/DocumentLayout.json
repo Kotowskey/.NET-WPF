@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|solutionrelative:bookstore\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|c:\\users\\pc\\documents\\github\\.net-wpf\\bookstore\\bookstore\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\bookstore\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|solutionrelative:bookstore\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
@@ -45,8 +45,7 @@
               "ToolTip": "C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\Bookstore\\MainWindow.xaml",
               "RelativeToolTip": "Bookstore\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-28T15:08:41.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T15:08:41.08Z"
             },
             {
               "$type": "Document",
