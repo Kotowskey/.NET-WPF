@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|c:\\users\\pc\\documents\\github\\.net-wpf\\bookstore\\bookstore\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|solutionrelative:bookstore\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|c:\\users\\pc\\documents\\github\\.net-wpf\\bookstore\\bookstore\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|solutionrelative:bookstore\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|c:\\users\\pc\\documents\\github\\.net-wpf\\bookstore\\bookstore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\bookstore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4430DBD8-2B05-4886-8594-24A51A9CC863}|Bookstore\\Bookstore.csproj|solutionrelative:bookstore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -23,6 +27,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\Bookstore\\App.xaml",
+              "RelativeDocumentMoniker": "Bookstore\\App.xaml",
+              "ToolTip": "C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\Bookstore\\App.xaml",
+              "RelativeToolTip": "Bookstore\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-07T09:55:21.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\Bookstore\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Bookstore\\MainWindow.xaml",
@@ -34,7 +50,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\GitHub\\.NET-WPF\\Bookstore\\Bookstore\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Bookstore\\MainWindow.xaml.cs",
@@ -42,8 +58,7 @@
               "RelativeToolTip": "Bookstore\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T15:08:40.283Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T15:08:40.283Z"
             }
           ]
         }
