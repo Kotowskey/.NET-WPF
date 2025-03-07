@@ -1,12 +1,90 @@
 ﻿<Window x:Class="Bookstore.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bookstore"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Bookstore Application" Height="600" Width="800"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- App Bar -->
+        <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="BookOpenPageVariant" Height="24" Width="24" VerticalAlignment="Center"/>
+                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="KSIĘGARNIA"/>
+            </StackPanel>
+        </materialDesign:ColorZone>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel - Navigation -->
+            <materialDesign:Card Grid.Column="0" Margin="0 0 16 0">
+                <ListView>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Margin="0 0 8 0"/>
+                            <TextBlock>Pulpit</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="BookMultiple" Margin="0 0 8 0"/>
+                            <TextBlock>Książki</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 8 0"/>
+                            <TextBlock>Klienci</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CartOutline" Margin="0 0 8 0"/>
+                            <TextBlock>Zamówienia</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
+                            <TextBlock>Statystyki</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </materialDesign:Card>
+
+            <!-- Right Panel - Content -->
+            <materialDesign:Card Grid.Column="1" Padding="16">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 0 0 16">
+                        Panel główny
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0 0 0 16">
+                        Witaj w aplikacji księgarni. Wybierz opcję z menu po lewej stronie.
+                    </TextBlock>
+
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Width="200" HorizontalAlignment="Left" Margin="0 16 0 0">
+                        DODAJ NOWĄ KSIĄŻKĘ
+                    </Button>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </Window>
