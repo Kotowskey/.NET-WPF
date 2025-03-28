@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:views="clr-namespace:Bookstore.Views"
         Title="Bookstore Application" Height="600" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -34,32 +35,38 @@
 
             <!-- Left Panel - Navigation -->
             <materialDesign:Card Grid.Column="0" Margin="0 0 16 0">
-                <ListView>
-                    <ListViewItem>
+                <ListView x:Name="NavListView" SelectionChanged="NavListView_SelectionChanged">
+                    <ListViewItem x:Name="DashboardItem" IsSelected="True">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ViewDashboard" Margin="0 0 8 0"/>
                             <TextBlock>Pulpit</TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem>
+                    <ListViewItem x:Name="BooksItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BookMultiple" Margin="0 0 8 0"/>
                             <TextBlock>Książki</TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem>
+                    <ListViewItem x:Name="OffersItem">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="TagMultiple" Margin="0 0 8 0"/>
+                            <TextBlock>Oferty</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="CustomersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 8 0"/>
                             <TextBlock>Klienci</TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem>
+                    <ListViewItem x:Name="OrdersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CartOutline" Margin="0 0 8 0"/>
                             <TextBlock>Zamówienia</TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem>
+                    <ListViewItem x:Name="StatsItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
                             <TextBlock>Statystyki</TextBlock>
@@ -69,22 +76,62 @@
             </materialDesign:Card>
 
             <!-- Right Panel - Content -->
-            <materialDesign:Card Grid.Column="1" Padding="16">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 0 0 16">
-                        Panel główny
-                    </TextBlock>
+            <Grid Grid.Column="1">
+                <!-- Dashboard View (default) -->
+                <materialDesign:Card x:Name="DashboardView" Padding="16" Visibility="Visible">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 0 0 16">
+                            Panel główny
+                        </TextBlock>
 
-                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0 0 0 16">
-                        Witaj w aplikacji księgarni. Wybierz opcję z menu po lewej stronie.
-                    </TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0 0 0 16">
+                            Witaj w aplikacji księgarni. Wybierz opcję z menu po lewej stronie.
+                        </TextBlock>
 
-                    <Button Style="{StaticResource MaterialDesignRaisedButton}" 
-                            Width="200" HorizontalAlignment="Left" Margin="0 16 0 0">
-                        DODAJ NOWĄ KSIĄŻKĘ
-                    </Button>
-                </StackPanel>
-            </materialDesign:Card>
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                                Width="200" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                Click="GoToOffers_Click">
+                            PRZEGLĄDAJ OFERTY
+                        </Button>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Offers View -->
+                <views:OffersPage x:Name="OffersView" Visibility="Collapsed" />
+
+                <!-- Other Views -->
+                <TextBlock x:Name="BooksView" 
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed">
+                    Widok Książek (Niezaimplementowany)
+                </TextBlock>
+
+                <TextBlock x:Name="CustomersView" 
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed">
+                    Widok Klientów (Niezaimplementowany)
+                </TextBlock>
+
+                <TextBlock x:Name="OrdersView" 
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed">
+                    Widok Zamówień (Niezaimplementowany)
+                </TextBlock>
+
+                <TextBlock x:Name="StatsView" 
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed">
+                    Widok Statystyk (Niezaimplementowany)
+                </TextBlock>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
