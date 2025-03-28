@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookstore.SignalRHub;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Bookstore
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private ConnectionHub _connection;
+
+        public MainWindow(ConnectionHub _connectionHub)
         {
             InitializeComponent();
+            _connection = _connectionHub;
         }
     }
 }

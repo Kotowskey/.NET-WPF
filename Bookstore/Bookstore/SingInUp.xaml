@@ -1,0 +1,51 @@
+﻿<Window x:Class="Bookstore.SingInUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Logowanie / Rejestracja" Height="420" Width="400">
+    <Grid Margin="10">
+        <DockPanel LastChildFill="True">
+            <!--<TextBlock x:Name="ConnectionStatus" DockPanel.Dock="Top" 
+                       Foreground="DarkGreen" FontWeight="Bold" FontSize="14"
+                       Text="Połączenie: ..." Margin="0,0,0,10"/>-->
+
+            <TabControl>
+                <!-- Logowanie -->
+                <TabItem Header="Logowanie">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Login" />
+                        <TextBox x:Name="LoginUsername" Margin="0,0,0,5"/>
+
+                        <TextBlock Text="Hasło" />
+                        <PasswordBox x:Name="LoginPassword" Margin="0,0,0,10"/>
+
+                        <Button Content="Zaloguj" Click="Login_Click" Margin="0,0,0,10"/>
+                        <TextBlock x:Name="LoginResult" FontWeight="Bold"/>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Rejestracja -->
+                <TabItem Header="Rejestracja">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Email" />
+                        <TextBox x:Name="RegEmail" Margin="0,0,0,5"/>
+
+                        <TextBlock Text="Login" />
+                        <TextBox x:Name="RegUsername" Margin="0,0,0,5"/>
+
+                        <TextBlock Text="Imię" />
+                        <TextBox x:Name="RegFirstName" Margin="0,0,0,5"/>
+
+                        <TextBlock Text="Nazwisko" />
+                        <TextBox x:Name="RegLastName" Margin="0,0,0,5"/>
+
+                        <TextBlock Text="Hasło" />
+                        <PasswordBox x:Name="RegPassword" Margin="0,0,0,10"/>
+
+                        <Button Content="Zarejestruj" Click="Register_Click" Margin="0,0,0,10"/>
+                        <TextBlock x:Name="RegisterResult" FontWeight="Bold"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>
