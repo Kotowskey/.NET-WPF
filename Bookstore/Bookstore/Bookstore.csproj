@@ -199,11 +199,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\Offer.cs" />
+    <Compile Include="Models\PublisherModel.cs" />
+    <Compile Include="Models\SeriesModel.cs" />
     <Compile Include="Services\ApiService.cs" />
+    <Compile Include="Services\BookService.cs" />
     <Compile Include="SignalRHub\ConnectionHub.cs" />
     <Compile Include="SingInUp.xaml.cs">
       <DependentUpon>SingInUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BooksPage.xaml.cs">
+      <DependentUpon>BooksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffersPage.xaml.cs" />
     <Page Include="MainWindow.xaml">
@@ -219,6 +228,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SingInUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BooksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
