@@ -45,23 +45,47 @@
             </StackPanel>
 
             <Grid Grid.Row="1">
-                <ListView x:Name="BooksListView" 
-                  MouseDoubleClick="BooksListView_MouseDoubleClick">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Tytuł" DisplayMemberBinding="{Binding Title}" Width="150"/>
-                            <GridViewColumn Header="Autor" DisplayMemberBinding="{Binding AuthorDisplay}" Width="150"/>
-                            <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" Width="150"/>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <ListBox x:Name="BooksListView"
+                     ItemsSource="{Binding Books}"
+                     SelectionMode="Single"
+                     SelectionChanged="BooksListView_SelectionChanged"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto">
 
-                <TextBlock x:Name="NoResultsText" 
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card 
+                            Margin="10"
+                            Padding="16"
+                            Width="200"
+                            Background="{DynamicResource MaterialDesignCardBackground}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" 
+                                           FontSize="16" 
+                                           FontWeight="Bold" 
+                                           TextWrapping="Wrap"/>
+
+                                    <TextBlock Text="{Binding AuthorDisplay}" 
+                                           Margin="0,8,0,0" 
+                                           TextWrapping="Wrap"/>
+
+                                    <TextBlock Text="{Binding Isbn}" 
+                                           FontStyle="Italic" 
+                                           Margin="0,1,0,0"/>
+                                </StackPanel>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            <TextBlock x:Name="NoResultsText" 
                    Text="Brak dostępnych ofert" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

@@ -87,12 +87,11 @@ namespace Bookstore.Views
             await LoadBooks();
         }
 
-        private void BooksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (BooksListView.SelectedItem is BookModel selectedBook)
             {
-                MessageBox.Show($"Wybrano ofertę: {selectedBook.Title}");
-                // Here you would navigate to a detail page or show a detail dialog
+                MessageBox.Show($"Wybrano książkę: {selectedBook.Title}");
             }
         }
     }
