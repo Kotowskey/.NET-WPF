@@ -1,0 +1,68 @@
+﻿<Window x:Class="Bookstore.Views.BookDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Bookstore.Views"
+        mc:Ignorable="d"
+        Title="Book Details" Height="450" Width="450">
+    <Grid>
+        <StackPanel>
+            <materialDesign:ColorZone Mode="PrimaryMid" Padding="20" Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="BookTitle" 
+                       FontSize="30" 
+                       FontWeight="Bold"/>
+
+                    <TextBlock x:Name="BookSeries" 
+                        VerticalAlignment="Bottom"
+                         Padding="5,0,0,5"/>
+                </StackPanel>
+            </materialDesign:ColorZone>
+            <TextBlock Text="Opis" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"></TextBlock>
+            <TextBlock x:Name="BookDescription" Margin="20,0,0,20"/>
+            <Separator Margin="20,0,20,0" />
+            <TextBlock Text="Szczegóły" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"></TextBlock>
+            <StackPanel Margin="20,0,20,20" Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="Autorzy: "/>
+                    <TextBlock Text="Gatunki: "/>
+                    <TextBlock Text="Isbn: "/>
+                    <TextBlock Text="Wydawca: "/>
+                    <TextBlock Text="Rok publikacji: "/>
+                </StackPanel>
+                <StackPanel Margin="35,0,0,0">
+                    <TextBlock x:Name="BookAuthor" FontWeight="Bold"/>
+                    <TextBlock x:Name="BookGenre" FontWeight="Bold"/>
+                    <TextBlock x:Name="BookIsbn" FontWeight="Bold"/>
+                    <TextBlock x:Name="BookPublisher" FontWeight="Bold"/>
+                    <TextBlock x:Name="BookPublicationYear" FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Content="Edytuj" 
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Background="DarkOrange"
+                Foreground="White"
+                BorderThickness="0"
+                Margin="0,0,10,0" 
+                Click="CloseButton_Click"/>
+
+                <Button Content="Usuń" 
+                BorderThickness="0"
+                Style="{StaticResource MaterialDesignRaisedButton}" 
+                Background="{DynamicResource MaterialDesignValidationErrorBrush}" 
+                Foreground="White"
+                Margin="0,0,10,0" 
+                Click="CloseButton_Click"/>
+
+                <Button Content="Zamknij" 
+                BorderThickness="0"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Margin="0,0,0,0" 
+                Click="CloseButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

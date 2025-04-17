@@ -17,7 +17,11 @@ namespace Bookstore.Models
         public SeriesModel Series { get; set; }
         public List<GenreModel> Genre { get; set; }
         public List<AuthorModel> Author { get; set; }
-
+        public string PublisherDisplay => Publisher.Name;
+        public string SeriesDisplay => Series.Name;
+        public string GenreDisplay => Genre != null && Genre.Any()
+        ? string.Join(", ", Genre.Select(a => a.Name))
+        : "";
         public string AuthorDisplay => Author != null && Author.Any()
         ? string.Join(", ", Author.Select(a => a.Name))
         : "";

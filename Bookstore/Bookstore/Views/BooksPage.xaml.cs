@@ -77,7 +77,10 @@ namespace Bookstore.Views
             }
 
             var filteredBooks = _allBooks.Where(o =>
-                (o.Title?.ToLower().Contains(searchText) ?? false)).ToList();
+                (o.Title?.ToLower().Contains(searchText) ?? false) ||
+                (o.AuthorDisplay?.ToLower().Contains(searchText) ?? false) ||
+                (o.Isbn?.ToLower().Contains(searchText) ?? false)
+            ).ToList();
 
             UpdateBooksDisplay(filteredBooks);
         }
@@ -91,7 +94,8 @@ namespace Bookstore.Views
         {
             if (BooksListView.SelectedItem is BookModel selectedBook)
             {
-                MessageBox.Show($"Wybrano książkę: {selectedBook.Title}");
+                var bookDetailsWindow = new BookDetailsWindow(selectedBook);
+                bookDetailsWindow.ShowDialog();
             }
         }
     }

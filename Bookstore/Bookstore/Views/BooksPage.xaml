@@ -92,7 +92,7 @@
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    Visibility="Collapsed"/>
 
-                <materialDesign:Card x:Name="LoadingCard"
+            <materialDesign:Card x:Name="LoadingCard"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Padding="16"
