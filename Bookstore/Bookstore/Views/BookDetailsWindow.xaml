@@ -55,7 +55,7 @@
                 Background="{DynamicResource MaterialDesignValidationErrorBrush}" 
                 Foreground="White"
                 Margin="0,0,10,0" 
-                Click="CloseButton_Click"/>
+                Click="DeleteButton_Click"/>
 
                 <Button Content="Zamknij" 
                 BorderThickness="0"

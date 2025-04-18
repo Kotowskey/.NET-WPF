@@ -1,4 +1,5 @@
 ﻿using Bookstore.Models;
+using Bookstore.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,15 @@ namespace Bookstore.Views
     /// </summary>
     public partial class BookDetailsWindow : Window
     {
-        public BookDetailsWindow(BookModel selectedBook)
+        private readonly BookService _bookService;
+        private readonly BookModel _selectedBook;
+        private readonly BooksPage _booksPage;
+        public BookDetailsWindow(BookModel selectedBook, BooksPage booksPage)
         {
             InitializeComponent();
+            _bookService = new BookService();
+            _selectedBook = selectedBook;
+            _booksPage = booksPage;
 
             BookTitle.Text = selectedBook.Title;
             BookAuthor.Text = selectedBook.AuthorDisplay;
@@ -32,6 +39,21 @@ namespace Bookstore.Views
             BookGenre.Text = selectedBook.GenreDisplay;
             BookSeries.Text = selectedBook?.SeriesDisplay;
             BookIsbn.Text = selectedBook.Isbn;
+        }
+
+        private async Task DeleteBook()
+        {
+            if (_selectedBook != null)
+            {
+                Console.WriteLine($"Usuwam książkę o ID: {_selectedBook.Id}");
+                await _bookService.DeletedAsync(_selectedBook.Id);
+            }
+        }
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            await DeleteBook();
+            this.Close();
+            _booksPage?.RemoveBookFromList(_selectedBook.Id);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

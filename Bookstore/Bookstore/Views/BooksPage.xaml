@@ -15,16 +15,29 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="0 0 0 16">
-                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                   Margin="0 0 0 8">
-            Dostępne książki
-                </TextBlock>
-                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" 
-                   Margin="0 0 0 16">
-            Przeglądaj wszystkie dostępne książki.
-                </TextBlock>
-                <Grid>
+        <StackPanel Grid.Row="0" Margin="0 0 0 16">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <StackPanel Margin="0, 0, 20, 0" HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                                       Text="Lista książek" Margin="0 0 0 0">
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" 
+                           Text="Przeglądaj wszystkie książki." Margin="0 0 0 0">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Button x:Name="AddButton"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    ToolTip="Dodaj nową książkę"
+                    Click="AddButton_Click"
+                    >
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>

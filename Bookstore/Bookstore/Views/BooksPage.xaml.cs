@@ -2,6 +2,7 @@
 using Bookstore.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace Bookstore.Views
     public partial class BooksPage : UserControl
     {
         private readonly BookService _bookService;
-        private List<BookModel> _allBooks;
+        private ObservableCollection<BookModel> _allBooks;
         public BooksPage()
         {
             InitializeComponent();
@@ -35,8 +36,8 @@ namespace Bookstore.Views
 
             try
             {
-                _allBooks = await _bookService.GetAllAsync();
-                UpdateBooksDisplay(_allBooks);
+                _allBooks = new ObservableCollection<BookModel>(await _bookService.GetAllAsync());
+                BooksListView.ItemsSource = _allBooks;
             }
             catch (Exception ex)
             {
@@ -45,11 +46,11 @@ namespace Bookstore.Views
             finally
             {
                 LoadingCard.Visibility = Visibility.Collapsed;
-                BooksListView.Visibility = Visibility.Visible;
+                UpdateBooksDisplay(_allBooks);
             }
         }
 
-        private void UpdateBooksDisplay(List<BookModel> books)
+        private void UpdateBooksDisplay(ObservableCollection<BookModel> books)
         {
             BooksListView.ItemsSource = books;
 
@@ -72,6 +73,7 @@ namespace Bookstore.Views
             var searchText = SearchBox.Text.ToLower();
             if (string.IsNullOrWhiteSpace(searchText))
             {
+                BooksListView.ItemsSource = _allBooks;
                 UpdateBooksDisplay(_allBooks);
                 return;
             }
@@ -82,21 +84,48 @@ namespace Bookstore.Views
                 (o.Isbn?.ToLower().Contains(searchText) ?? false)
             ).ToList();
 
-            UpdateBooksDisplay(filteredBooks);
+            BooksListView.ItemsSource = filteredBooks;
+
+            if (filteredBooks == null || filteredBooks.Count == 0)
+            {
+                NoResultsText.Visibility = Visibility.Visible;
+                BooksListView.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                NoResultsText.Visibility = Visibility.Collapsed;
+                BooksListView.Visibility = Visibility.Visible;
+            }
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             await LoadBooks();
         }
-
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            var bookAddWindow = new AddBookWindow();
+            bookAddWindow.ShowDialog();
+        }
         private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (BooksListView.SelectedItem is BookModel selectedBook)
             {
-                var bookDetailsWindow = new BookDetailsWindow(selectedBook);
+                var bookDetailsWindow = new BookDetailsWindow(selectedBook, this);
                 bookDetailsWindow.ShowDialog();
+
+                BooksListView.SelectedItem = null;
             }
+        }
+
+        public void RemoveBookFromList(int bookId)
+        {
+            var bookToRemove = _allBooks.FirstOrDefault(b => b.Id == bookId);
+            if (bookToRemove != null)
+            {
+                _allBooks.Remove(bookToRemove);
+            }
+            UpdateBooksDisplay(_allBooks);
         }
     }
 }

@@ -211,6 +211,9 @@
     <Compile Include="SingInUp.xaml.cs">
       <DependentUpon>SingInUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddBookWindow.xaml.cs">
+      <DependentUpon>AddBookWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookDetailsWindow.xaml.cs">
       <DependentUpon>BookDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SingInUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddBookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
