@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Bookstore.SignalRHub;
 using Bookstore;
+using Bookstore.Translation;
 
 namespace Bookstore
 {
@@ -20,6 +21,7 @@ namespace Bookstore
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            LocalizationManager.ChangeLanguage("pl");
             _connectionHub = new ConnectionHub();
             var loginWindow = new SingInUp(_connectionHub);
             loginWindow.Show();

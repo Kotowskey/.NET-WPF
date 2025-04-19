@@ -1,4 +1,5 @@
 ﻿using Bookstore.SignalRHub;
+using Bookstore.Translation;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Threading.Tasks;
@@ -65,6 +66,16 @@ namespace Bookstore
                 RegisterResult.Text = $"Błąd: {ex.Message}";
                 RegisterResult.Foreground = Brushes.Red;
             }
+        }
+
+        private void LanguageToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            LocalizationManager.ChangeLanguage("en");
+        }
+
+        private void LanguageToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            LocalizationManager.ChangeLanguage("pl");
         }
     }
 }

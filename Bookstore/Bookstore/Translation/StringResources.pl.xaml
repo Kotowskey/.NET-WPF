@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Login">Logowanie</sys:String>
+    <sys:String x:Key="Register">Rejestracja</sys:String>
+    <sys:String x:Key="Username">Nazwa użytkownika</sys:String>
+    <sys:String x:Key="Password">Hasło</sys:String>
+    <sys:String x:Key="LoginIn">Zaloguj</sys:String>
+    <sys:String x:Key="Name">Imię</sys:String>
+    <sys:String x:Key="Surname">Nazwisko</sys:String>
+    <sys:String x:Key="RegisterIn">Zarejestruj</sys:String>
+</ResourceDictionary>

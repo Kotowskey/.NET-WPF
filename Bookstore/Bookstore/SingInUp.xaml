@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Bookstore.SingInUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Logowanie / Rejestracja" Height="420" Width="400">
+        Title="Logowanie / Rejestracja" Height="470" Width="400">
     <Grid Margin="10">
         <DockPanel LastChildFill="True">
             <!--<TextBlock x:Name="ConnectionStatus" DockPanel.Dock="Top" 
@@ -10,39 +10,47 @@
 
             <TabControl>
                 <!-- Logowanie -->
-                <TabItem Header="Logowanie">
+                <TabItem Header="{DynamicResource Login}">
                     <StackPanel Margin="10">
-                        <TextBlock Text="Login" />
+                        <TextBlock Text="{DynamicResource Username}" />
                         <TextBox x:Name="LoginUsername" Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Hasło" />
+                        <TextBlock Text="{DynamicResource Password}" />
                         <PasswordBox x:Name="LoginPassword" Margin="0,0,0,10"/>
 
-                        <Button Content="Zaloguj" Click="Login_Click" Margin="0,0,0,10"/>
+                        <Button Content="{DynamicResource LoginIn}" Click="Login_Click" Margin="0,0,0,10"/>
                         <TextBlock x:Name="LoginResult" FontWeight="Bold"/>
+                        <ToggleButton Style="{StaticResource LanguageSwitchToggleStyle}"
+                          IsChecked="{Binding IsEnglish, Mode=TwoWay}"
+                          Checked="LanguageToggle_Checked"
+                          Unchecked="LanguageToggle_Unchecked"/>
                     </StackPanel>
                 </TabItem>
 
                 <!-- Rejestracja -->
-                <TabItem Header="Rejestracja">
+                <TabItem Header="{DynamicResource Register}">
                     <StackPanel Margin="10">
                         <TextBlock Text="Email" />
                         <TextBox x:Name="RegEmail" Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Login" />
+                        <TextBlock Text="{DynamicResource Username}" />
                         <TextBox x:Name="RegUsername" Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Imię" />
+                        <TextBlock Text="{DynamicResource Name}" />
                         <TextBox x:Name="RegFirstName" Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Nazwisko" />
+                        <TextBlock Text="{DynamicResource Surname}" />
                         <TextBox x:Name="RegLastName" Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Hasło" />
+                        <TextBlock Text="{DynamicResource Password}" />
                         <PasswordBox x:Name="RegPassword" Margin="0,0,0,10"/>
 
-                        <Button Content="Zarejestruj" Click="Register_Click" Margin="0,0,0,10"/>
+                        <Button Content="{DynamicResource RegisterIn}" Click="Register_Click" Margin="0,0,0,10"/>
                         <TextBlock x:Name="RegisterResult" FontWeight="Bold"/>
+                        <ToggleButton Style="{StaticResource LanguageSwitchToggleStyle}"
+                          IsChecked="{Binding IsEnglish, Mode=TwoWay}"
+                          Checked="LanguageToggle_Checked"
+                          Unchecked="LanguageToggle_Unchecked"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>
