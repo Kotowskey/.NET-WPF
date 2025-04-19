@@ -67,7 +67,6 @@ namespace Bookstore
                 RegisterResult.Foreground = Brushes.Red;
             }
         }
-
         private void LanguageToggle_Checked(object sender, RoutedEventArgs e)
         {
             LocalizationManager.ChangeLanguage("en");

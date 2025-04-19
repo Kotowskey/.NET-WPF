@@ -23,6 +23,11 @@
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="BookOpenPageVariant" Height="24" Width="24" VerticalAlignment="Center"/>
                 <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="KSIĘGARNIA"/>
+                <ToggleButton Style="{StaticResource LanguageSwitchToggleStyle}"
+                          IsChecked="{Binding IsEnglish, Mode=TwoWay}"
+                          Checked="LanguageToggle_Checked"
+                          Margin= "20,0,0,0"
+                          Unchecked="LanguageToggle_Unchecked"/>
             </StackPanel>
         </materialDesign:ColorZone>
 

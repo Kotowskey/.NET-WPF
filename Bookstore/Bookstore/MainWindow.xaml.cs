@@ -1,4 +1,5 @@
 ﻿using Bookstore.SignalRHub;
+using Bookstore.Translation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,15 @@ namespace Bookstore
             {
                 NavListView.SelectedItem = OffersItem;
             }
+        }
+        private void LanguageToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            LocalizationManager.ChangeLanguage("en");
+        }
+
+        private void LanguageToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            LocalizationManager.ChangeLanguage("pl");
         }
     }
 }
