@@ -5,64 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Bookstore.Views"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Book Details" Height="450" Width="450">
+        Title="Szczegóły książki" Height="500" Width="500"
+        WindowStartupLocation="CenterScreen">
+
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="Loaded">
+            <behaviors:InvokeCommandAction Command="{Binding LoadDetailsCommand}" />
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
+
     <Grid>
-        <StackPanel>
-            <materialDesign:ColorZone Mode="PrimaryMid" Padding="20" Grid.Row="0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="BookTitle" 
-                       FontSize="30" 
-                       FontWeight="Bold"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-                    <TextBlock x:Name="BookSeries" 
-                        VerticalAlignment="Bottom"
-                         Padding="5,0,0,5"/>
+                <!-- Nagłówek -->
+                <materialDesign:ColorZone Mode="PrimaryMid" Padding="20">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Book.Title}" 
+                                   FontSize="30" 
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                        <TextBlock Text="{Binding Book.SeriesDisplay}" 
+                                   VerticalAlignment="Bottom" 
+                                   Padding="10,0,0,5"
+                                   Foreground="White"/>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+
+                <!-- Opis -->
+                <TextBlock Text="Opis" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                <TextBlock Text="{Binding Book.Description}" Margin="20,0,20,20" TextWrapping="Wrap"/>
+                <Separator Margin="20,0,20,0"/>
+
+                <!-- Szczegóły -->
+                <TextBlock Text="Szczegóły" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                <StackPanel Margin="20,0,20,20" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock Text="Autorzy:" Margin="0,0,0,8"/>
+                        <TextBlock Text="Gatunki:" Margin="0,0,0,8"/>
+                        <TextBlock Text="ISBN:" Margin="0,0,0,8"/>
+                        <TextBlock Text="Wydawca:" Margin="0,0,0,8"/>
+                        <TextBlock Text="Rok publikacji:" Margin="0,0,0,8"/>
+                    </StackPanel>
+                    <StackPanel Margin="35,0,0,0">
+                        <TextBlock Text="{Binding Book.AuthorDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Book.GenreDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Book.Isbn}" FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Book.PublisherDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Book.PublicationYear}" FontWeight="Bold" Margin="0,0,0,8"/>
+                    </StackPanel>
                 </StackPanel>
-            </materialDesign:ColorZone>
-            <TextBlock Text="Opis" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"></TextBlock>
-            <TextBlock x:Name="BookDescription" Margin="20,0,0,20"/>
-            <Separator Margin="20,0,20,0" />
-            <TextBlock Text="Szczegóły" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"></TextBlock>
-            <StackPanel Margin="20,0,20,20" Orientation="Horizontal">
-                <StackPanel>
-                    <TextBlock Text="Autorzy: "/>
-                    <TextBlock Text="Gatunki: "/>
-                    <TextBlock Text="Isbn: "/>
-                    <TextBlock Text="Wydawca: "/>
-                    <TextBlock Text="Rok publikacji: "/>
+
+                <!-- Przyciskówka -->
+                <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Right">
+                    <Button Content="Usuń"
+                            Command="{Binding DeleteBookCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{DynamicResource MaterialDesignValidationErrorBrush}" 
+                            Foreground="White"
+                            Margin="0,0,10,0"
+                            BorderThickness="0"/>
+
+                    <Button Content="Zamknij" 
+                            Command="{Binding CloseWindowCommand}" 
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Margin="0,0,0,0"
+                            BorderThickness="0"/>
                 </StackPanel>
-                <StackPanel Margin="35,0,0,0">
-                    <TextBlock x:Name="BookAuthor" FontWeight="Bold"/>
-                    <TextBlock x:Name="BookGenre" FontWeight="Bold"/>
-                    <TextBlock x:Name="BookIsbn" FontWeight="Bold"/>
-                    <TextBlock x:Name="BookPublisher" FontWeight="Bold"/>
-                    <TextBlock x:Name="BookPublicationYear" FontWeight="Bold"/>
-                </StackPanel>
+
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="20" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Content="Edytuj" 
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Background="DarkOrange"
-                Foreground="White"
-                BorderThickness="0"
-                Margin="0,0,10,0" 
-                Click="CloseButton_Click"/>
-
-                <Button Content="Usuń" 
-                BorderThickness="0"
-                Style="{StaticResource MaterialDesignRaisedButton}" 
-                Background="{DynamicResource MaterialDesignValidationErrorBrush}" 
-                Foreground="White"
-                Margin="0,0,10,0" 
-                Click="DeleteButton_Click"/>
-
-                <Button Content="Zamknij" 
-                BorderThickness="0"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Margin="0,0,0,0" 
-                Click="CloseButton_Click"/>
-            </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
