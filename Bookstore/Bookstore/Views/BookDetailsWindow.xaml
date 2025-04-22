@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Bookstore.Views"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Szczegóły książki" Height="500" Width="500"
+        Title="{DynamicResource DetailBook}" Height="700" Width="500"
         WindowStartupLocation="CenterScreen">
 
     <behaviors:Interaction.Triggers>
@@ -35,32 +35,37 @@
                 </materialDesign:ColorZone>
 
                 <!-- Opis -->
-                <TextBlock Text="Opis" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                <TextBlock Text="{DynamicResource Description}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
                 <TextBlock Text="{Binding Book.Description}" Margin="20,0,20,20" TextWrapping="Wrap"/>
                 <Separator Margin="20,0,20,0"/>
 
+                <!-- Opis serii -->
+                <TextBlock Text="{DynamicResource DescriptionSeries}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                <TextBlock Text="{Binding Book.SeriesDescriptonDisplay}" Margin="20,0,20,20" TextWrapping="Wrap"/>
+                <Separator Margin="20,0,20,0"/>
+
                 <!-- Szczegóły -->
-                <TextBlock Text="Szczegóły" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                <TextBlock Text="{DynamicResource Details}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
                 <StackPanel Margin="20,0,20,20" Orientation="Horizontal">
                     <StackPanel>
-                        <TextBlock Text="Autorzy:" Margin="0,0,0,8"/>
-                        <TextBlock Text="Gatunki:" Margin="0,0,0,8"/>
+                        <TextBlock Text="{DynamicResource Authors}" Margin="0,0,0,8"/>
+                        <TextBlock Text="{DynamicResource Genres}" Margin="0,0,0,8"/>
                         <TextBlock Text="ISBN:" Margin="0,0,0,8"/>
-                        <TextBlock Text="Wydawca:" Margin="0,0,0,8"/>
-                        <TextBlock Text="Rok publikacji:" Margin="0,0,0,8"/>
+                        <TextBlock Text="{DynamicResource Publisher}" Margin="0,0,0,8"/>
+                        <TextBlock Text="{DynamicResource PublicationYear}" Margin="0,0,0,8"/>
                     </StackPanel>
                     <StackPanel Margin="35,0,0,0">
                         <TextBlock Text="{Binding Book.AuthorDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding Book.GenreDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding Book.Isbn}" FontWeight="Bold" Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding Book.PublisherDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Book.PublisherWithCountry }" FontWeight="Bold" Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding Book.PublicationYear}" FontWeight="Bold" Margin="0,0,0,8"/>
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Przyciskówka -->
                 <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Right">
-                    <Button Content="Usuń"
+                    <Button Content="{DynamicResource Delete}"
                             Command="{Binding DeleteBookCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Background="{DynamicResource MaterialDesignValidationErrorBrush}" 
@@ -68,7 +73,7 @@
                             Margin="0,0,10,0"
                             BorderThickness="0"/>
 
-                    <Button Content="Zamknij" 
+                    <Button Content="{DynamicResource Close}" 
                             Command="{Binding CloseWindowCommand}" 
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedButton}"

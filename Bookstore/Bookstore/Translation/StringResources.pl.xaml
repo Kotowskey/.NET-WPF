@@ -1,6 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- UNIVERSAL -->
+    <sys:String x:Key="Error">Błąd</sys:String>
+    <sys:String x:Key="Success">Sukces</sys:String>
+    <sys:String x:Key="Close">Zamknij</sys:String>
+    <sys:String x:Key="Delete">Usuń</sys:String>
+    <sys:String x:Key="Description">Opis</sys:String>
+    <sys:String x:Key="Details">Szczegóły</sys:String>
+
+    <!-- LOGIN/REGISTER -->
     <sys:String x:Key="Login">Logowanie</sys:String>
     <sys:String x:Key="Register">Rejestracja</sys:String>
     <sys:String x:Key="Username">Nazwa użytkownika</sys:String>
@@ -9,8 +18,18 @@
     <sys:String x:Key="Name">Imię</sys:String>
     <sys:String x:Key="Surname">Nazwisko</sys:String>
     <sys:String x:Key="RegisterIn">Zarejestruj</sys:String>
+
+    <!-- BOOK PAGE -->
+    <sys:String x:Key="ListOfBooks">Lista książek</sys:String>
+    <sys:String x:Key="AddBook">Dodaj nową książkę</sys:String>
+    <sys:String x:Key="SearchBooks">Szukaj książek...</sys:String>
+    <sys:String x:Key="RefereshBooks">Odśwież listę książek</sys:String>
     <sys:String x:Key="LoadingBookError">Książki nie zostały poprawnie załądowane</sys:String>
+    <sys:String x:Key="DetailBook">Szczegóły książki</sys:String>
+    <sys:String x:Key="Authors">Autorzy</sys:String>
+    <sys:String x:Key="Genres">Gatunki</sys:String>
+    <sys:String x:Key="Publisher">Wydawca</sys:String>
+    <sys:String x:Key="PublicationYear">Rok publikacji</sys:String>
+    <sys:String x:Key="DescriptionSeries">Opis serii</sys:String>
     <sys:String x:Key="DeleteBookSuccess">Książka została pomyślnie usunięta</sys:String>
-    <sys:String x:Key="Error">Błąd</sys:String>
-    <sys:String x:Key="Success">Sukces</sys:String>
 </ResourceDictionary>
