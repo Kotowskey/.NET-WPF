@@ -30,6 +30,11 @@ namespace Bookstore.Translation
 
             Application.Current.Resources.MergedDictionaries.Add(dict);
         }
+
+        public static string Get(string key)
+        {
+            return Application.Current.TryFindResource(key)?.ToString() ?? $"!{key}!";
+        }
     }
 
 }

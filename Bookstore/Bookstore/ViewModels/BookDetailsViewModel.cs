@@ -55,7 +55,7 @@ namespace Bookstore.ViewModels
                     if (success)
                     {
                         _parentViewModel.RemoveBookFromList(Book.Id);
-                        MessageBox.Show(Translate.Get("DeleteBookSuccess"), Translate.Get("Success"), MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(LocalizationManager.Get("DeleteBookSuccess"), LocalizationManager.Get("Success"), MessageBoxButton.OK, MessageBoxImage.Information);
 
                         Application.Current.Windows[1]?.Close();
                     }

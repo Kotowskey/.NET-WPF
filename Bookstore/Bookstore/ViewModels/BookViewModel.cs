@@ -93,8 +93,8 @@ namespace Bookstore.ViewModels
             catch (Exception)
             {
                 MessageBox.Show(
-                    Translate.Get("BooksLoadingError"),
-                    Translate.Get("Error"),
+                    LocalizationManager.Get("BooksLoadingError"),
+                    LocalizationManager.Get("Error"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
