@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Bookstore.Services;
+using Bookstore.Translation;
 using Bookstore.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -91,7 +92,11 @@ namespace Bookstore.ViewModels
             }
             catch (Exception)
             {
-                MessageBox.Show("Nie udało się załadować książek.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    Translate.Get("BooksLoadingError"),
+                    Translate.Get("Error"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
             finally
             {

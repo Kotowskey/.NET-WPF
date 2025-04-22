@@ -9,4 +9,8 @@
     <sys:String x:Key="Name">Imię</sys:String>
     <sys:String x:Key="Surname">Nazwisko</sys:String>
     <sys:String x:Key="RegisterIn">Zarejestruj</sys:String>
+    <sys:String x:Key="LoadingBookError">Książki nie zostały poprawnie załądowane</sys:String>
+    <sys:String x:Key="DeleteBookSuccess">Książka została pomyślnie usunięta</sys:String>
+    <sys:String x:Key="Error">Błąd</sys:String>
+    <sys:String x:Key="Success">Sukces</sys:String>
 </ResourceDictionary>
