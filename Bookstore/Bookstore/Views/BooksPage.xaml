@@ -17,10 +17,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0 0 0 16">
+        <StackPanel Grid.Row="0" Margin="0 0 0 8">
             <StackPanel Orientation="Horizontal" Margin="10">
                 <StackPanel Margin="0, 0, 20, 0" HorizontalAlignment="Center"
                     VerticalAlignment="Center">
@@ -37,9 +38,10 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <Grid>
+            <Grid Margin="0 0 0 8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0"
@@ -49,14 +51,90 @@
                          Margin="0 0 8 0"/>
                 <Button Grid.Column="1"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        ToolTip="{DynamicResource RefreshBooks}"
-                        Command="{Binding LoadBooksCommand}">
+                        ToolTip="{DynamicResource RefereshBooks}"
+                        Command="{Binding LoadBooksCommand}"
+                        Margin="0 0 8 0">
                     <materialDesign:PackIcon Kind="Refresh" />
+                </Button>
+                <Button Grid.Column="2"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="{DynamicResource AdvancedSearchTip}"
+                        Command="{Binding ToggleAdvancedSearchCommand}">
+                    <materialDesign:PackIcon Kind="MagnifyPlus" />
                 </Button>
             </Grid>
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <!-- Zaawansowane wyszukiwanie -->
+        <Border Grid.Row="1" 
+                Visibility="{Binding IsAdvancedSearchVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Margin="0 0 0 8"
+                Background="#F5F5F5"
+                Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" 
+                           Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                           Text="{DynamicResource AdvancedSearch}"
+                           Margin="0 0 0 16"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="{DynamicResource BookTitle}"
+                             Text="{Binding AdvancedSearchTitle, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0 0 8 8"/>
+
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="{DynamicResource Author}"
+                             Text="{Binding AdvancedSearchAuthor, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0 0 0 8"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="{DynamicResource Genre}"
+                             Text="{Binding AdvancedSearchGenre, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0 0 8 8"/>
+
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="{DynamicResource ISBN}"
+                             Text="{Binding AdvancedSearchIsbn, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0 0 0 8"/>
+                </Grid>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 0">
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Content="{DynamicResource Clear}"
+                            Command="{Binding ClearAdvancedSearchCommand}"
+                            Margin="0 0 8 0"/>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                            Content="{DynamicResource Search}"
+                            Command="{Binding SearchCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2">
             <ListBox ItemsSource="{Binding Books}"
                      SelectionMode="Single"
                      Background="Transparent"
@@ -103,7 +181,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <TextBlock Text="Brak dostępnych ofert" 
+            <TextBlock Text="{DynamicResource NoBooks}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -118,7 +196,7 @@
                                  IsIndeterminate="True"
                                  HorizontalAlignment="Center"
                                  Margin="0 0 0 16"/>
-                    <TextBlock Text="Ładowanie książek..."
+                    <TextBlock Text="{DynamicResource LoadingBooks}"
                                HorizontalAlignment="Center"/>
                 </StackPanel>
             </materialDesign:Card>

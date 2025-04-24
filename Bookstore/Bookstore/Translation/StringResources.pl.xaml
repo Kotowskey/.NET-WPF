@@ -8,6 +8,8 @@
     <sys:String x:Key="Delete">Usuń</sys:String>
     <sys:String x:Key="Description">Opis</sys:String>
     <sys:String x:Key="Details">Szczegóły</sys:String>
+    <sys:String x:Key="Search">Wyszukaj</sys:String>
+    <sys:String x:Key="Clear">Wyczyść</sys:String>
 
     <!-- LOGIN/REGISTER -->
     <sys:String x:Key="Login">Logowanie</sys:String>
@@ -32,4 +34,12 @@
     <sys:String x:Key="PublicationYear">Rok publikacji</sys:String>
     <sys:String x:Key="DescriptionSeries">Opis serii</sys:String>
     <sys:String x:Key="DeleteBookSuccess">Książka została pomyślnie usunięta</sys:String>
+    <sys:String x:Key="AdvancedSearch">Wyszukiwanie zaawansowane</sys:String>
+    <sys:String x:Key="AdvancedSearchTip">Wyszukiwanie zaawansowane</sys:String>
+    <sys:String x:Key="BookTitle">Tytuł książki</sys:String>
+    <sys:String x:Key="Author">Autor</sys:String>
+    <sys:String x:Key="Genre">Gatunek</sys:String>
+    <sys:String x:Key="NoBooks">Brak dostępnych książek</sys:String>
+    <sys:String x:Key="LoadingBooks">Ładowanie książek...</sys:String>
+    <sys:String x:Key="ISBN">ISBN</sys:String>
 </ResourceDictionary>

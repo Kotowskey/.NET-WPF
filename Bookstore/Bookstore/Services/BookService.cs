@@ -1,6 +1,7 @@
 ﻿using Bookstore.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Bookstore.Services
     {
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "http://localhost:5257/api";
-
+        private List<BookModel> _cachedBooks;
 
         public BookService()
         {
@@ -51,6 +52,8 @@ namespace Bookstore.Services
             {
                 var response = await _httpClient.DeleteAsync($"{BaseUrl}/Book/Delete?bookId={bookId}");
                 response.EnsureSuccessStatusCode();
+                // Invalidate cache
+                _cachedBooks = null;
                 return true;
             }
             catch (Exception ex)
@@ -64,11 +67,53 @@ namespace Bookstore.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<List<BookModel>>($"{BaseUrl}/Book/GetAll");
+                var books = await _httpClient.GetFromJsonAsync<List<BookModel>>($"{BaseUrl}/Book/GetAll");
+                _cachedBooks = books; // Cache the results
+                return books;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching books: {ex.Message}");
+                return new List<BookModel>();
+            }
+        }
+
+        // Metoda do lokalnego wyszukiwania książek
+        public async Task<List<BookModel>> SearchBooksAsync(string searchPhrase)
+        {
+            try
+            {
+                // Próba użycia API (może być zaimplementowane w przyszłości)
+                try
+                {
+                    return await _httpClient.GetFromJsonAsync<List<BookModel>>($"{BaseUrl}/Book/Search?phrase={Uri.EscapeDataString(searchPhrase)}");
+                }
+                catch
+                {
+                    // Jeśli API nie jest dostępne, użyj lokalnego filtrowania
+                    if (_cachedBooks == null || _cachedBooks.Count == 0)
+                    {
+                        _cachedBooks = await GetAllAsync();
+                    }
+
+                    if (string.IsNullOrWhiteSpace(searchPhrase))
+                    {
+                        return _cachedBooks;
+                    }
+
+                    searchPhrase = searchPhrase.ToLower();
+                    return _cachedBooks.Where(book =>
+                        (book.Title?.ToLower().Contains(searchPhrase) ?? false) ||
+                        (book.Description?.ToLower().Contains(searchPhrase) ?? false) ||
+                        (book.Isbn?.ToLower().Contains(searchPhrase) ?? false) ||
+                        (book.AuthorDisplay?.ToLower().Contains(searchPhrase) ?? false) ||
+                        (book.GenreDisplay?.ToLower().Contains(searchPhrase) ?? false)
+                    ).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error searching books: {ex.Message}");
                 return new List<BookModel>();
             }
         }
@@ -81,7 +126,7 @@ namespace Bookstore.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching books: {ex.Message}");
+                Console.WriteLine($"Error fetching authors: {ex.Message}");
                 return new List<AuthorModel>();
             }
         }
@@ -94,7 +139,7 @@ namespace Bookstore.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching books: {ex.Message}");
+                Console.WriteLine($"Error fetching series: {ex.Message}");
                 return new List<SeriesModel>();
             }
         }
@@ -107,7 +152,7 @@ namespace Bookstore.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching books: {ex.Message}");
+                Console.WriteLine($"Error fetching genres: {ex.Message}");
                 return new List<GenreModel>();
             }
         }
@@ -120,7 +165,7 @@ namespace Bookstore.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching books: {ex.Message}");
+                Console.WriteLine($"Error fetching publishers: {ex.Message}");
                 return new List<PublisherModel>();
             }
         }

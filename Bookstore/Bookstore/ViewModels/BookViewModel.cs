@@ -20,6 +20,12 @@ namespace Bookstore.ViewModels
         private string _searchText;
         private bool _isLoading;
         private bool _noResults;
+        private bool _isAdvancedSearchVisible;
+        private string _advancedSearchTitle;
+        private string _advancedSearchAuthor;
+        private string _advancedSearchGenre;
+        private string _advancedSearchIsbn;
+        private bool _isInitialized = false;
 
         public ObservableCollection<BookModel> Books
         {
@@ -38,7 +44,12 @@ namespace Bookstore.ViewModels
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
-                FilterBooks();
+                if (_isInitialized && !_isAdvancedSearchVisible)
+                {
+                    // Wykonaj wyszukiwanie po zmianie tekstu, ale tylko jeśli załadowały się już książki
+                    // i nie jest otwarte zaawansowane wyszukiwanie
+                    FilterBooks();
+                }
             }
         }
 
@@ -62,9 +73,62 @@ namespace Bookstore.ViewModels
             }
         }
 
+        public bool IsAdvancedSearchVisible
+        {
+            get => _isAdvancedSearchVisible;
+            set
+            {
+                _isAdvancedSearchVisible = value;
+                OnPropertyChanged(nameof(IsAdvancedSearchVisible));
+            }
+        }
+
+        public string AdvancedSearchTitle
+        {
+            get => _advancedSearchTitle;
+            set
+            {
+                _advancedSearchTitle = value;
+                OnPropertyChanged(nameof(AdvancedSearchTitle));
+            }
+        }
+
+        public string AdvancedSearchAuthor
+        {
+            get => _advancedSearchAuthor;
+            set
+            {
+                _advancedSearchAuthor = value;
+                OnPropertyChanged(nameof(AdvancedSearchAuthor));
+            }
+        }
+
+        public string AdvancedSearchGenre
+        {
+            get => _advancedSearchGenre;
+            set
+            {
+                _advancedSearchGenre = value;
+                OnPropertyChanged(nameof(AdvancedSearchGenre));
+            }
+        }
+
+        public string AdvancedSearchIsbn
+        {
+            get => _advancedSearchIsbn;
+            set
+            {
+                _advancedSearchIsbn = value;
+                OnPropertyChanged(nameof(AdvancedSearchIsbn));
+            }
+        }
+
         public ICommand LoadBooksCommand { get; private set; }
         public ICommand AddBookCommand { get; private set; }
         public ICommand BookSelectedCommand { get; private set; }
+        public ICommand ToggleAdvancedSearchCommand { get; private set; }
+        public ICommand SearchCommand { get; private set; }
+        public ICommand ClearAdvancedSearchCommand { get; private set; }
 
         public BookViewModel()
         {
@@ -74,8 +138,85 @@ namespace Bookstore.ViewModels
             LoadBooksCommand = new RelayCommand(async param => await LoadBooksAsync());
             AddBookCommand = new RelayCommand(param => OpenAddBookWindow());
             BookSelectedCommand = new RelayCommand(param => OpenBookDetailsWindow(param as BookModel));
+            ToggleAdvancedSearchCommand = new RelayCommand(param => ToggleAdvancedSearch());
+            SearchCommand = new RelayCommand(async param => await ExecuteAdvancedSearch());
+            ClearAdvancedSearchCommand = new RelayCommand(param => ClearAdvancedSearch());
 
-            Task.Run(async () => await LoadBooksAsync());
+            LoadBooksAsync().ConfigureAwait(false);
+        }
+
+        private void ToggleAdvancedSearch()
+        {
+            IsAdvancedSearchVisible = !IsAdvancedSearchVisible;
+
+            if (!IsAdvancedSearchVisible)
+            {
+                // Jeśli zamykamy zaawansowane wyszukiwanie, czyścimy filtry
+                ClearAdvancedSearch();
+                // Przywracamy proste wyszukiwanie jeśli jest tekst
+                FilterBooks();
+            }
+        }
+
+        private void ClearAdvancedSearch()
+        {
+            AdvancedSearchTitle = string.Empty;
+            AdvancedSearchAuthor = string.Empty;
+            AdvancedSearchGenre = string.Empty;
+            AdvancedSearchIsbn = string.Empty;
+        }
+
+        private async Task ExecuteAdvancedSearch()
+        {
+            IsLoading = true;
+            NoResults = false;
+
+            try
+            {
+                // Budujemy frazę wyszukiwania z poszczególnych pól
+                string searchPhrase = BuildAdvancedSearchPhrase();
+
+                if (string.IsNullOrWhiteSpace(searchPhrase))
+                {
+                    // Jeśli wszystkie pola są puste, pokaż wszystkie książki
+                    Books = new ObservableCollection<BookModel>(_allBooks ?? new ObservableCollection<BookModel>());
+                    UpdateResultsVisibility();
+                    IsLoading = false;
+                    return;
+                }
+
+                var books = await _bookService.SearchBooksAsync(searchPhrase);
+                Books = new ObservableCollection<BookModel>(books);
+                UpdateResultsVisibility();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"{LocalizationManager.Get("BooksLoadingError")}: {ex.Message}",
+                    LocalizationManager.Get("Error"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        private string BuildAdvancedSearchPhrase()
+        {
+            // Łączymy wszystkie niepuste pola z zaawansowanego wyszukiwania
+            var parts = new[]
+            {
+                AdvancedSearchTitle,
+                AdvancedSearchAuthor,
+                AdvancedSearchGenre,
+                AdvancedSearchIsbn
+            }
+            .Where(p => !string.IsNullOrWhiteSpace(p))
+            .ToList();
+
+            return string.Join(" ", parts);
         }
 
         public async Task LoadBooksAsync()
@@ -87,13 +228,14 @@ namespace Bookstore.ViewModels
             {
                 var books = await _bookService.GetAllAsync();
                 _allBooks = new ObservableCollection<BookModel>(books);
-                Books = _allBooks;
+                Books = new ObservableCollection<BookModel>(_allBooks);
                 UpdateResultsVisibility();
+                _isInitialized = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show(
-                    LocalizationManager.Get("BooksLoadingError"),
+                    $"{LocalizationManager.Get("BooksLoadingError")}: {ex.Message}",
                     LocalizationManager.Get("Error"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -118,7 +260,9 @@ namespace Bookstore.ViewModels
                 var filteredBooks = _allBooks.Where(o =>
                     (o.Title?.ToLower().Contains(searchText) ?? false) ||
                     (o.AuthorDisplay?.ToLower().Contains(searchText) ?? false) ||
-                    (o.Isbn?.ToLower().Contains(searchText) ?? false)
+                    (o.Isbn?.ToLower().Contains(searchText) ?? false) ||
+                    (o.Description?.ToLower().Contains(searchText) ?? false) ||
+                    (o.GenreDisplay?.ToLower().Contains(searchText) ?? false)
                 ).ToList();
 
                 Books = new ObservableCollection<BookModel>(filteredBooks);
@@ -134,6 +278,8 @@ namespace Bookstore.ViewModels
 
         public void RemoveBookFromList(int bookId)
         {
+            if (_allBooks == null) return;
+
             var bookToRemove = _allBooks.FirstOrDefault(b => b.Id == bookId);
             if (bookToRemove != null)
             {
@@ -144,10 +290,22 @@ namespace Bookstore.ViewModels
 
         private void OpenAddBookWindow()
         {
-            //var bookAddWindow = new AddBookWindow();
-            //bookAddWindow.ShowDialog();
+            try
+            {
+                var bookAddWindow = new AddBookWindow();
+                bookAddWindow.ShowDialog();
 
-            Task.Run(async () => await LoadBooksAsync());
+                // Po zamknięciu okna odświeżamy listę książek
+                LoadBooksAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Błąd podczas otwierania okna dodawania książki: {ex.Message}",
+                    "Błąd",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void OpenBookDetailsWindow(BookModel selectedBook)

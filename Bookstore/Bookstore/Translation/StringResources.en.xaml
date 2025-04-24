@@ -8,6 +8,8 @@
     <sys:String x:Key="Delete">Delete</sys:String>
     <sys:String x:Key="Description">Description</sys:String>
     <sys:String x:Key="Details">Details</sys:String>
+    <sys:String x:Key="Search">Search</sys:String>
+    <sys:String x:Key="Clear">Clear</sys:String>
 
     <!-- LOGIN/REGISTER -->
     <sys:String x:Key="Login">Login</sys:String>
@@ -32,4 +34,12 @@
     <sys:String x:Key="PublicationYear">Publication year</sys:String>
     <sys:String x:Key="DescriptionSeries">Description of series</sys:String>
     <sys:String x:Key="DeleteBookSuccess">Book successfully deleted</sys:String>
+    <sys:String x:Key="AdvancedSearch">Advanced search</sys:String>
+    <sys:String x:Key="AdvancedSearchTip">Advanced search options</sys:String>
+    <sys:String x:Key="BookTitle">Book title</sys:String>
+    <sys:String x:Key="Author">Author</sys:String>
+    <sys:String x:Key="Genre">Genre</sys:String>
+    <sys:String x:Key="NoBooks">No books available</sys:String>
+    <sys:String x:Key="LoadingBooks">Loading books...</sys:String>
+    <sys:String x:Key="ISBN">ISBN</sys:String>
 </ResourceDictionary>
