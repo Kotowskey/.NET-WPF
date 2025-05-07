@@ -23,12 +23,14 @@ namespace Bookstore
     public partial class MainWindow : Window
     {
         private ConnectionHub _connection;
+        private bool _isAdmin;
 
-        public MainWindow(ConnectionHub connectionHub)
+        public MainWindow(bool IsAdmin)
         {
             InitializeComponent();
-            _connection = connectionHub;
+            _isAdmin = IsAdmin;
             this.Loaded += MainWindow_Loaded;
+            CheckAdmin();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -38,6 +40,26 @@ namespace Bookstore
             if (DashboardView != null)
             {
                 DashboardView.Visibility = Visibility.Visible;
+            }
+        }
+        private void CheckAdmin()
+        {
+            // Sprawdzenie, czy użytkownik jest administratorem  
+            if (_isAdmin)
+            {
+                // Umożliwienie dostępu do widoku statystyk  
+                if (AdminItem != null)
+                {
+                    AdminItem.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                // Ukrycie widoku statystyk  
+                if (AdminItem != null)
+                {
+                    AdminItem.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
@@ -69,6 +91,12 @@ namespace Bookstore
             {
                 StatsView.Visibility = Visibility.Visible;
             }
+            else if (AdminItem != null && AdminItem.IsSelected && AdminItem != null)
+            {
+                AdminView.Visibility = Visibility.Visible;
+            }
+            
+
         }
 
         private void HideAllViews()
@@ -80,6 +108,7 @@ namespace Bookstore
             if (CustomersView != null) CustomersView.Visibility = Visibility.Collapsed;
             if (OrdersView != null) OrdersView.Visibility = Visibility.Collapsed;
             if (StatsView != null) StatsView.Visibility = Visibility.Collapsed;
+            if (AdminView != null) AdminView.Visibility = Visibility.Collapsed;
         }
 
         private void GoToOffers_Click(object sender, RoutedEventArgs e)

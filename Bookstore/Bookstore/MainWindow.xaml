@@ -77,6 +77,12 @@
                             <TextBlock>Statystyki</TextBlock>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="AdminItem">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
+                            <TextBlock>Panel Admina</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </materialDesign:Card>
 
@@ -130,6 +136,13 @@
                            VerticalAlignment="Center"
                            Visibility="Collapsed">
                     Widok Statystyk (Niezaimplementowany)
+                </TextBlock>
+                <TextBlock x:Name="AdminView"
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Visibility="Collapsed">
+                    Panel Admina (Niezaimplementowany)
                 </TextBlock>
             </Grid>
         </Grid>

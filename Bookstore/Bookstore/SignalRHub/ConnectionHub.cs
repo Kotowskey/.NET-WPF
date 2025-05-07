@@ -82,5 +82,16 @@ namespace Bookstore.SignalRHub
                 return false;
             }
         }
+        public async Task<bool> IsAdmin()
+        {
+            try
+            {
+                return await _connection.InvokeAsync<bool>("IsAdmin");
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
