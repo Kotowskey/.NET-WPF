@@ -5,21 +5,43 @@
              xmlns:local="clr-namespace:Bookstore.Views"
              Height="Auto" Width="Auto">
     <Grid Margin="16">
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
             <TextBlock Text="Statystyki" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 0 0 16"/>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                <TextBlock Text="Liczba książek:" FontWeight="Bold"/>
-                <TextBlock x:Name="BooksCountText" Margin="8 0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                <TextBlock Text="Liczba ofert:" FontWeight="Bold"/>
-                <TextBlock x:Name="OffersCountText" Margin="8 0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                <TextBlock Text="Liczba użytkowników:" FontWeight="Bold"/>
-                <TextBlock x:Name="UsersCountText" Margin="8 0"/>
-            </StackPanel>
-            <!-- Dodaj więcej statystyk według potrzeb -->
+
+            <!-- Stats display -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                        <TextBlock Text="Liczba książek:" FontWeight="Bold" MinWidth="150"/>
+                        <TextBlock x:Name="BooksCountText" Margin="8 0" Text="Ładowanie..."/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                        <TextBlock Text="Liczba ofert:" FontWeight="Bold" MinWidth="150"/>
+                        <TextBlock x:Name="OffersCountText" Margin="8 0" Text="Ładowanie..."/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                        <TextBlock Text="Liczba użytkowników:" FontWeight="Bold" MinWidth="150"/>
+                        <TextBlock x:Name="UsersCountText" Margin="8 0" Text="Ładowanie..."/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Refresh button -->
+                <Button Grid.Column="1" Click="RefreshButton_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        ToolTip="Odśwież statystyki">
+                    <materialDesign:PackIcon Kind="Refresh" />
+                </Button>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -208,6 +208,7 @@
     <Compile Include="Models\SeriesModel.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\BookService.cs" />
+    <Compile Include="Services\StatisticsService.cs" />
     <Compile Include="SignalRHub\ConnectionHub.cs" />
     <Compile Include="SingInUp.xaml.cs">
       <DependentUpon>SingInUp.xaml</DependentUpon>
