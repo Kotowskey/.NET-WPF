@@ -28,6 +28,7 @@
                           Checked="LanguageToggle_Checked"
                           Margin= "20,0,0,0"
                           Unchecked="LanguageToggle_Unchecked"/>
+                <Button x:Name="LogoutButton" Content="Wyloguj się" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="LogoutButton_Click"/>
             </StackPanel>
         </materialDesign:ColorZone>
 

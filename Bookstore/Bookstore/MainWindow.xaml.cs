@@ -25,10 +25,11 @@ namespace Bookstore
         private ConnectionHub _connection;
         private bool _isAdmin;
 
-        public MainWindow(bool IsAdmin)
+        public MainWindow(bool IsAdmin, ConnectionHub connection)
         {
             InitializeComponent();
             _isAdmin = IsAdmin;
+            _connection = connection;
             this.Loaded += MainWindow_Loaded;
             CheckAdmin();
         }
@@ -126,6 +127,13 @@ namespace Bookstore
         private void LanguageToggle_Unchecked(object sender, RoutedEventArgs e)
         {
             LocalizationManager.ChangeLanguage("pl");
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new SingInUp(_connection);
+            loginWindow.Show();
+            this.Close();
         }
     }
 }
