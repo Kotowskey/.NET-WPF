@@ -42,4 +42,18 @@
     <sys:String x:Key="NoBooks">Brak dostępnych książek</sys:String>
     <sys:String x:Key="LoadingBooks">Ładowanie książek...</sys:String>
     <sys:String x:Key="ISBN">ISBN</sys:String>
+    
+    <!-- STATISTICS PAGE -->
+    <sys:String x:Key="StatisticsTitle">Statystyki księgarni</sys:String>
+    <sys:String x:Key="StatisticsDescription">Przegląd statystyk i danych księgarni</sys:String>
+    <sys:String x:Key="RefreshStatistics">Odśwież statystyki</sys:String>
+    <sys:String x:Key="Books">Książki</sys:String>
+    <sys:String x:Key="BooksCount">Liczba dostępnych książek</sys:String>
+    <sys:String x:Key="AuthorsCount">Liczba autorów</sys:String>
+    <sys:String x:Key="GenresCount">Liczba gatunków</sys:String>
+    <sys:String x:Key="Publishers">Wydawnictwa</sys:String>
+    <sys:String x:Key="PublishersCount">Liczba wydawnictw</sys:String>
+    <sys:String x:Key="Users">Użytkownicy</sys:String>
+    <sys:String x:Key="UsersCount">Liczba użytkowników</sys:String>
+    <sys:String x:Key="LoadingStatistics">Ładowanie statystyk...</sys:String>
 </ResourceDictionary>

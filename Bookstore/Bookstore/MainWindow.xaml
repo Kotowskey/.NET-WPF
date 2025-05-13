@@ -130,13 +130,8 @@
                     Widok Zamówień (Niezaimplementowany)
                 </TextBlock>
 
-                <TextBlock x:Name="StatsView" 
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Visibility="Collapsed">
-                    Widok Statystyk (Niezaimplementowany)
-                </TextBlock>
+                <views:StatisticsPage x:Name="StatsView" Visibility="Collapsed" />
+                
                 <TextBlock x:Name="AdminView"
                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                             HorizontalAlignment="Center"
