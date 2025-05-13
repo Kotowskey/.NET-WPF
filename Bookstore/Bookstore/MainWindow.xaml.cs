@@ -65,43 +65,45 @@ namespace Bookstore
 
         private void NavListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            HideAllViews();
-            // Sprawdzamy każdy element przed zmianą jego widoczności
             if (DashboardItem != null && DashboardItem.IsSelected && DashboardView != null)
             {
+                HideAllViews();
                 DashboardView.Visibility = Visibility.Visible;
             }
             else if (BooksItem != null && BooksItem.IsSelected && BooksView != null)
             {
+                HideAllViews();
                 BooksView.Visibility = Visibility.Visible;
             }
             else if (OffersItem != null && OffersItem.IsSelected && OffersView != null)
             {
+                HideAllViews();
                 OffersView.Visibility = Visibility.Visible;
             }
             else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
             {
+                HideAllViews();
                 CustomersView.Visibility = Visibility.Visible;
             }
             else if (OrdersItem != null && OrdersItem.IsSelected && OrdersView != null)
             {
+                HideAllViews();
                 OrdersView.Visibility = Visibility.Visible;
             }
             else if (StatsItem != null && StatsItem.IsSelected && StatsView != null)
             {
+                HideAllViews();
                 StatsView.Visibility = Visibility.Visible;
             }
-            else if (AdminItem != null && AdminItem.IsSelected && AdminItem != null)
+            else if (AdminItem != null && AdminItem.IsSelected && AdminView != null)
             {
+                HideAllViews();
                 AdminView.Visibility = Visibility.Visible;
             }
-            
-
         }
 
         private void HideAllViews()
         {
-            // Sprawdzamy każdy element przed zmianą jego widoczności
             if (DashboardView != null) DashboardView.Visibility = Visibility.Collapsed;
             if (BooksView != null) BooksView.Visibility = Visibility.Collapsed;
             if (OffersView != null) OffersView.Visibility = Visibility.Collapsed;
