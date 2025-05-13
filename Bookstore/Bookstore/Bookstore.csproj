@@ -206,6 +206,7 @@
     <Compile Include="Models\Offer.cs" />
     <Compile Include="Models\PublisherModel.cs" />
     <Compile Include="Models\SeriesModel.cs" />
+    <Compile Include="Models\StatisticsModel.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="SignalRHub\ConnectionHub.cs" />
@@ -226,6 +227,9 @@
       <DependentUpon>BooksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffersPage.xaml.cs" />
+    <Compile Include="Views\StatsPage.xaml.cs">
+      <DependentUpon>StatsPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -267,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OffersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StatsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

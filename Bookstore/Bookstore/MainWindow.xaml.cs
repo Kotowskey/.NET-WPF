@@ -42,6 +42,12 @@ namespace Bookstore
             {
                 DashboardView.Visibility = Visibility.Visible;
             }
+
+            // Initialize StatsView with connection
+            if (StatsView != null)
+            {
+                StatsView.Initialize(_connection);
+            }
         }
         private void CheckAdmin()
         {
