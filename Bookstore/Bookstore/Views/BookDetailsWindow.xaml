@@ -40,9 +40,26 @@
                 <Separator Margin="20,0,20,0"/>
 
                 <!-- Opis serii -->
-                <TextBlock Text="{DynamicResource DescriptionSeries}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
-                <TextBlock Text="{Binding Book.SeriesDescriptonDisplay}" Margin="20,0,20,20" TextWrapping="Wrap"/>
-                <Separator Margin="20,0,20,0"/>
+                <StackPanel Margin="0,0,0,20">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                
+                                <DataTrigger Binding="{Binding Book.SeriesDescriptionDisplay}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                
+                                <DataTrigger Binding="{Binding Book.SeriesDescriptionDisplay}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBlock Text="{DynamicResource DescriptionSeries}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                    <TextBlock Text="{Binding Book.SeriesDescriptionDisplay}" Margin="20,0,20,20" TextWrapping="Wrap"/>
+                    <Separator Margin="20,0,20,0"/>
+                </StackPanel>
 
                 <!-- Szczegóły -->
                 <TextBlock Text="{DynamicResource Details}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>

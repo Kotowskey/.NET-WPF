@@ -144,8 +144,9 @@ namespace Bookstore.ViewModels
 
         private void OpenAddBookWindow()
         {
-            //var bookAddWindow = new AddBookWindow();
-            //bookAddWindow.ShowDialog();
+            var addBookWindow = new AddBookWindow();
+            addBookWindow.ShowDialog();
+
 
             Task.Run(async () => await LoadBooksAsync());
         }
