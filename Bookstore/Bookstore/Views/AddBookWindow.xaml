@@ -14,20 +14,24 @@
     <ScrollViewer>
         <StackPanel Margin="16">
 
-            <TextBox x:Name="TitleBox" 
+            <TextBox x:Name="Title" 
+                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
                      materialDesign:HintAssist.Hint="Tytuł" 
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 8"/>
 
-            <TextBox x:Name="DescriptionBox" 
+            <TextBox x:Name="Description" 
+                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" 
                      materialDesign:HintAssist.Hint="Opis" 
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 8" 
                      AcceptsReturn="True" Height="80"/>
 
-            <TextBox x:Name="IsbnBox" 
-                     materialDesign:HintAssist.Hint="ISBN" 
+            <TextBox x:Name="Isbn" 
+                     Text="{Binding Isbn, UpdateSourceTrigger=PropertyChanged}" 
+                     materialDesign:HintAssist.Hint="Isbn" 
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 8"/>
 
-            <TextBox x:Name="PublicationYearBox" 
+            <TextBox x:Name="PublicationYear" 
+                     Text="{Binding PublicationYear, UpdateSourceTrigger=PropertyChanged}" 
                      materialDesign:HintAssist.Hint="Rok publikacji (YYYY-MM-DD)" 
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 8"/>
 
@@ -40,7 +44,7 @@
 
                 <!-- Lista wydawnictw -->
                 <ComboBox ItemsSource="{Binding AvailablePublishers}" 
-          SelectedItem="{Binding PublisherName}"
+                SelectedItem="{Binding PublisherName}"
               IsEnabled="{Binding IsNewPublisher, Converter={StaticResource BoolToVisibilityInverseConverter}}"
               materialDesign:HintAssist.Hint="Wydawnictwo"
               Margin="0 8"/>
@@ -89,40 +93,52 @@
             </StackPanel>
 
             <!-- Genres -->
-            <ListBox x:Name="GenreListBox"
-         ItemsSource="{Binding Genres}"
-         SelectionMode="Multiple"
-         DisplayMemberPath="Name"/>
+            <ListBox ItemsSource="{Binding Genres}" SelectionMode="Multiple">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-            <TextBox x:Name="NewGenreBox"
-         Text="{Binding NewGenreText, UpdateSourceTrigger=PropertyChanged}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyDown">
-                        <i:InvokeCommandAction Command="{Binding GenreKeyDownCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
+            <StackPanel Orientation="Horizontal" Margin="0 8">
+                <TextBox x:Name="NewGenreBox"
+             Text="{Binding NewGenreText, UpdateSourceTrigger=PropertyChanged}"
+             Width="300"
+             materialDesign:HintAssist.Hint="Nowy gatunek" />
+                <Button Content="+" Width="32" Margin="8 0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+            Command="{Binding AddGenreCommand}"
+            CommandParameter="{Binding Text, ElementName=NewGenreBox}" />
+            </StackPanel>
 
             <!-- Authors -->
-            <ListBox x:Name="AuthorListBox"
-         ItemsSource="{Binding Authors}"
-         SelectionMode="Multiple"
-         DisplayMemberPath="Name"/>
+            <ListBox ItemsSource="{Binding Authors}" SelectionMode="Multiple">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-            <TextBox x:Name="NewAuthorBox"
-         Text="{Binding NewAuthorText, UpdateSourceTrigger=PropertyChanged}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyDown">
-                        <i:InvokeCommandAction Command="{Binding AuthorKeyDownCommand}"
-                                   CommandParameter="{Binding Text, ElementName=NewAuthorBox}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
+            <StackPanel Orientation="Horizontal" Margin="0 8">
+                <TextBox x:Name="NewAuthorBox"
+             Text="{Binding NewAuthorText, UpdateSourceTrigger=PropertyChanged}"
+             Width="300"
+             materialDesign:HintAssist.Hint="Nowy autor" />
+                <Button Content="+" Width="32" Margin="8 0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+            Command="{Binding AddAuthorCommand}"
+            CommandParameter="{Binding Text, ElementName=NewAuthorBox}" />
+            </StackPanel>
 
 
-            <!-- <Button Content="Dodaj książkę" Click="SubmitButton_Click"
-                    Style="{StaticResource MaterialDesignRaisedButton}" Margin="0 16 0 0"
-                    HorizontalAlignment="Right"/> -->
+            <Button Content="Dodaj książkę"
+        Command="{Binding AddBookCommand}"
+        Style="{StaticResource MaterialDesignRaisedButton}"
+        Margin="0 16 0 0"
+        HorizontalAlignment="Right"/>
+
         </StackPanel>
     </ScrollViewer>
 </Window>

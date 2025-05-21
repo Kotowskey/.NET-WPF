@@ -236,7 +236,7 @@ namespace Bookstore.ViewModels
             if (!string.IsNullOrWhiteSpace(genreName))
             {
                 var trimmedName = genreName.Trim();
-                var existing = Genres.FirstOrDefault(g => g.Name == trimmedName);
+                var existing = Genres.FirstOrDefault(g => g.Name.Equals(trimmedName, StringComparison.OrdinalIgnoreCase));
                 if (existing == null)
                 {
                     Genres.Add(new GenreViewModel { Name = trimmedName, IsSelected = true });
@@ -245,6 +245,8 @@ namespace Bookstore.ViewModels
                 {
                     existing.IsSelected = true;
                 }
+                NewGenreText = string.Empty;
+                OnPropertyChanged(nameof(NewGenreText));
             }
         }
 
@@ -253,7 +255,7 @@ namespace Bookstore.ViewModels
             if (!string.IsNullOrWhiteSpace(authorName))
             {
                 var trimmedName = authorName.Trim();
-                var existing = Authors.FirstOrDefault(a => a.Name == trimmedName);
+                var existing = Authors.FirstOrDefault(a => a.Name.Equals(trimmedName, StringComparison.OrdinalIgnoreCase));
                 if (existing == null)
                 {
                     Authors.Add(new AuthorViewModel { Name = trimmedName, IsSelected = true });
@@ -262,6 +264,8 @@ namespace Bookstore.ViewModels
                 {
                     existing.IsSelected = true;
                 }
+                NewAuthorText = string.Empty;
+                OnPropertyChanged(nameof(NewAuthorText));
             }
         }
 
@@ -269,6 +273,12 @@ namespace Bookstore.ViewModels
         Task
         AddBookAsync()
         {
+            if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Isbn))
+            {
+                MessageBox.Show("Tytuł i ISBN są wymagane.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var book = new BookModel
             {
                 Title = Title,
@@ -285,14 +295,24 @@ namespace Bookstore.ViewModels
                     Name = IsNewSeries ? NewSeriesName : SeriesName,
                     Description = IsNewSeries ? NewSeriesDescription : SeriesDescription
                 },
-                Genre = Genres.Where(g => g.IsSelected).Select(g => new GenreModel { Name = g.Name }).ToList(),
-                Author = Authors.Where(a => a.IsSelected).Select(a => new AuthorModel { Name = a.Name }).ToList()
+                Genre = Genres
+                    .Where(g => g.IsSelected)
+                    .Select(g => new GenreModel { Name = g.Name })
+                    .ToList(),
+
+                Author = Authors
+                    .Where(a => a.IsSelected)
+                    .Select(a => new AuthorModel { Name = a.Name })
+                    .ToList()
             };
 
             try
             {
                 await _bookService.AddBookAsync(book);
                 IsBookAdded = true;
+                MessageBox.Show("Książka została dodana pomyślnie!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Application.Current.Windows[1]?.Close();
             }
             catch (Exception ex)
             {
