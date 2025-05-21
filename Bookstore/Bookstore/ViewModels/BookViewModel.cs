@@ -290,6 +290,7 @@ namespace Bookstore.ViewModels
 
         private void OpenAddBookWindow()
         {
+            try { 
             var addBookWindow = new AddBookWindow();
             addBookWindow.ShowDialog();
 
