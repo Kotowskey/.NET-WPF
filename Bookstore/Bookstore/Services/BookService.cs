@@ -46,6 +46,29 @@ namespace Bookstore.Services
             }
         }
 
+        public async Task<BookModel> EditBookAsync(int bookId, BookModel book)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Book/Edit/{bookId}", book);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<BookModel>();
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to edit book. Status code: {response.StatusCode}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error editing book: {ex.Message}");
+                return null;
+            }
+        }
+
         public async Task<bool> DeletedAsync(int bookId)
         {
             try
