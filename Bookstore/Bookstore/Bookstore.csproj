@@ -214,6 +214,7 @@
       <DependentUpon>SingInUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Translation\LocalizationManager.cs" />
+    <Compile Include="ViewModels\AddBookViewModel.cs" />
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />

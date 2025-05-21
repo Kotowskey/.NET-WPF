@@ -290,10 +290,9 @@ namespace Bookstore.ViewModels
 
         private void OpenAddBookWindow()
         {
-            try
-            {
-                var bookAddWindow = new AddBookWindow();
-                bookAddWindow.ShowDialog();
+            var addBookWindow = new AddBookWindow();
+            addBookWindow.ShowDialog();
+
 
                 // Po zamknięciu okna odświeżamy listę książek
                 LoadBooksAsync().ConfigureAwait(false);
