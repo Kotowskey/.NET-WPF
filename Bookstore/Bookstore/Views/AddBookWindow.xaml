@@ -68,15 +68,15 @@
 
                 <!-- Checkbox: Własna seria -->
                 <CheckBox Content="Nie ma istniejącej serii"
-              IsChecked="{Binding IsNewSeries}"
-              Margin="0 8"/>
+                IsChecked="{Binding IsNewSeries}"
+                Margin="0 8"/>
 
                 <!-- Lista serii -->
                 <ComboBox ItemsSource="{Binding AvailableSeries}" 
-          SelectedItem="{Binding SeriesName}"
-              IsEnabled="{Binding IsNewSeries, Converter={StaticResource BoolToVisibilityInverseConverter}}"
-              materialDesign:HintAssist.Hint="Seria"
-              Margin="0 8"/>
+                SelectedItem="{Binding SeriesName}"
+                IsEnabled="{Binding IsNewSeries, Converter={StaticResource BoolToVisibilityInverseConverter}}"
+                materialDesign:HintAssist.Hint="Seria"
+                Margin="0 8"/>
 
                 <!-- Nowa seria: widoczne tylko jeśli IsNewSeries = true -->
                 <StackPanel Visibility="{Binding IsNewSeries, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -101,15 +101,17 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Orientation="Horizontal" Margin="0 8">
+            <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="NewGenreBox"
              Text="{Binding NewGenreText, UpdateSourceTrigger=PropertyChanged}"
              Width="300"
              materialDesign:HintAssist.Hint="Nowy gatunek" />
-                <Button Content="+" Width="32" Margin="8 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-            Command="{Binding AddGenreCommand}"
-            CommandParameter="{Binding Text, ElementName=NewGenreBox}" />
+                <Button Margin="8 0"
+                     Style="{StaticResource MaterialDesignRaisedButton}"
+                     Command="{Binding AddGenreCommand}"
+                     CommandParameter="{Binding Text, ElementName=NewGenreBox}">
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
             </StackPanel>
 
             <!-- Authors -->
@@ -121,15 +123,17 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Orientation="Horizontal" Margin="0 8">
+            <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="NewAuthorBox"
              Text="{Binding NewAuthorText, UpdateSourceTrigger=PropertyChanged}"
              Width="300"
              materialDesign:HintAssist.Hint="Nowy autor" />
-                <Button Content="+" Width="32" Margin="8 0"
+                <Button Margin="8 0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-            Command="{Binding AddAuthorCommand}"
-            CommandParameter="{Binding Text, ElementName=NewAuthorBox}" />
+                        Command="{Binding AddAuthorCommand}"
+                        CommandParameter="{Binding Text, ElementName=NewAuthorBox}">
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
             </StackPanel>
 
 

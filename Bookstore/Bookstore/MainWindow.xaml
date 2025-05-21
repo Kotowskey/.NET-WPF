@@ -22,13 +22,13 @@
         <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="BookOpenPageVariant" Height="24" Width="24" VerticalAlignment="Center"/>
-                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="KSIĘGARNIA"/>
+                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="{DynamicResource Bookstore}"/>
                 <ToggleButton Style="{StaticResource LanguageSwitchToggleStyle}"
                           IsChecked="{Binding IsEnglish, Mode=TwoWay}"
                           Checked="LanguageToggle_Checked"
                           Margin= "20,0,0,0"
                           Unchecked="LanguageToggle_Unchecked"/>
-                <Button x:Name="LogoutButton" Content="Wyloguj się" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="LogoutButton_Click"/>
+                <Button x:Name="LogoutButton" Content="{DynamicResource Logout}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="LogoutButton_Click"/>
             </StackPanel>
         </materialDesign:ColorZone>
 
@@ -45,37 +45,37 @@
                     <ListViewItem x:Name="DashboardItem" IsSelected="True">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ViewDashboard" Margin="0 0 8 0"/>
-                            <TextBlock>Pulpit</TextBlock>
+                            <TextBlock Text="{DynamicResource Desktop}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="BooksItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BookMultiple" Margin="0 0 8 0"/>
-                            <TextBlock>Książki</TextBlock>
+                            <TextBlock Text="{DynamicResource Books}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="OffersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="TagMultiple" Margin="0 0 8 0"/>
-                            <TextBlock>Oferty</TextBlock>
+                            <TextBlock Text="{DynamicResource Offers}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="CustomersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 8 0"/>
-                            <TextBlock>Klienci</TextBlock>
+                            <TextBlock Text="{DynamicResource Clients}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="OrdersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CartOutline" Margin="0 0 8 0"/>
-                            <TextBlock>Zamówienia</TextBlock>
+                            <TextBlock Text="{DynamicResource Orders}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="StatsItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
-                            <TextBlock>Statystyki</TextBlock>
+                            <TextBlock Text="{DynamicResource Statistics}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="AdminItem">
