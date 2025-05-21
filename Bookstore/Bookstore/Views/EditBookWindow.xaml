@@ -90,10 +90,12 @@
                          Text="{Binding NewGenreText, UpdateSourceTrigger=PropertyChanged}"
                          Width="300"
                          materialDesign:HintAssist.Hint="Nowy gatunek" />
-                <Button Content="+" Width="32" Margin="8 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding AddGenreCommand}"
-                        CommandParameter="{Binding Text, ElementName=NewGenreBox}" />
+                <Button Margin="8 0"
+                     Style="{StaticResource MaterialDesignRaisedButton}"
+                     Command="{Binding AddGenreCommand}"
+                     CommandParameter="{Binding Text, ElementName=NewGenreBox}">
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
             </StackPanel>
 
             <ListBox ItemsSource="{Binding Authors}" SelectionMode="Multiple">
@@ -109,10 +111,12 @@
                          Text="{Binding NewAuthorText, UpdateSourceTrigger=PropertyChanged}"
                          Width="300"
                          materialDesign:HintAssist.Hint="Nowy autor" />
-                <Button Content="+" Width="32" Margin="8 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding AddAuthorCommand}"
-                        CommandParameter="{Binding Text, ElementName=NewAuthorBox}" />
+                <Button Margin="8 0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding AddAuthorCommand}"
+                    CommandParameter="{Binding Text, ElementName=NewAuthorBox}">
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
             </StackPanel>
 
             <Button Content="Zapisz zmiany"
