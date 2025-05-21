@@ -50,23 +50,35 @@ namespace Bookstore.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Book/Edit/{bookId}", book);
+                if (book == null || bookId <= 0)
+                {
+                    throw new ArgumentException("Nieprawidłowe dane książki lub ID.");
+                }
+
+                var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/Book/Edit/{bookId}", book);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<BookModel>();
+                    var responseData = await response.Content.ReadFromJsonAsync<EditBookResponse>();
+                    return responseData?.Book ?? throw new Exception("Nie udało się pobrać zaktualizowanej książki.");
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to edit book. Status code: {response.StatusCode}");
-                    return null;
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Nie udało się edytować książki. Status: {response.StatusCode}, Treść: {errorContent}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error editing book: {ex.Message}");
-                return null;
+                Console.WriteLine($"Błąd podczas edycji książki: {ex.Message}");
+                throw;
             }
+        }
+
+        public class EditBookResponse
+        {
+            public string Message { get; set; }
+            public BookModel Book { get; set; }
         }
 
         public async Task<bool> DeletedAsync(int bookId)
@@ -98,6 +110,20 @@ namespace Bookstore.Services
             {
                 Console.WriteLine($"Error fetching books: {ex.Message}");
                 return new List<BookModel>();
+            }
+        }
+
+        public async Task<BookModel> GetByIdAsync(int bookId)
+        {
+            try
+            {
+                var book = await _httpClient.GetFromJsonAsync<BookModel>($"{BaseUrl}/Book/GetById/{bookId}");
+                return book ?? throw new Exception("Nie znaleziono książki.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching book: {ex.Message}");
+                throw;
             }
         }
 
