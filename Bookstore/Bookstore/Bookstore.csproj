@@ -202,13 +202,16 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\Enums\StateEnum.cs" />
     <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\Offer.cs" />
     <Compile Include="Models\PublisherModel.cs" />
     <Compile Include="Models\SeriesModel.cs" />
     <Compile Include="Models\StatisticsModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\BookService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="SignalRHub\ConnectionHub.cs" />
     <Compile Include="SingInUp.xaml.cs">
       <DependentUpon>SingInUp.xaml</DependentUpon>
@@ -218,7 +221,10 @@
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\EditBookViewModel.cs" />
+    <Compile Include="ViewModels\EditUserViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\AddBookWindow.xaml.cs">
       <DependentUpon>AddBookWindow.xaml</DependentUpon>
     </Compile>
@@ -234,9 +240,18 @@
     <Compile Include="Views\EditBookWindow.xaml.cs">
       <DependentUpon>EditBookWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditUserWindow.xaml.cs">
+      <DependentUpon>EditUserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OffersPage.xaml.cs" />
     <Compile Include="Views\StatsPage.xaml.cs">
       <DependentUpon>StatsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserDetailsWindow.xaml.cs">
+      <DependentUpon>UserDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -286,6 +301,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OffersPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -293,6 +312,14 @@
     <Page Include="Views\StatsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 
 namespace Bookstore.Services
@@ -104,6 +105,7 @@ namespace Bookstore.Services
             {
                 var books = await _httpClient.GetFromJsonAsync<List<BookModel>>($"{BaseUrl}/Book/GetAll");
                 _cachedBooks = books; // Cache the results
+                
                 return books;
             }
             catch (Exception ex)

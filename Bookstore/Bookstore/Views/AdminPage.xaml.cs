@@ -43,7 +43,7 @@ namespace Bookstore.Views
             // Initialize StatsView with connection
             if (StatsView != null)
             {
-                StatsView.Initialize(_connection);
+                //StatsView.Initialize(_connection);
             }
         }
 
@@ -59,9 +59,9 @@ namespace Bookstore.Views
             {
                 BooksView.Visibility = Visibility.Visible;
             }
-            else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
+            else if (UsersItem != null && UsersItem.IsSelected && UsersView != null)
             {
-                CustomersView.Visibility = Visibility.Visible;
+                UsersView.Visibility = Visibility.Visible;
             }
             else if (OrdersItem != null && OrdersItem.IsSelected && OrdersView != null)
             {
@@ -78,8 +78,8 @@ namespace Bookstore.Views
             // Sprawdzamy każdy element przed zmianą jego widoczności
             if (DashboardView != null) DashboardView.Visibility = Visibility.Collapsed;
             if (BooksView != null) BooksView.Visibility = Visibility.Collapsed;
-            if (OffersView != null) OffersView.Visibility = Visibility.Collapsed;
-            if (CustomersView != null) CustomersView.Visibility = Visibility.Collapsed;
+            //if (OffersView != null) OffersView.Visibility = Visibility.Collapsed;
+            if (UsersView != null) UsersView.Visibility = Visibility.Collapsed;
             if (OrdersView != null) OrdersView.Visibility = Visibility.Collapsed;
             if (StatsView != null) StatsView.Visibility = Visibility.Collapsed;
             if (AdminView != null) AdminView.Visibility = Visibility.Collapsed;

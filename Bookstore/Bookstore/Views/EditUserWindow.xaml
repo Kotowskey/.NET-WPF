@@ -1,0 +1,21 @@
+﻿<Window x:Class="Bookstore.Views.EditUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edytuj Użytkownika" Height="350" Width="400">
+    <Grid Margin="10">
+        <StackPanel>
+            <Label Content="Email"/>
+            <TextBox Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Nazwa użytkownika"/>
+            <TextBox Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Imię"/>
+            <TextBox Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Nazwisko"/>
+            <TextBox Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Hasło"/>
+            <TextBox Text="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox Content="Administrator" IsChecked="{Binding User.IsAdmin}" />
+            <Button Content="Zapisz" Margin="10" Click="Save_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

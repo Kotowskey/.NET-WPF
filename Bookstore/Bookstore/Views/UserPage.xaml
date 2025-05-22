@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Bookstore.Views.UserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:viewmodels="clr-namespace:Bookstore.ViewModels" 
+    d:DataContext="{d:DesignInstance Type=viewmodels:UserViewModel}"
+             mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="10">
+            <TextBox x:Name="SearchBox" Width="200" Margin="0,0,0,10"
+         TextChanged="SearchBox_TextChanged"/>
+            <DataGrid x:Name="UsersDataGrid" ItemsSource="{Binding Users}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Height="350">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Username" Binding="{Binding Username}" />
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
+                    <DataGridCheckBoxColumn Header="Is Admin" Binding="{Binding IsAdmin}" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding StateEnum}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="Dodaj" Margin="5" Width="80" Click="AddUser_Click"/>
+                <Button Content="Edytuj" Margin="5" Width="80" Click="EditUser_Click"/>
+                <Button Content="Usuń" Margin="5" Width="80" Click="DeleteUser_Click"/>
+                <Button Content="Szczegóły" Margin="5" Width="80" Click="ShowDetails_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
