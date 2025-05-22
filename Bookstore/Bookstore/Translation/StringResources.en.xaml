@@ -42,4 +42,9 @@
     <sys:String x:Key="NoBooks">No books available</sys:String>
     <sys:String x:Key="LoadingBooks">Loading books...</sys:String>
     <sys:String x:Key="ISBN">ISBN</sys:String>
+    <!-- MAIN PAGE -->
+    <sys:String x:Key="LogOut">Logout</sys:String>
+    <sys:String x:Key="AdminPage">Admin Panel</sys:String>
+    <sys:String x:Key="ClientPage">Client Panel</sys:String>
+    <!-- ADMIN PAGE -->
 </ResourceDictionary>

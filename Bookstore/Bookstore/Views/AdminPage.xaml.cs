@@ -14,25 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Bookstore.Views;
 
-namespace Bookstore
+namespace Bookstore.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy AdminPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminPage : Window
     {
         private ConnectionHub _connection;
-        private bool _isAdmin;
 
-        public MainWindow(bool IsAdmin, ConnectionHub connection)
+        public AdminPage(ConnectionHub connection)
         {
             InitializeComponent();
-            _isAdmin = IsAdmin;
             _connection = connection;
             this.Loaded += MainWindow_Loaded;
-            CheckAdmin();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -50,20 +46,6 @@ namespace Bookstore
                 StatsView.Initialize(_connection);
             }
         }
-        private void CheckAdmin()
-        {
-            // Sprawdzenie, czy użytkownik jest administratorem  
-            if (_isAdmin)
-            {
-                // Umożliwienie dostępu do widoku statystyk  
-                AdminPage.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                // Ukrycie widoku statystyk  
-                AdminPage.Visibility = Visibility.Collapsed;
-            }
-        }
 
         private void NavListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -76,10 +58,6 @@ namespace Bookstore
             else if (BooksItem != null && BooksItem.IsSelected && BooksView != null)
             {
                 BooksView.Visibility = Visibility.Visible;
-            }
-            else if (OffersItem != null && OffersItem.IsSelected && OffersView != null)
-            {
-                OffersView.Visibility = Visibility.Visible;
             }
             else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
             {
@@ -104,15 +82,9 @@ namespace Bookstore
             if (CustomersView != null) CustomersView.Visibility = Visibility.Collapsed;
             if (OrdersView != null) OrdersView.Visibility = Visibility.Collapsed;
             if (StatsView != null) StatsView.Visibility = Visibility.Collapsed;
+            if (AdminView != null) AdminView.Visibility = Visibility.Collapsed;
         }
 
-        private void GoToOffers_Click(object sender, RoutedEventArgs e)
-        {
-            if (NavListView != null && OffersItem != null)
-            {
-                NavListView.SelectedItem = OffersItem;
-            }
-        }
         private void LanguageToggle_Checked(object sender, RoutedEventArgs e)
         {
             LocalizationManager.ChangeLanguage("en");
@@ -129,13 +101,11 @@ namespace Bookstore
             loginWindow.Show();
             this.Close();
         }
-
-        private void GoToAdmin_Page(object sender, RoutedEventArgs e)
+        private void GoToClient_Page(object sender, RoutedEventArgs e)
         {
-            Window adminPage = new AdminPage(_connection);
-            this.Hide();
-            adminPage.ShowDialog();
-            this.Show();
+            this.Close();
         }
     }
+
 }
+
