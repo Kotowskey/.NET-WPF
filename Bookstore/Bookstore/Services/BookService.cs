@@ -85,7 +85,7 @@ namespace Bookstore.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"{BaseUrl}/Book/Delete?bookId={bookId}");
+                var response = await _httpClient.DeleteAsync($"{BaseUrl}/Book/Delete/{bookId}");
                 response.EnsureSuccessStatusCode();
                 // Invalidate cache
                 _cachedBooks = null;
