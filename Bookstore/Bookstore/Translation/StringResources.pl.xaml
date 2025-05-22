@@ -10,6 +10,14 @@
     <sys:String x:Key="Details">Szczegóły</sys:String>
     <sys:String x:Key="Search">Wyszukaj</sys:String>
     <sys:String x:Key="Clear">Wyczyść</sys:String>
+    <sys:String x:Key="Desktop">Pulpit</sys:String>
+    <sys:String x:Key="Books">Książki</sys:String>
+    <sys:String x:Key="Offers">Oferty</sys:String>
+    <sys:String x:Key="Clients">Klienci</sys:String>
+    <sys:String x:Key="Orders">Zamówienia</sys:String>
+    <sys:String x:Key="Statistics">Statystyki</sys:String>
+    <sys:String x:Key="Logout">Wyloguj się</sys:String>
+    <sys:String x:Key="Bookstore">Antykwariat</sys:String>
 
     <!-- LOGIN/REGISTER -->
     <sys:String x:Key="Login">Logowanie</sys:String>
