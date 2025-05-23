@@ -220,5 +220,27 @@ namespace Bookstore.Services
                 return new List<PublisherModel>();
             }
         }
+
+        public async Task<BookModel> AddBookFromHtmlAsync(string htmlContent)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Book/AddFromHtml", new { HtmlContent = htmlContent });
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<BookModel>();
+                }
+                else
+                {
+                    Console.WriteLine($"Błąd podczas dodawania książki z HTML. Kod statusu: {response.StatusCode}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas dodawania książki z HTML: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

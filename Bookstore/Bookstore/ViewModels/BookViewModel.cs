@@ -5,6 +5,7 @@ using Bookstore.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -129,6 +130,7 @@ namespace Bookstore.ViewModels
         public ICommand ToggleAdvancedSearchCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
         public ICommand ClearAdvancedSearchCommand { get; private set; }
+        public ICommand AddBookFromHtmlCommand { get; private set; }
 
         public BookViewModel()
         {
@@ -141,8 +143,53 @@ namespace Bookstore.ViewModels
             ToggleAdvancedSearchCommand = new RelayCommand(param => ToggleAdvancedSearch());
             SearchCommand = new RelayCommand(async param => await ExecuteAdvancedSearch());
             ClearAdvancedSearchCommand = new RelayCommand(param => ClearAdvancedSearch());
+            AddBookFromHtmlCommand = new RelayCommand(param => OpenHtmlFileDialog());
 
             LoadBooksAsync().ConfigureAwait(false);
+        }
+
+        private void OpenHtmlFileDialog()
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "HTML files (*.html)|*.html",
+                Title = "Wybierz plik HTML z swiatksiazki.pl"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filePath = openFileDialog.FileName;
+                AddBookFromHtmlAsync(filePath).ConfigureAwait(false);
+            }
+        }
+
+        private async Task AddBookFromHtmlAsync(string filePath)
+        {
+            try
+            {
+                IsLoading = true;
+                string htmlContent = File.ReadAllText(filePath);
+                var book = await _bookService.AddBookFromHtmlAsync(htmlContent); // Wywołanie metody z BookService
+                if (book != null)
+                {
+                    _allBooks.Add(book);
+                    Books.Add(book);
+                    UpdateResultsVisibility();
+                    MessageBox.Show("Książka została dodana pomyślnie!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Nie udało się dodać książki.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas dodawania książki: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private void ToggleAdvancedSearch()
