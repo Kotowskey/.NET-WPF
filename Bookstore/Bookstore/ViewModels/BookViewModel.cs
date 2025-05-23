@@ -317,6 +317,28 @@ namespace Bookstore.ViewModels
             }
         }
 
+        public void UpdateBookInList(BookModel updatedBook)
+        {
+            if (_allBooks == null || updatedBook == null) return;
+
+            var bookInAllBooks = _allBooks.FirstOrDefault(b => b.Id == updatedBook.Id);
+            var bookInBooks = Books.FirstOrDefault(b => b.Id == updatedBook.Id);
+
+            if (bookInAllBooks != null)
+            {
+                int indexInAllBooks = _allBooks.IndexOf(bookInAllBooks);
+                _allBooks[indexInAllBooks] = updatedBook;
+            }
+
+            if (bookInBooks != null)
+            {
+                int indexInBooks = Books.IndexOf(bookInBooks);
+                Books[indexInBooks] = updatedBook;
+            }
+
+            OnPropertyChanged(nameof(Books));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)

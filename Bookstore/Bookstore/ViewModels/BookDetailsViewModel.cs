@@ -38,7 +38,7 @@ namespace Bookstore.ViewModels
 
             DeleteBookCommand = new RelayCommand(async param => await DeleteBookAsync());
             CloseWindowCommand = new RelayCommand(param => CloseWindow(param as Window));
-            EditBookCommand = new RelayCommand(param => OpenEditBookWindow());
+            EditBookCommand = new RelayCommand(param => OpenEditBookWindowAsync());
         }
 
         private async Task DeleteBookAsync()
@@ -78,11 +78,6 @@ namespace Bookstore.ViewModels
         {
             window?.Close();
         }
-        private void OpenEditBookWindow()
-        {
-            var editBookWindow = new EditBookWindow(Book, this);
-            editBookWindow.ShowDialog();
-        }
 
         public async Task RefreshBookDetailsAsync()
         {
@@ -96,20 +91,12 @@ namespace Bookstore.ViewModels
             }
         }
 
-        private async Task LoadBookDetailsAsync()
+        private async Task OpenEditBookWindowAsync()
         {
-            try
-            {
-                var updatedBook = await _bookService.GetByIdAsync(Book.Id);
-                if (updatedBook != null)
-                {
-                    Book = updatedBook;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Błąd podczas ładowania danych książki: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            var editBookWindow = new EditBookWindow(Book, this);
+            editBookWindow.ShowDialog();
+            await RefreshBookDetailsAsync();
+            _parentViewModel.UpdateBookInList(Book);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
