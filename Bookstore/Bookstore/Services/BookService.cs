@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -225,14 +228,25 @@ namespace Bookstore.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Book/AddFromHtml", new { HtmlContent = htmlContent });
+                var content = new { HtmlContent = htmlContent };
+
+                var jsonContent = JsonSerializer.Serialize(content, new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                });
+
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"{BaseUrl}/Book/AddFromHtml", httpContent);
+
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<BookModel>();
                 }
                 else
                 {
-                    Console.WriteLine($"Błąd podczas dodawania książki z HTML. Kod statusu: {response.StatusCode}");
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Błąd podczas dodawania książki z HTML. Kod statusu: {response.StatusCode}, Treść błędu: {errorContent}");
                     return null;
                 }
             }
