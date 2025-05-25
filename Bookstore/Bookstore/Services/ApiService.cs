@@ -26,7 +26,7 @@ namespace Bookstore.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<List<Offer>>($"{BaseUrl}/offers");
+                return await _httpClient.GetFromJsonAsync<List<Offer>>($"{BaseUrl}/offers/GetAll");
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace Bookstore.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<List<Offer>>($"{BaseUrl}/offers/public");
+                return await _httpClient.GetFromJsonAsync<List<Offer>>($"{BaseUrl}/offers/GetPublic");
             }
             catch (Exception ex)
             {
