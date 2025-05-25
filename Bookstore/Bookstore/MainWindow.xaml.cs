@@ -81,6 +81,10 @@ namespace Bookstore
             {
                 OffersView.Visibility = Visibility.Visible;
             }
+            else if (MyOffers != null && MyOffers.IsSelected && MyOffersView != null)
+            {
+                MyOffersView.Visibility = Visibility.Visible;
+            }
             else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
             {
                 CustomersView.Visibility = Visibility.Visible;
@@ -101,6 +105,7 @@ namespace Bookstore
             if (DashboardView != null) DashboardView.Visibility = Visibility.Collapsed;
             if (BooksView != null) BooksView.Visibility = Visibility.Collapsed;
             if (OffersView != null) OffersView.Visibility = Visibility.Collapsed;
+            if (MyOffersView != null) MyOffersView.Visibility = Visibility.Collapsed;
             if (CustomersView != null) CustomersView.Visibility = Visibility.Collapsed;
             if (OrdersView != null) OrdersView.Visibility = Visibility.Collapsed;
             if (StatsView != null) StatsView.Visibility = Visibility.Collapsed;

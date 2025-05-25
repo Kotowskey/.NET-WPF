@@ -61,6 +61,12 @@
                             <TextBlock Text="{DynamicResource Offers}"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="MyOffers">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="NotebookEdit" Margin="0 0 8 0"/>
+                            <TextBlock Text="Moje oferty"/>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem x:Name="CustomersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 8 0"/>
@@ -105,6 +111,14 @@
 
                 <!-- Offers View -->
                 <views:OffersPage x:Name="OffersView" Visibility="Collapsed" />
+
+                <TextBlock x:Name="MyOffersView" 
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed">
+                    Widok Moich ofert (Niezaimplementowany)
+                                </TextBlock>
 
                 <views:BooksPage x:Name="BooksView" Visibility="Collapsed" />
 
