@@ -228,31 +228,39 @@ namespace Bookstore.Services
         {
             try
             {
-                var content = new { HtmlContent = htmlContent };
-
-                var jsonContent = JsonSerializer.Serialize(content, new JsonSerializerOptions
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Book/AddFromHtml", new { HtmlContent = htmlContent });
+                if (response.IsSuccessStatusCode)
                 {
-                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-                });
+                    var addedBook = await response.Content.ReadFromJsonAsync<BookModel>();
+                    if (addedBook != null)
+                    {
+                        var completeBook = await GetBookDetailsAsync(addedBook.Id);
+                        return completeBook;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas dodawania książki: {ex.Message}");
+                return null;
+            }
+        }
 
-                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                var response = await _httpClient.PostAsync($"{BaseUrl}/Book/AddFromHtml", httpContent);
-
+        private async Task<BookModel> GetBookDetailsAsync(int bookId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{BaseUrl}/Book/GetById/{bookId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<BookModel>();
                 }
-                else
-                {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Błąd podczas dodawania książki z HTML. Kod statusu: {response.StatusCode}, Treść błędu: {errorContent}");
-                    return null;
-                }
+                return null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd podczas dodawania książki z HTML: {ex.Message}");
+                Console.WriteLine($"Błąd podczas pobierania szczegółów książki: {ex.Message}");
                 return null;
             }
         }

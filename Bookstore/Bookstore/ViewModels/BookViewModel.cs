@@ -169,7 +169,7 @@ namespace Bookstore.ViewModels
             {
                 IsLoading = true;
                 string htmlContent = File.ReadAllText(filePath);
-                var book = await _bookService.AddBookFromHtmlAsync(htmlContent); // Wywołanie metody z BookService
+                var book = await _bookService.AddBookFromHtmlAsync(htmlContent);
                 if (book != null)
                 {
                     _allBooks.Add(book);
