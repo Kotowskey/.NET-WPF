@@ -111,15 +111,7 @@
 
                 <!-- Offers View -->
                 <views:OffersPage x:Name="OffersView" Visibility="Collapsed" />
-
-                <TextBlock x:Name="MyOffersView" 
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Visibility="Collapsed">
-                    Widok Moich ofert (Niezaimplementowany)
-                                </TextBlock>
-
+                <views:MyOfferPage x:Name="MyOffersView" Visibility="Collapsed" />
                 <views:BooksPage x:Name="BooksView" Visibility="Collapsed" />
 
                 <!-- Other Views -->

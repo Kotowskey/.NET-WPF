@@ -48,6 +48,19 @@ namespace Bookstore.Services
             }
         }
 
+        public async Task<List<Offer>> GetByRequesterAsync(Guid requesterId)
+        {
+            try
+            {
+                return await _httpClient.GetFromJsonAsync<List<Offer>>($"{BaseUrl}/offers/GetByREquester/{requesterId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching requester's offers: {ex.Message}");
+                return new List<Offer>();
+            }
+        }
+
         public async Task<Offer> GetOfferByIdAsync(int id)
         {
             try

@@ -106,5 +106,17 @@ namespace Bookstore.SignalRHub
                 return new StatisticsModel();
             }
         }
+        public async Task<Guid> GetUserId()
+        {
+            try
+            {
+                return await _connection.InvokeAsync<Guid>("GetUserId");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd pobierania ID użytkownika: {ex.Message}");
+                return Guid.Empty;
+            }
+        }
     }
 }

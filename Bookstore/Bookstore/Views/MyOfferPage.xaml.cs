@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookstore.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Bookstore.Views
         public MyOfferPage()
         {
             InitializeComponent();
+            DataContext = new MyOfferViewModel(App._connectionHub);
         }
     }
 }

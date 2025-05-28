@@ -16,7 +16,7 @@ namespace Bookstore
     /// </summary>
     public partial class App : Application
     {
-        private ConnectionHub _connectionHub;
+        public static ConnectionHub _connectionHub;
 
         protected override void OnStartup(StartupEventArgs e)
         {
