@@ -1,4 +1,5 @@
 ﻿using Bookstore.Models;
+using Bookstore.Models.Enums;
 using Bookstore.Services;
 using Bookstore.SignalRHub;
 using System;
@@ -19,6 +20,11 @@ namespace Bookstore.ViewModels
 
         private ObservableCollection<Offer> _offers;
         private ObservableCollection<Offer> _allOffers;
+        public ObservableCollection<Offer> DraftOffers { get; } = new ObservableCollection<Offer>();
+        public ObservableCollection<Offer> PublicOffers { get; } = new ObservableCollection<Offer>();
+        public ObservableCollection<Offer> PrivateOffers { get; } = new ObservableCollection<Offer>();
+        public ObservableCollection<Offer> OrderedOffers { get; } = new ObservableCollection<Offer>();
+        
         private string _searchText;
         private bool _isLoading;
         private bool _noResults;
@@ -83,16 +89,36 @@ namespace Bookstore.ViewModels
             try
             {
                 IsLoading = true;
-                NoResults = false;
-
                 var list = await _apiService.GetByRequesterAsync(_currentUserId);
-                _allOffers = new ObservableCollection<Offer>(list);
-                Offers = new ObservableCollection<Offer>(_allOffers);
-                UpdateResultsVisibility();
+
+                DraftOffers.Clear();
+                PublicOffers.Clear();
+                PrivateOffers.Clear();
+                OrderedOffers.Clear();
+
+                foreach (var o in list)
+                {
+                    switch (o.OfferStateEnum)
+                    {
+                        case (int)OfferStateEnum.DraftOffer:
+                            DraftOffers.Add(o);
+                            break;
+                        case (int)OfferStateEnum.PublicOffer:
+                            PublicOffers.Add(o);
+                            break;
+                        case (int)OfferStateEnum.PrivateOffer:
+                            PrivateOffers.Add(o);
+                            break;
+                        case (int)OfferStateEnum.OrderedOffer:
+                            OrderedOffers.Add(o);
+                            break;
+                    }
+                }
+                NoResults = DraftOffers.Count + PublicOffers.Count + PrivateOffers.Count + OrderedOffers.Count == 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Błąd podczas ładowania ofert: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Błąd: {ex.Message}");
             }
             finally
             {

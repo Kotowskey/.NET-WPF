@@ -28,16 +28,16 @@
         <!-- Zakładki -->
         <TabControl Grid.Row="1">
             <TabItem Header="Wersja robocza">
-                <ListBox ItemsSource="{Binding DraftOffers}" DisplayMemberPath="Title"/>
+                <ListBox ItemsSource="{Binding DraftOffers}" DisplayMemberPath="Name"/>
             </TabItem>
             <TabItem Header="Publiczne">
-                <ListBox ItemsSource="{Binding PublicOffers}" DisplayMemberPath="Title"/>
+                <ListBox ItemsSource="{Binding PublicOffers}" DisplayMemberPath="Name"/>
             </TabItem>
             <TabItem Header="Prywatne">
-                <ListBox ItemsSource="{Binding PrivateOffers}" DisplayMemberPath="Title"/>
+                <ListBox ItemsSource="{Binding PrivateOffers}" DisplayMemberPath="Name"/>
             </TabItem>
             <TabItem Header="Zrealizowane">
-                <ListBox ItemsSource="{Binding OrderedOffers}" DisplayMemberPath="Title"/>
+                <ListBox ItemsSource="{Binding OrderedOffers}" DisplayMemberPath="Name"/>
             </TabItem>
         </TabControl>
     </Grid>
