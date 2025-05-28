@@ -73,5 +73,17 @@ namespace Bookstore.Services
                 return null;
             }
         }
+        public async Task<FileModel> GetFileByIdAsync(int fileId)
+        {
+            try
+            {
+                return await _httpClient.GetFromJsonAsync<FileModel>($"{BaseUrl}/file/{fileId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas pobierania pliku o ID {fileId}: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

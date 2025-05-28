@@ -11,7 +11,7 @@ namespace Bookstore.Models
         public int BookId { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid RequesterId { get; set; }
-        public int FileId { get; set; }
+        public int? FileId { get; set; }
         public int OfferStateEnum { get; set; }
 
         public string PriceDisplay => $"{Price:C}";

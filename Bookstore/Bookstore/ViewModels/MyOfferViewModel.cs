@@ -20,10 +20,10 @@ namespace Bookstore.ViewModels
 
         private ObservableCollection<Offer> _offers;
         private ObservableCollection<Offer> _allOffers;
-        public ObservableCollection<Offer> DraftOffers { get; } = new ObservableCollection<Offer>();
-        public ObservableCollection<Offer> PublicOffers { get; } = new ObservableCollection<Offer>();
-        public ObservableCollection<Offer> PrivateOffers { get; } = new ObservableCollection<Offer>();
-        public ObservableCollection<Offer> OrderedOffers { get; } = new ObservableCollection<Offer>();
+        public ObservableCollection<OfferItemViewModel> DraftOffers { get; } = new ObservableCollection<OfferItemViewModel>();
+        public ObservableCollection<OfferItemViewModel> PublicOffers { get; } = new ObservableCollection<OfferItemViewModel>();
+        public ObservableCollection<OfferItemViewModel> PrivateOffers { get; } = new ObservableCollection<OfferItemViewModel>();
+        public ObservableCollection<OfferItemViewModel> OrderedOffers { get; } = new ObservableCollection<OfferItemViewModel>();
         
         private string _searchText;
         private bool _isLoading;
@@ -98,20 +98,13 @@ namespace Bookstore.ViewModels
 
                 foreach (var o in list)
                 {
+                    var vm = new OfferItemViewModel(o, _apiService);
                     switch (o.OfferStateEnum)
                     {
-                        case (int)OfferStateEnum.DraftOffer:
-                            DraftOffers.Add(o);
-                            break;
-                        case (int)OfferStateEnum.PublicOffer:
-                            PublicOffers.Add(o);
-                            break;
-                        case (int)OfferStateEnum.PrivateOffer:
-                            PrivateOffers.Add(o);
-                            break;
-                        case (int)OfferStateEnum.OrderedOffer:
-                            OrderedOffers.Add(o);
-                            break;
+                        case (int)OfferStateEnum.DraftOffer: DraftOffers.Add(vm); break;
+                        case (int)OfferStateEnum.PublicOffer: PublicOffers.Add(vm); break;
+                        case (int)OfferStateEnum.PrivateOffer: PrivateOffers.Add(vm); break;
+                        case (int)OfferStateEnum.OrderedOffer: OrderedOffers.Add(vm); break;
                     }
                 }
                 NoResults = DraftOffers.Count + PublicOffers.Count + PrivateOffers.Count + OrderedOffers.Count == 0;

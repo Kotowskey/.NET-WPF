@@ -28,16 +28,52 @@
         <!-- Zakładki -->
         <TabControl Grid.Row="1">
             <TabItem Header="Wersja robocza">
-                <ListBox ItemsSource="{Binding DraftOffers}" DisplayMemberPath="Name"/>
+                <ListBox ItemsSource="{Binding DraftOffers}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
             <TabItem Header="Publiczne">
-                <ListBox ItemsSource="{Binding PublicOffers}" DisplayMemberPath="Name"/>
+                <ListBox ItemsSource="{Binding PublicOffers}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
             <TabItem Header="Prywatne">
-                <ListBox ItemsSource="{Binding PrivateOffers}" DisplayMemberPath="Name"/>
+                <ListBox ItemsSource="{Binding PrivateOffers}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
             <TabItem Header="Zrealizowane">
-                <ListBox ItemsSource="{Binding OrderedOffers}" DisplayMemberPath="Name"/>
+                <ListBox ItemsSource="{Binding OrderedOffers}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
         </TabControl>
     </Grid>
