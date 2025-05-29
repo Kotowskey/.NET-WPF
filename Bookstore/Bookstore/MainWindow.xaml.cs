@@ -97,6 +97,15 @@ namespace Bookstore
             {
                 StatsView.Visibility = Visibility.Visible;
             }
+            else if (ContactFormItem != null && ContactFormItem.IsSelected)
+            {
+                var form = new Bookstore.Views.ContactForm();
+                form.ShowDialog();
+            }
+            else if (AdminItem != null && AdminItem.IsSelected && AdminItem != null)
+            {
+                AdminView.Visibility = Visibility.Visible;
+            }
         }
 
         private void HideAllViews()

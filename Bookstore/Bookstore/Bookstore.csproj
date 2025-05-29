@@ -257,6 +257,8 @@
     </Compile>
     <Compile Include="Views\MyOfferPage.xaml.cs">
       <DependentUpon>MyOfferPage.xaml</DependentUpon>
+    <Compile Include="Views\ContactForm.xaml.cs">
+      <DependentUpon>ContactForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffersPage.xaml.cs" />
     <Compile Include="Views\StatsPage.xaml.cs">
@@ -329,6 +331,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MyOfferPage.xaml">
+    <Page Include="Views\ContactForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
