@@ -202,6 +202,7 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\ContactFormModel.cs" />
     <Compile Include="Models\Enums\OfferStateEnum.cs" />
     <Compile Include="Models\Enums\StateEnum.cs" />
     <Compile Include="Models\FileModel.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\BookService.cs" />
+    <Compile Include="Services\ContactFormService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="SignalRHub\ConnectionHub.cs" />
     <Compile Include="SingInUp.xaml.cs">
@@ -248,6 +250,9 @@
     </Compile>
     <Compile Include="Views\CustomersPage.xaml.cs">
       <DependentUpon>CustomersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContactForm.xaml.cs">
+      <DependentUpon>ContactForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditBookWindow.xaml.cs">
       <DependentUpon>EditBookWindow.xaml</DependentUpon>
@@ -314,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CustomersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContactForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

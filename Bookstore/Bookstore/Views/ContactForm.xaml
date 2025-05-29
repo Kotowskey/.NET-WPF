@@ -1,0 +1,18 @@
+﻿<Window x:Class="Bookstore.Views.ContactForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bookstore.Views" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="ContactForm" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBox x:Name="SubjectBox" Text="Temat" Foreground="Gray" GotFocus="RemoveText" LostFocus="AddText" Margin="0,0,0,10"/>
+            <TextBox x:Name="MessageBox" Text="Wiadomość" Foreground="Gray" GotFocus="RemoveText" LostFocus="AddText" Margin="0,0,0,10" AcceptsReturn="True" Height="100"/>
+            <Button Content="Wyślij" Click="SubmitForm_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
