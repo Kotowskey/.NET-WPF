@@ -23,7 +23,7 @@ namespace Bookstore.Views
         public AddOfferWindow(ApiService apiService, BookService bookService, Guid requesterId)
         {
             InitializeComponent();
-            DataContext = new AddOfferViewModel(apiService, bookService, requesterId);
+            //DataContext = new AddOfferViewModel(apiService, bookService, requesterId);
         }
     }
 }

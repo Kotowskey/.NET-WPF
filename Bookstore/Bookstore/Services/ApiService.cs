@@ -121,11 +121,11 @@ namespace Bookstore.Services
                         var response = await _httpClient.PostAsync($"{BaseUrl}/file/upload", content);
                         if (response.IsSuccessStatusCode)
                         {
-                            var result = await response.Content.ReadFromJsonAsync<FileUploadResponse>();
-                            if (result != null && result.File != null)
-                            {
-                                return result.File;
-                            }
+                            //var result = await response.Content.ReadFromJsonAsync<FileUploadResponse>();
+                            //if (result != null && result.File != null)
+                            //{
+                            //    return result.File;
+                            //}
                             Console.WriteLine("Nie udało się pobrać danych pliku z odpowiedzi serwera.");
                             return null;
                         }
