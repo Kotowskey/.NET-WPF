@@ -77,6 +77,12 @@
                             <TextBlock>Statystyki</TextBlock>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="ContactFormItem">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="EmailOutline" Margin="0 0 8 0"/>
+                            <TextBlock>Kontakt</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem x:Name="AdminItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
