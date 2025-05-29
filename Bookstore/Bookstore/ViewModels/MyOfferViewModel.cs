@@ -2,6 +2,7 @@
 using Bookstore.Models.Enums;
 using Bookstore.Services;
 using Bookstore.SignalRHub;
+using Bookstore.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,7 @@ namespace Bookstore.ViewModels
     {
         private readonly ConnectionHub _connectionHub;
         private readonly ApiService _apiService;
+        private readonly BookService _bookService;
         private Guid _currentUserId;
 
         private ObservableCollection<Offer> _offers;
@@ -67,6 +69,7 @@ namespace Bookstore.ViewModels
         public MyOfferViewModel(ConnectionHub connectionHub)
         {
             _apiService = new ApiService();
+            _bookService = new BookService();
             _connectionHub = connectionHub;
 
             Offers = new ObservableCollection<Offer>();
@@ -96,12 +99,12 @@ namespace Bookstore.ViewModels
                 PublicOffers.Clear();
                 PrivateOffers.Clear();
                 OrderedOffers.Clear();
-
                 var tasks = new List<Task>();
                 foreach (var o in list)
                 {
-                    var vm = new OfferItemViewModel(o, _apiService);
-                    tasks.Add(vm.LoadImageAsync());
+                    var vm = new OfferItemViewModel(o, _apiService, _bookService);
+                    tasks.Add(vm.ImageLoadTask);
+                    tasks.Add(vm.BookLoadTask);
                     switch (o.OfferStateEnum)
                     {
                         case (int)OfferStateEnum.DraftOffer: DraftOffers.Add(vm); break;
@@ -150,12 +153,11 @@ namespace Bookstore.ViewModels
 
         private void OpenAddOfferWindow()
         {
-            //var wnd = new AddOfferWindow();
-            //if (wnd.ShowDialog() == true)
-            //{
-            //    // odśwież po dodaniu
-            //    _ = LoadOffersAsync();
-            //}
+            var wnd = new AddOfferWindow(_apiService, _bookService, _currentUserId);
+            if (wnd.ShowDialog() == true)
+            {
+                _ = LoadOffersAsync();
+            }
         }
 
         private void OpenOfferDetails(Offer selected)

@@ -33,7 +33,11 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding BookTitle}"/>
+                                    <TextBlock Text="{Binding PriceDisplay}"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -45,7 +49,11 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding BookTitle}"/>
+                                    <TextBlock Text="{Binding PriceDisplay}"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -57,7 +65,11 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding BookTitle}"/>
+                                    <TextBlock Text="{Binding PriceDisplay}"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -69,7 +81,11 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding BookTitle}"/>
+                                    <TextBlock Text="{Binding PriceDisplay}"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

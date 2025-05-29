@@ -10,10 +10,13 @@ namespace Bookstore.ViewModels
     public class OfferItemViewModel : INotifyPropertyChanged
     {
         private readonly ApiService _apiService;
+        private readonly BookService _bookService;
         private readonly string _baseUrl = "https://localhost:7109"; // dostosuj do swojego API
 
         public Offer Model { get; }
         public Task ImageLoadTask { get; private set; }
+        public Task BookLoadTask { get; private set; }
+        public string PriceDisplay => Model.PriceDisplay;
         public string Name => Model.Name;
         public string Description => Model.Description;
 
@@ -24,11 +27,20 @@ namespace Bookstore.ViewModels
             set { _imageSource = value; OnPropertyChanged(nameof(ImageSource)); }
         }
 
-        public OfferItemViewModel(Offer offer, ApiService apiService)
+        private string _bookTitle;
+        public string BookTitle
+        {
+            get => _bookTitle;
+            set { _bookTitle = value; OnPropertyChanged(nameof(BookTitle)); }
+        }
+
+        public OfferItemViewModel(Offer offer, ApiService apiService, BookService bookService)
         {
             Model = offer;
             _apiService = apiService;
+            _bookService = bookService;
             ImageLoadTask = LoadImageAsync();
+            BookLoadTask = LoadBookAsync();
         }
 
         public async Task LoadImageAsync()
@@ -53,6 +65,20 @@ namespace Bookstore.ViewModels
             // domyślny obrazek z pliku w projekcie
             var defaultUri = new Uri("pack://application:,,,/Resources/default.png");
             ImageSource = new BitmapImage(defaultUri);
+        }
+
+        public async Task LoadBookAsync()
+        {
+            try
+            {
+                var book = await _bookService.GetByIdAsync(Model.BookId);
+                BookTitle = book != null ? book.Title : "Nieznana książka";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas pobierania książki: {ex.Message}");
+                BookTitle = "Błąd ładowania";
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
