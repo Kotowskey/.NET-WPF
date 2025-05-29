@@ -85,18 +85,18 @@ namespace Bookstore
             {
                 MyOffersView.Visibility = Visibility.Visible;
             }
-            else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
+            /*else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
             {
-                CustomersView.Visibility = Visibility.Visible;
-            }
+                //CustomersView.Visibility = Visibility.Visible;
+            }*/
             else if (OrdersItem != null && OrdersItem.IsSelected && OrdersView != null)
             {
                 OrdersView.Visibility = Visibility.Visible;
             }
-            else if (StatsItem != null && StatsItem.IsSelected && StatsView != null)
+            /*else if (StatsItem != null && StatsItem.IsSelected && StatsView != null)
             {
-                StatsView.Visibility = Visibility.Visible;
-            }
+                //StatsView.Visibility = Visibility.Visible;
+            }*/
         }
 
         private void HideAllViews()

@@ -23,6 +23,7 @@ namespace Bookstore
             base.OnStartup(e);
             LocalizationManager.ChangeLanguage("pl");
             _connectionHub = new ConnectionHub();
+            _connectionHub.InitSignalR();
             var loginWindow = new SingInUp(_connectionHub);
             loginWindow.Show();
         }

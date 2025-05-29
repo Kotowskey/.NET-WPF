@@ -67,24 +67,24 @@
                             <TextBlock Text="Moje oferty"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="CustomersItem">
+                    <!--<ListViewItem x:Name="CustomersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 8 0"/>
                             <TextBlock Text="{DynamicResource Clients}"/>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                     <ListViewItem x:Name="OrdersItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CartOutline" Margin="0 0 8 0"/>
                             <TextBlock Text="{DynamicResource Orders}"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="StatsItem">
+                    <!--<ListViewItem x:Name="StatsItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
                             <TextBlock Text="{DynamicResource Statistics}"/>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                 </ListView>
             </materialDesign:Card>
 

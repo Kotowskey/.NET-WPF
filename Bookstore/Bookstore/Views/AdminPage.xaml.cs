@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace Bookstore.Views
 {
     /// <summary>
-    /// Logika interakcji dla klasy AdminPage.xaml
+    /// Interaction logic for AdminPage.xaml
     /// </summary>
     public partial class AdminPage : Window
     {
@@ -43,7 +43,7 @@ namespace Bookstore.Views
             // Initialize StatsView with connection
             if (StatsView != null)
             {
-                //StatsView.Initialize(_connection);
+                StatsView.Initialize(_connection);
             }
         }
 
@@ -59,9 +59,13 @@ namespace Bookstore.Views
             {
                 BooksView.Visibility = Visibility.Visible;
             }
-            else if (UsersItem != null && UsersItem.IsSelected && UsersView != null)
+            else if (OffersItem != null && OffersItem.IsSelected && OffersView != null)
             {
-                UsersView.Visibility = Visibility.Visible;
+                OffersView.Visibility = Visibility.Visible;
+            }
+            else if (CustomersItem != null && CustomersItem.IsSelected && CustomersView != null)
+            {
+                CustomersView.Visibility = Visibility.Visible;
             }
             else if (OrdersItem != null && OrdersItem.IsSelected && OrdersView != null)
             {
@@ -78,13 +82,19 @@ namespace Bookstore.Views
             // Sprawdzamy każdy element przed zmianą jego widoczności
             if (DashboardView != null) DashboardView.Visibility = Visibility.Collapsed;
             if (BooksView != null) BooksView.Visibility = Visibility.Collapsed;
-            //if (OffersView != null) OffersView.Visibility = Visibility.Collapsed;
-            if (UsersView != null) UsersView.Visibility = Visibility.Collapsed;
+            if (OffersView != null) OffersView.Visibility = Visibility.Collapsed;
+            if (CustomersView != null) CustomersView.Visibility = Visibility.Collapsed;
             if (OrdersView != null) OrdersView.Visibility = Visibility.Collapsed;
             if (StatsView != null) StatsView.Visibility = Visibility.Collapsed;
-            if (AdminView != null) AdminView.Visibility = Visibility.Collapsed;
         }
 
+        private void GoToOffers_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavListView != null && OffersItem != null)
+            {
+                NavListView.SelectedItem = OffersItem;
+            }
+        }
         private void LanguageToggle_Checked(object sender, RoutedEventArgs e)
         {
             LocalizationManager.ChangeLanguage("en");
@@ -101,11 +111,10 @@ namespace Bookstore.Views
             loginWindow.Show();
             this.Close();
         }
+
         private void GoToClient_Page(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
     }
-
 }
-

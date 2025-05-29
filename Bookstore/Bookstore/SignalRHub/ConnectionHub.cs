@@ -18,14 +18,14 @@ namespace Bookstore.SignalRHub
     //a potem SingInUp.xaml.cs przekazuje ją do MainWindow.xaml.cs
     public class ConnectionHub
     {
-        private HubConnection _connection;
+        static HubConnection _connection;
 
         public ConnectionHub()
         {
-            InitSignalR();
+            //InitSignalR();
         }
 
-        private async void InitSignalR()
+        public async void InitSignalR()
         {
             _connection = new HubConnectionBuilder()
                 .WithUrl("https://localhost:7109/gamehub") //Uwaga port może się różnić u was

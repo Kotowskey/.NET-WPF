@@ -83,12 +83,14 @@
                 <!-- Przyciskówka -->
                 <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Right">
                     <Button Content="Edytuj"
+                        x:Name="EditButton"
                         Command="{Binding EditBookCommand}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Margin="0,0,10,0"
                         BorderThickness="0"/>
                     
                     <Button Content="{DynamicResource Delete}"
+                            x:Name="DeleteButton"
                             Command="{Binding DeleteBookCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Background="{DynamicResource MaterialDesignValidationErrorBrush}" 
