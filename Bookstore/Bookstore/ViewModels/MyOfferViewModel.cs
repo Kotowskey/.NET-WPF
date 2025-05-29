@@ -3,6 +3,7 @@ using Bookstore.Models.Enums;
 using Bookstore.Services;
 using Bookstore.SignalRHub;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -96,9 +97,11 @@ namespace Bookstore.ViewModels
                 PrivateOffers.Clear();
                 OrderedOffers.Clear();
 
+                var tasks = new List<Task>();
                 foreach (var o in list)
                 {
                     var vm = new OfferItemViewModel(o, _apiService);
+                    tasks.Add(vm.LoadImageAsync());
                     switch (o.OfferStateEnum)
                     {
                         case (int)OfferStateEnum.DraftOffer: DraftOffers.Add(vm); break;
@@ -107,6 +110,7 @@ namespace Bookstore.ViewModels
                         case (int)OfferStateEnum.OrderedOffer: OrderedOffers.Add(vm); break;
                     }
                 }
+                await Task.WhenAll(tasks);
                 NoResults = DraftOffers.Count + PublicOffers.Count + PrivateOffers.Count + OrderedOffers.Count == 0;
             }
             catch (Exception ex)

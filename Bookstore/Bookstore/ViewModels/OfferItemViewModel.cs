@@ -10,9 +10,10 @@ namespace Bookstore.ViewModels
     public class OfferItemViewModel : INotifyPropertyChanged
     {
         private readonly ApiService _apiService;
-        private readonly string _baseUrl = "https://localhost:5257"; // dostosuj do swojego API
+        private readonly string _baseUrl = "https://localhost:7109"; // dostosuj do swojego API
 
         public Offer Model { get; }
+        public Task ImageLoadTask { get; private set; }
         public string Name => Model.Name;
         public string Description => Model.Description;
 
@@ -27,10 +28,10 @@ namespace Bookstore.ViewModels
         {
             Model = offer;
             _apiService = apiService;
-            _ = LoadImageAsync();
+            ImageLoadTask = LoadImageAsync();
         }
 
-        private async Task LoadImageAsync()
+        public async Task LoadImageAsync()
         {
             if (Model.FileId.HasValue)
             {
