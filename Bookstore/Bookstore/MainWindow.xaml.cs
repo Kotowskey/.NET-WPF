@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Bookstore.Views;
+using System.Runtime.InteropServices;
 
 namespace Bookstore
 {
@@ -25,6 +26,7 @@ namespace Bookstore
     {
         private ConnectionHub _connection;
         private bool _isAdmin;
+        private Guid UserId;
 
         public MainWindow(bool IsAdmin, ConnectionHub connection)
         {
@@ -97,8 +99,17 @@ namespace Bookstore
             {
                 StatsView.Visibility = Visibility.Visible;
             }
+            else if (ContactFormItem != null && ContactFormItem.IsSelected)
+            {
+                GetGuidIdAndOpenForm();
+            }
         }
-
+        private async void GetGuidIdAndOpenForm()
+        {
+            UserId = await _connection.GetUserId();
+            var form = new Views.ContactForm(UserId);
+            form.ShowDialog();
+        }
         private void HideAllViews()
         {
             // Sprawdzamy każdy element przed zmianą jego widoczności
