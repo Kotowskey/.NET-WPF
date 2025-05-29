@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 
 namespace Bookstore.Services
@@ -46,11 +50,46 @@ namespace Bookstore.Services
             }
         }
 
+        public async Task<BookModel> EditBookAsync(int bookId, BookModel book)
+        {
+            try
+            {
+                if (book == null || bookId <= 0)
+                {
+                    throw new ArgumentException("Nieprawidłowe dane książki lub ID.");
+                }
+
+                var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/Book/Edit/{bookId}", book);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadFromJsonAsync<EditBookResponse>();
+                    return responseData?.Book ?? throw new Exception("Nie udało się pobrać zaktualizowanej książki.");
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Nie udało się edytować książki. Status: {response.StatusCode}, Treść: {errorContent}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas edycji książki: {ex.Message}");
+                throw;
+            }
+        }
+
+        public class EditBookResponse
+        {
+            public string Message { get; set; }
+            public BookModel Book { get; set; }
+        }
+
         public async Task<bool> DeletedAsync(int bookId)
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"{BaseUrl}/Book/Delete?bookId={bookId}");
+                var response = await _httpClient.DeleteAsync($"{BaseUrl}/Book/Delete/{bookId}");
                 response.EnsureSuccessStatusCode();
                 // Invalidate cache
                 _cachedBooks = null;
@@ -69,12 +108,27 @@ namespace Bookstore.Services
             {
                 var books = await _httpClient.GetFromJsonAsync<List<BookModel>>($"{BaseUrl}/Book/GetAll");
                 _cachedBooks = books; // Cache the results
+                
                 return books;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching books: {ex.Message}");
                 return new List<BookModel>();
+            }
+        }
+
+        public async Task<BookModel> GetByIdAsync(int bookId)
+        {
+            try
+            {
+                var book = await _httpClient.GetFromJsonAsync<BookModel>($"{BaseUrl}/Book/GetById/{bookId}");
+                return book ?? throw new Exception("Nie znaleziono książki.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching book: {ex.Message}");
+                throw;
             }
         }
 
@@ -167,6 +221,47 @@ namespace Bookstore.Services
             {
                 Console.WriteLine($"Error fetching publishers: {ex.Message}");
                 return new List<PublisherModel>();
+            }
+        }
+
+        public async Task<BookModel> AddBookFromHtmlAsync(string htmlContent)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Book/AddFromHtml", new { HtmlContent = htmlContent });
+                if (response.IsSuccessStatusCode)
+                {
+                    var addedBook = await response.Content.ReadFromJsonAsync<BookModel>();
+                    if (addedBook != null)
+                    {
+                        var completeBook = await GetBookDetailsAsync(addedBook.Id);
+                        return completeBook;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas dodawania książki: {ex.Message}");
+                return null;
+            }
+        }
+
+        private async Task<BookModel> GetBookDetailsAsync(int bookId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{BaseUrl}/Book/GetById/{bookId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<BookModel>();
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas pobierania szczegółów książki: {ex.Message}");
+                return null;
             }
         }
     }

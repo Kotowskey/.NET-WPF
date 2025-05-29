@@ -30,7 +30,7 @@ namespace Bookstore
                     LoginResult.Text = "Zalogowano!";
                     LoginResult.Foreground = Brushes.Green;
                     bool IsAdmin = await _connection.IsAdmin();
-                    var main = new MainWindow(IsAdmin);
+                    var main = new MainWindow(IsAdmin, _connection);
                     main.Show();
                     this.Close();
                 }

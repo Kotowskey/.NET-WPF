@@ -1,9 +1,9 @@
-﻿<Window x:Class="Bookstore.Views.AddBookWindow"
+﻿<Window x:Class="Bookstore.Views.EditBookWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Dodaj książkę" Height="600" Width="500"
+        Title="Edytuj książkę" Height="600" Width="500"
         WindowStartupLocation="CenterScreen"
         xmlns:converters="clr-namespace:Bookstore.Converters">
     <Window.Resources>
@@ -36,63 +36,47 @@
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 8"/>
 
             <StackPanel>
-
-                <!-- Checkbox: Własne wydawnictwo -->
                 <CheckBox Content="Nie ma istniejącego wydawnictwa"
-              IsChecked="{Binding IsNewPublisher}"
-              Margin="0 8"/>
-
-                <!-- Lista wydawnictw -->
+                          IsChecked="{Binding IsNewPublisher}"
+                          Margin="0 8"/>
                 <ComboBox ItemsSource="{Binding AvailablePublishers}" 
-                SelectedItem="{Binding PublisherName}"
-              IsEnabled="{Binding IsNewPublisher, Converter={StaticResource BoolToVisibilityInverseConverter}}"
-              materialDesign:HintAssist.Hint="Wydawnictwo"
-              Margin="0 8"/>
-
-                <!-- Nowe wydawnictwo: widoczne tylko jeśli IsNewPublisher = true -->
+                          SelectedItem="{Binding PublisherName}"
+                          IsEnabled="{Binding IsNewPublisher, Converter={StaticResource BoolToVisibilityInverseConverter}}"
+                          materialDesign:HintAssist.Hint="Wydawnictwo"
+                          Margin="0 8"/>
                 <StackPanel Visibility="{Binding IsNewPublisher, Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBox Text="{Binding NewPublisherName}"
-                 materialDesign:HintAssist.Hint="Nazwa nowego wydawnictwa"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Margin="0 8"/>
+                             materialDesign:HintAssist.Hint="Nazwa nowego wydawnictwa"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0 8"/>
                     <TextBox Text="{Binding NewPublisherCountry}"
-                 materialDesign:HintAssist.Hint="Kraj wydawnictwa"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Margin="0 8"/>
+                             materialDesign:HintAssist.Hint="Kraj wydawnictwa"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0 8"/>
                 </StackPanel>
-
             </StackPanel>
-
 
             <StackPanel>
-
-                <!-- Checkbox: Własna seria -->
                 <CheckBox Content="Nie ma istniejącej serii"
-                IsChecked="{Binding IsNewSeries}"
-                Margin="0 8"/>
-
-                <!-- Lista serii -->
+                          IsChecked="{Binding IsNewSeries}"
+                          Margin="0 8"/>
                 <ComboBox ItemsSource="{Binding AvailableSeries}" 
-                SelectedItem="{Binding SeriesName}"
-                IsEnabled="{Binding IsNewSeries, Converter={StaticResource BoolToVisibilityInverseConverter}}"
-                materialDesign:HintAssist.Hint="Seria"
-                Margin="0 8"/>
-
-                <!-- Nowa seria: widoczne tylko jeśli IsNewSeries = true -->
+                          SelectedItem="{Binding SeriesName}"
+                          IsEnabled="{Binding IsNewSeries, Converter={StaticResource BoolToVisibilityInverseConverter}}"
+                          materialDesign:HintAssist.Hint="Seria"
+                          Margin="0 8"/>
                 <StackPanel Visibility="{Binding IsNewSeries, Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBox Text="{Binding NewSeriesName}"
-                 materialDesign:HintAssist.Hint="Nazwa nowej serii"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Margin="0 8"/>
+                             materialDesign:HintAssist.Hint="Nazwa nowej serii"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0 8"/>
                     <TextBox Text="{Binding NewSeriesDescription}"
-                 materialDesign:HintAssist.Hint="Opis serii"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Margin="0 8"/>
+                             materialDesign:HintAssist.Hint="Opis serii"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0 8"/>
                 </StackPanel>
-
             </StackPanel>
 
-            <!-- Genres -->
             <ListBox ItemsSource="{Binding Genres}" SelectionMode="Multiple">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -101,11 +85,11 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0 8">
                 <TextBox x:Name="NewGenreBox"
-             Text="{Binding NewGenreText, UpdateSourceTrigger=PropertyChanged}"
-             Width="300"
-             materialDesign:HintAssist.Hint="Nowy gatunek" />
+                         Text="{Binding NewGenreText, UpdateSourceTrigger=PropertyChanged}"
+                         Width="300"
+                         materialDesign:HintAssist.Hint="Nowy gatunek" />
                 <Button Margin="8 0"
                      Style="{StaticResource MaterialDesignRaisedButton}"
                      Command="{Binding AddGenreCommand}"
@@ -114,7 +98,6 @@
                 </Button>
             </StackPanel>
 
-            <!-- Authors -->
             <ListBox ItemsSource="{Binding Authors}" SelectionMode="Multiple">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -123,25 +106,24 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0 8">
                 <TextBox x:Name="NewAuthorBox"
-             Text="{Binding NewAuthorText, UpdateSourceTrigger=PropertyChanged}"
-             Width="300"
-             materialDesign:HintAssist.Hint="Nowy autor" />
+                         Text="{Binding NewAuthorText, UpdateSourceTrigger=PropertyChanged}"
+                         Width="300"
+                         materialDesign:HintAssist.Hint="Nowy autor" />
                 <Button Margin="8 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding AddAuthorCommand}"
-                        CommandParameter="{Binding Text, ElementName=NewAuthorBox}">
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding AddAuthorCommand}"
+                    CommandParameter="{Binding Text, ElementName=NewAuthorBox}">
                     <materialDesign:PackIcon Kind="Plus" />
                 </Button>
             </StackPanel>
 
-
-            <Button Content="Dodaj książkę"
-        Command="{Binding AddBookCommand}"
-        Style="{StaticResource MaterialDesignRaisedButton}"
-        Margin="0 16 0 0"
-        HorizontalAlignment="Right"/>
+            <Button Content="Zapisz zmiany"
+                    Command="{Binding SaveChangesCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Margin="0 16 0 0"
+                    HorizontalAlignment="Right"/>
 
         </StackPanel>
     </ScrollViewer>

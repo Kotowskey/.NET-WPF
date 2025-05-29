@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Bookstore.Models;
 
 namespace Bookstore.SignalRHub
 {
@@ -91,6 +92,30 @@ namespace Bookstore.SignalRHub
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+        public async Task<StatisticsModel> GetStatistics()
+        {
+            try
+            {
+                return await _connection.InvokeAsync<StatisticsModel>("GetStatistics");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching statistics: {ex.Message}");
+                return new StatisticsModel();
+            }
+        }
+        public async Task<Guid> GetUserId()
+        {
+            try
+            {
+                return await _connection.InvokeAsync<Guid>("GetUserId");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd pobierania ID użytkownika: {ex.Message}");
+                return Guid.Empty;
             }
         }
     }

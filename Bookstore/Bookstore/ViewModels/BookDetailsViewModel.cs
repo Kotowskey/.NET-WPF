@@ -1,6 +1,7 @@
 ﻿using Bookstore.Models;
 using Bookstore.Services;
 using Bookstore.Translation;
+using Bookstore.Views;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace Bookstore.ViewModels
 
         public ICommand DeleteBookCommand { get; private set; }
         public ICommand CloseWindowCommand { get; private set; }
+        public ICommand EditBookCommand { get; private set; }
 
         public BookDetailsViewModel(BookModel book, BookViewModel parentViewModel)
         {
@@ -36,6 +38,7 @@ namespace Bookstore.ViewModels
 
             DeleteBookCommand = new RelayCommand(async param => await DeleteBookAsync());
             CloseWindowCommand = new RelayCommand(param => CloseWindow(param as Window));
+            EditBookCommand = new RelayCommand(param => OpenEditBookWindowAsync());
         }
 
         private async Task DeleteBookAsync()
@@ -74,6 +77,26 @@ namespace Bookstore.ViewModels
         private void CloseWindow(Window window)
         {
             window?.Close();
+        }
+
+        public async Task RefreshBookDetailsAsync()
+        {
+            try
+            {
+                Book = await _bookService.GetByIdAsync(Book.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas odświeżania danych: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task OpenEditBookWindowAsync()
+        {
+            var editBookWindow = new EditBookWindow(Book, this);
+            editBookWindow.ShowDialog();
+            await RefreshBookDetailsAsync();
+            _parentViewModel.UpdateBookInList(Book);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -23,18 +23,23 @@
 
         <StackPanel Grid.Row="0" Margin="0 0 0 8">
             <StackPanel Orientation="Horizontal" Margin="10">
-                <StackPanel Margin="0, 0, 20, 0" HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+                <StackPanel Margin="0, 0, 20, 0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                               Text="{DynamicResource ListOfBooks}" Margin="0 0 0 0">
+                   Text="{DynamicResource ListOfBooks}" Margin="0 0 0 0">
                     </TextBlock>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                            ToolTip="{DynamicResource AddBook}"
-                            Command="{Binding AddBookCommand}">
+                ToolTip="{DynamicResource AddBook}"
+                Command="{Binding AddBookCommand}">
                         <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 0 0">
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                ToolTip="Dodaj książkę z swiatksiazki.pl"
+                Command="{Binding AddBookFromHtmlCommand}">
+                        <materialDesign:PackIcon Kind="FileUpload" />
                     </Button>
                 </StackPanel>
             </StackPanel>
