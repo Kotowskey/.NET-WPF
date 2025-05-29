@@ -115,14 +115,7 @@
                 <views:BooksPage x:Name="BooksView" Visibility="Collapsed" />
 
                 <!-- Other Views -->
-
-                <TextBlock x:Name="CustomersView" 
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Visibility="Collapsed">
-                    Widok Klientów (Niezaimplementowany)
-                </TextBlock>
+                <views:CustomersPage x:Name="CustomersView" Visibility="Collapsed" />
 
                 <TextBlock x:Name="OrdersView" 
                            Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
