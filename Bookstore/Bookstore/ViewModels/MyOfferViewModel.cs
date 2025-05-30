@@ -153,10 +153,19 @@ namespace Bookstore.ViewModels
 
         private void OpenAddOfferWindow()
         {
-            var wnd = new AddOfferWindow(_apiService, _bookService, _currentUserId);
-            if (wnd.ShowDialog() == true)
+            try
             {
-                _ = LoadOffersAsync();
+                var addOfferWindow = new AddOfferWindow(_apiService, _bookService, _currentUserId);
+                addOfferWindow.ShowDialog();
+                LoadOffersAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Błąd podczas otwierania okna dodawania oferty: {ex.Message}",
+                    "Błąd",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 

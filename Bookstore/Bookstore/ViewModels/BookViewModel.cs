@@ -340,9 +340,6 @@ namespace Bookstore.ViewModels
             try { 
             var addBookWindow = new AddBookWindow();
             addBookWindow.ShowDialog();
-
-
-                // Po zamknięciu okna odświeżamy listę książek
                 LoadBooksAsync().ConfigureAwait(false);
             }
             catch (Exception ex)

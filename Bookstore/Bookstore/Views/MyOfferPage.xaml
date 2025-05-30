@@ -23,6 +23,12 @@
                     Margin="20 0 0 0">
                 <materialDesign:PackIcon Kind="Plus" />
             </Button>
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+            Command="{Binding LoadOffersCommand}"
+            Margin="10 0 0 0"
+            ToolTip="Odśwież oferty">
+                <materialDesign:PackIcon Kind="Refresh" />
+            </Button>
         </StackPanel>
 
         <!-- Zakładki -->
@@ -91,6 +97,19 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
+            <materialDesign:Card HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Padding="16"
+                     Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                     IsIndeterminate="True"
+                     HorizontalAlignment="Center"
+                     Margin="0 0 0 16"/>
+                    <TextBlock Text="Ładowanie ofert"
+                   HorizontalAlignment="Center"/>
+                </StackPanel>
+            </materialDesign:Card>
         </TabControl>
     </Grid>
 </UserControl>

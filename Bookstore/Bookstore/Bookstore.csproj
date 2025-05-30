@@ -206,6 +206,7 @@
     <Compile Include="Models\Enums\OfferStateEnum.cs" />
     <Compile Include="Models\Enums\StateEnum.cs" />
     <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\FileUploadResponse.cs" />
     <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\Offer.cs" />
     <Compile Include="Models\PublisherModel.cs" />
@@ -222,7 +223,7 @@
     </Compile>
     <Compile Include="Translation\LocalizationManager.cs" />
     <Compile Include="ViewModels\AddBookViewModel.cs" />
-    <Compile Include="ViewModels\AddOfferVewModel.cs" />
+    <Compile Include="ViewModels\AddOfferViewModel.cs" />
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
