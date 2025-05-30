@@ -77,7 +77,7 @@ namespace Bookstore.ViewModels
 
             LoadOffersCommand = new RelayCommand(async _ => await LoadOffersAsync());
             AddOfferCommand = new RelayCommand(_ => OpenAddOfferWindow());
-            OfferSelectedCommand = new RelayCommand(param => OpenOfferDetails(param as Offer));
+            OfferSelectedCommand = new RelayCommand(param => OpenOfferDetails(param as OfferItemViewModel));
             SearchCommand = new RelayCommand(_ => FilterOffers());
             LoadUserIdAsync();
         }
@@ -169,11 +169,13 @@ namespace Bookstore.ViewModels
             }
         }
 
-        private void OpenOfferDetails(Offer selected)
+        private void OpenOfferDetails(OfferItemViewModel selected)
         {
-            //if (selected == null) return;
-            //var wnd = new OfferDetailsWindow(selected, this);
-            //wnd.ShowDialog();
+            if (selected != null)
+            {
+                var wnd = new OfferDetailsWindow(selected, this);
+                wnd.ShowDialog();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

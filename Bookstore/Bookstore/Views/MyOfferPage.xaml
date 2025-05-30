@@ -5,7 +5,7 @@
              xmlns:viewModels="clr-namespace:Bookstore.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -35,6 +35,12 @@
         <TabControl Grid.Row="1">
             <TabItem Header="Wersja robocza">
                 <ListBox ItemsSource="{Binding DraftOffers}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding OfferSelectedCommand}" 
+                                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
@@ -51,6 +57,12 @@
             </TabItem>
             <TabItem Header="Publiczne">
                 <ListBox ItemsSource="{Binding PublicOffers}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding OfferSelectedCommand}" 
+                                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
@@ -67,6 +79,12 @@
             </TabItem>
             <TabItem Header="Prywatne">
                 <ListBox ItemsSource="{Binding PrivateOffers}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding OfferSelectedCommand}" 
+                                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
@@ -83,6 +101,12 @@
             </TabItem>
             <TabItem Header="Zrealizowane">
                 <ListBox ItemsSource="{Binding OrderedOffers}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding OfferSelectedCommand}" 
+                                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
