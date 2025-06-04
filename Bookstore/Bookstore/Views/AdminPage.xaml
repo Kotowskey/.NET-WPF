@@ -79,6 +79,12 @@
                             <TextBlock Text="{DynamicResource Statistics}"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="ContactFormAdminItem">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartBar" Margin="0 0 8 0"/>
+                            <TextBlock Text="{DynamicResource Message}"/>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </materialDesign:Card>
 
@@ -102,6 +108,7 @@
 
                 <!-- Other Views -->
                 <views:CustomersPage x:Name="CustomersView" Visibility="Collapsed" />
+                <views:ContactFormAdminPage x:Name="ContactFormAdminView" Visibility="Collapsed"/>
 
                 <TextBlock x:Name="OrdersView" 
                            Style="{StaticResource MaterialDesignHeadline5TextBlock}" 

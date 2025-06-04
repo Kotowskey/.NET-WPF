@@ -56,4 +56,5 @@
     <sys:String x:Key="ClientPage">Panel Klienta</sys:String>
     <!-- ADMIN PAGE -->
     <sys:String x:Key="AdminHeaderText">Panel Administratora</sys:String>
+    <sys:String x:Key="Message">Wiadomości</sys:String>
 </ResourceDictionary>

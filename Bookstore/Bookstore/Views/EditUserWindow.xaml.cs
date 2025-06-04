@@ -1,7 +1,7 @@
 ﻿using Bookstore.Models;
 using Bookstore.ViewModels;
 using System.Windows;
-using Bookstore.Models;
+
 
 namespace Bookstore.Views
 {

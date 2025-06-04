@@ -75,6 +75,10 @@ namespace Bookstore.Views
             {
                 StatsView.Visibility = Visibility.Visible;
             }
+            else if (ContactFormAdminItem != null && ContactFormAdminItem.IsSelected && ContactFormAdminView != null)
+            {
+                ContactFormAdminView.Visibility = Visibility.Visible;
+            }
         }
 
         private void HideAllViews()
@@ -86,6 +90,7 @@ namespace Bookstore.Views
             if (CustomersView != null) CustomersView.Visibility = Visibility.Collapsed;
             if (OrdersView != null) OrdersView.Visibility = Visibility.Collapsed;
             if (StatsView != null) StatsView.Visibility = Visibility.Collapsed;
+            if (ContactFormAdminView != null) ContactFormAdminView.Visibility = Visibility.Collapsed;
         }
 
         private void GoToOffers_Click(object sender, RoutedEventArgs e)
