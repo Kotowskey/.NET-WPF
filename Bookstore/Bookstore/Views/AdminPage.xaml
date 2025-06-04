@@ -110,13 +110,7 @@
                 <views:CustomersPage x:Name="CustomersView" Visibility="Collapsed" />
                 <views:ContactFormAdminPage x:Name="ContactFormAdminView" Visibility="Collapsed"/>
 
-                <TextBlock x:Name="OrdersView" 
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Visibility="Collapsed">
-                    Widok Zamówień (Niezaimplementowany)
-                </TextBlock>
+                <views:OrdersPage x:Name="OrdersView" Visibility="Collapsed" />
 
                 <views:StatsPage x:Name="StatsView" Visibility="Collapsed" />
             </Grid>
