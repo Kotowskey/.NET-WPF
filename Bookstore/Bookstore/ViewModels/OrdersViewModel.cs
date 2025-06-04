@@ -1,4 +1,5 @@
 using Bookstore.Models;
+using Bookstore.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ namespace Bookstore.ViewModels
 {
     public class OrdersViewModel : INotifyPropertyChanged
     {
+        private readonly OrderService _orderService;
         private ObservableCollection<Order> _orders;
         private ObservableCollection<Order> _allOrders;
         private string _searchText;
@@ -50,6 +52,7 @@ namespace Bookstore.ViewModels
 
         public OrdersViewModel()
         {
+            _orderService = new OrderService();
             Orders = new ObservableCollection<Order>();
             _allOrders = new ObservableCollection<Order>();
 
@@ -66,21 +69,12 @@ namespace Bookstore.ViewModels
 
             try
             {
-                // Symulacja danych - w rzeczywistej aplikacji pobierasz z API
-                await Task.Delay(1000); // Symulacja opóźnienia
-
-                var sampleOrders = new[]
-                {
-                    new Order { Id = 1, CustomerName = "Jan Kowalski", BookTitle = "Wiedźmin", OrderDate = DateTime.Now.AddDays(-5), Price = 39.99m, Status = "Wysłane", CustomerId = Guid.NewGuid() },
-                    new Order { Id = 2, CustomerName = "Anna Nowak", BookTitle = "Hobbit", OrderDate = DateTime.Now.AddDays(-3), Price = 29.99m, Status = "W przygotowaniu", CustomerId = Guid.NewGuid() },
-                    new Order { Id = 3, CustomerName = "Piotr Wiśniewski", BookTitle = "1984", OrderDate = DateTime.Now.AddDays(-1), Price = 24.99m, Status = "Oczekuje", CustomerId = Guid.NewGuid() },
-                    new Order { Id = 4, CustomerName = "Maria Wójcik", BookTitle = "Lalka", OrderDate = DateTime.Now, Price = 19.99m, Status = "Nowe", CustomerId = Guid.NewGuid() }
-                };
+                var orders = await _orderService.GetAllAsync();
 
                 _allOrders.Clear();
                 Orders.Clear();
 
-                foreach (var order in sampleOrders)
+                foreach (var order in orders)
                 {
                     _allOrders.Add(order);
                     Orders.Add(order);
@@ -90,8 +84,8 @@ namespace Bookstore.ViewModels
             }
             catch (Exception ex)
             {
-                // W rzeczywistej aplikacji obsługa błędów
-                System.Windows.MessageBox.Show($"Błąd podczas ładowania zamówień: {ex.Message}");
+                System.Windows.MessageBox.Show($"Błąd podczas ładowania zamówień: {ex.Message}", 
+                    "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             finally
             {

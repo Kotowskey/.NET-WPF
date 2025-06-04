@@ -220,6 +220,7 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\ContactFormService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="SignalRHub\ConnectionHub.cs" />
     <Compile Include="SingInUp.xaml.cs">
