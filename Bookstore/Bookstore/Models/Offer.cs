@@ -13,8 +13,8 @@ namespace Bookstore.Models
         public Guid RequesterId { get; set; }
         public int? FileId { get; set; }
         public int OfferStateEnum { get; set; }
-
         public string PriceDisplay => $"{Price:C}";
         public string CreatedDateDisplay => $"{CreatedDate:d}";
+        public bool IsInCart { get; set; }
     }
 }

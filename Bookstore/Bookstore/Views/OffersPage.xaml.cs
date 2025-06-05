@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Bookstore.Services;
+using Bookstore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,11 @@ namespace Bookstore.Views
             try
             {
                 _allOffers = await _apiService.GetPublicOffersAsync();
+                var cartIds = CartService.LoadCart();
+                foreach (var offer in _allOffers)
+                {
+                    offer.IsInCart = cartIds.Contains(offer.Id);
+                }
                 UpdateOffersDisplay(_allOffers);
             }
             catch (Exception ex)
@@ -96,6 +102,26 @@ namespace Bookstore.Views
             {
                 MessageBox.Show($"Wybrano ofertę: {selectedOffer.Name}");
                 // Here you would navigate to a detail page or show a detail dialog
+            }
+        }
+
+        private void CartButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is Offer offer)
+            {
+                if (offer.IsInCart)
+                {
+                    CartService.RemoveFromCart(offer.Id);
+                    offer.IsInCart = false;
+                }
+                else
+                {
+                    CartService.AddToCart(offer.Id);
+                    offer.IsInCart = true;
+                }
+
+                // Odśwież ListView (jeśli binding nie jest na INotifyPropertyChanged)
+                OffersListView.Items.Refresh();
             }
         }
     }

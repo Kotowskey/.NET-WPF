@@ -16,6 +16,7 @@
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:BoolToCartTextConverter x:Key="BoolToCartTextConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
