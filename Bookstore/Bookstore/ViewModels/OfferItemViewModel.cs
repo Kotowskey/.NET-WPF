@@ -19,6 +19,8 @@ namespace Bookstore.ViewModels
         public string PriceDisplay => Model.PriceDisplay;
         public string Name => Model.Name;
         public string Description => Model.Description;
+        public string StatusDisplay => Model.StatusDisplay;
+
 
         private BitmapImage _imageSource;
         public BitmapImage ImageSource

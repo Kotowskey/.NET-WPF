@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bookstore.Models.Enums;
+using Bookstore.Views;
+using System;
 
 namespace Bookstore.Models
 {
@@ -15,6 +17,25 @@ namespace Bookstore.Models
         public int OfferStateEnum { get; set; }
 
         public string PriceDisplay => $"{Price:C}";
+        public string StatusDisplay
+        {
+            get
+            {
+                switch (OfferStateEnum)
+                {
+                    case 0:
+                        return "Wersja robocza";
+                    case 10:
+                        return "Publiczne";
+                    case 20:
+                        return "Prywatne";
+                    case 30:
+                        return "Zrealizowane";
+                    default:
+                        return "Nieznany";
+                }
+            }
+        }
         public string CreatedDateDisplay => $"{CreatedDate:d}";
     }
 }

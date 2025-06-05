@@ -51,14 +51,14 @@
                     <StackPanel Margin="35,0,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Offer.BookTitle}" FontWeight="Bold" Margin="0,0,8,8"/>
-                            <Button Style="{StaticResource MaterialDesignIconButton}"
+                            <!--<Button Style="{StaticResource MaterialDesignIconButton}"
                                     Command="{Binding OpenBookDetailsCommand}"
                                     ToolTip="Pokaż szczegóły książki">
                                 <materialDesign:PackIcon Kind="Eye" />
-                            </Button>
+                            </Button>-->
                         </StackPanel>
                         <TextBlock Text="{Binding Offer.PriceDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding Offer.StatusDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Offer.Model.StatusDisplay}" FontWeight="Bold" Margin="0,0,0,8"/>
                     </StackPanel>
                 </StackPanel>
 
