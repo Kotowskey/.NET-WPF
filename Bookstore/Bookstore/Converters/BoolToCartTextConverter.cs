@@ -12,7 +12,7 @@ namespace Bookstore.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Usuń z koszyka" : "Dodaj do koszyka";
+            return (bool)value ? "CartRemove" : "CartPlus";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

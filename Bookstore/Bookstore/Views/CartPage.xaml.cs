@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookstore.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,20 @@ namespace Bookstore.Views
     /// </summary>
     public partial class CartPage : UserControl
     {
+        private CartViewModel Vm => (CartViewModel)DataContext;
         public CartPage()
         {
             InitializeComponent();
+            DataContext = new CartViewModel(App._connectionHub);
+            this.IsVisibleChanged += CartPage_IsVisibleChanged;
         }
+        private async void CartPage_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                await Vm.RefreshAsync();
+            }
+        }
+
     }
 }

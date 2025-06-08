@@ -1,72 +1,62 @@
-﻿using System;
+﻿using Bookstore.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace Bookstore.Services
 {
     public class CartService
     {
-        private static readonly string CartFilePath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "Bookstore",
-        "cart.json");
+        private readonly string _cartFilePath;
 
-        public CartService()
+        public CartService(Guid userId)
         {
-            EnsureCartFileExists();
+            var baseFolder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Bookstore",
+                userId.ToString());
+            if (!Directory.Exists(baseFolder))
+                Directory.CreateDirectory(baseFolder);
+
+            _cartFilePath = Path.Combine(baseFolder, "cart.json");
+            if (!File.Exists(_cartFilePath))
+                File.WriteAllText(_cartFilePath, "[]");
         }
 
-        private void EnsureCartFileExists()
+        public List<Offer> LoadCart()
         {
-            string folder = Path.GetDirectoryName(CartFilePath);
-
-            if (folder == null)
-                throw new InvalidOperationException("Nie można określić folderu dla ścieżki koszyka.");
-
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
-            if (!File.Exists(CartFilePath))
-                File.WriteAllText(CartFilePath, "[]");
+            var json = File.ReadAllText(_cartFilePath);
+            return JsonSerializer.Deserialize<List<Offer>>(json);
         }
 
-        public static List<int> LoadCart()
+        public void SaveCart(List<Offer> offers)
         {
-            if (!File.Exists(CartFilePath)) return new List<int>();
-
-            var json = File.ReadAllText(CartFilePath);
-            return JsonSerializer.Deserialize<List<int>>(json) ?? new List<int>();
+            var json = JsonSerializer.Serialize(offers);
+            File.WriteAllText(_cartFilePath, json);
         }
 
-        public static void SaveCart(List<int> offerIds)
-        {
-            string folder = Path.GetDirectoryName(CartFilePath);
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
-            var json = JsonSerializer.Serialize(offerIds);
-            File.WriteAllText(CartFilePath, json);
-        }
-
-
-        public static void AddToCart(int offerId)
+        public void Add(Offer offer)
         {
             var cart = LoadCart();
-            if (!cart.Contains(offerId))
+            if (!cart.Contains(offer))
             {
-                cart.Add(offerId);
+                cart.Add(offer);
                 SaveCart(cart);
             }
         }
 
-        public static void RemoveFromCart(int offerId)
+        public void Remove(Offer offer)
         {
             var cart = LoadCart();
-            if (cart.Remove(offerId))
+            var toRemove = cart.FirstOrDefault(o => o.Id == offer.Id);
+            if (toRemove != null)
             {
+                cart.Remove(toRemove);
                 SaveCart(cart);
             }
         }
     }
+
 }

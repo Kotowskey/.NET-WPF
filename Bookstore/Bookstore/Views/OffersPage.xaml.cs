@@ -18,6 +18,8 @@ namespace Bookstore.Views
     {
         private readonly ApiService _apiService;
         private List<Offer> _allOffers;
+        private CartService _cartService;
+        private Guid _currentUserId;
 
         public OffersPage()
         {
@@ -27,7 +29,11 @@ namespace Bookstore.Views
             SearchBox.TextChanged += SearchBox_TextChanged;
 
             // Load offers when the page is loaded
-            Loaded += async (s, e) => await LoadOffers();
+            Loaded += async (s, e) => {
+                _currentUserId = await App._connectionHub.GetUserId();
+                _cartService = new CartService(_currentUserId);
+                await LoadOffers();
+            };
         }
 
         private async Task LoadOffers()
@@ -39,11 +45,11 @@ namespace Bookstore.Views
             try
             {
                 _allOffers = await _apiService.GetPublicOffersAsync();
-                var cartIds = CartService.LoadCart();
-                foreach (var offer in _allOffers)
-                {
-                    offer.IsInCart = cartIds.Contains(offer.Id);
-                }
+
+                var cartIds = _cartService.LoadCart();
+                foreach (var o in _allOffers)
+                    o.IsInCart = cartIds.Contains(o);
+
                 UpdateOffersDisplay(_allOffers);
             }
             catch (Exception ex)
@@ -107,22 +113,21 @@ namespace Bookstore.Views
 
         private void CartButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is Offer offer)
-            {
-                if (offer.IsInCart)
-                {
-                    CartService.RemoveFromCart(offer.Id);
-                    offer.IsInCart = false;
-                }
-                else
-                {
-                    CartService.AddToCart(offer.Id);
-                    offer.IsInCart = true;
-                }
+            var offer = (sender as Button)?.Tag as Offer;
+            if (offer == null) return;
 
-                // Odśwież ListView (jeśli binding nie jest na INotifyPropertyChanged)
-                OffersListView.Items.Refresh();
+            if (offer.IsInCart)
+            {
+                _cartService.Remove(offer);
+                offer.IsInCart = false;
             }
+            else
+            {
+                _cartService.Add(offer);
+                offer.IsInCart = true;
+            }
+
+            OffersListView.Items.Refresh();
         }
     }
 }
