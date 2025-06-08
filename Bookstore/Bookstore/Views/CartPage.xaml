@@ -2,21 +2,45 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModels="clr-namespace:Bookstore.ViewModels"
-             xmlns:local="clr-namespace:Bookstore.Views">
-    <Grid>
-        <ListBox ItemsSource="{Binding CartOffers}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding BookTitle}" />
-                            <TextBlock Text="{Binding PriceDisplay}" />
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Bookstore.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Nagłówek -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 20">
+            <TextBlock Text="Koszyk" Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                Command="{Binding AddOfferCommand}"
+                    ToolTip="Dodaj do zamówienia"
+                Margin="20 0 0 0">
+                <materialDesign:PackIcon Kind="PackageDown" />
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <ListBox ItemsSource="{Binding CartOffers}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding BookTitle}" />
+                                <TextBlock Text="{Binding PriceDisplay}" />
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
     </Grid>
 </UserControl>

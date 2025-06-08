@@ -70,7 +70,7 @@
                     <ListViewItem x:Name="CartItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Cart" Margin="0 0 8 0"/>
-                            <TextBlock Text="Mój koszyk"/>
+                            <TextBlock Text="Koszyk"/>
                         </StackPanel>
                     </ListViewItem>
                     <!--<ListViewItem x:Name="CustomersItem">
