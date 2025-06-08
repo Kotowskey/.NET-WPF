@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Bookstore.ViewModels;
+using Bookstore.Models;
 
 namespace Bookstore.Views
 {
@@ -21,10 +22,17 @@ namespace Bookstore.Views
     /// </summary>
     public partial class AddOfferWindow : Window
     {
+        public AddOfferWindow(ApiService apiService, BookService bookService, Guid requesterId, Offer offerToEdit)
+        {
+            InitializeComponent();
+            DataContext = new AddOfferViewModel(apiService, bookService, requesterId, offerToEdit);
+        }
+
         public AddOfferWindow(ApiService apiService, BookService bookService, Guid requesterId)
         {
             InitializeComponent();
             DataContext = new AddOfferViewModel(apiService, bookService, requesterId);
         }
+
     }
 }

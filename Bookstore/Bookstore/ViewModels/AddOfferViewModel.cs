@@ -18,6 +18,7 @@ namespace Bookstore.ViewModels
         private readonly BookService _bookService;
         private readonly Guid _requesterId;
         public event EventHandler OfferAdded;
+        private readonly Offer _offerToEdit;
 
         #region Properties
         private string _name;
@@ -109,6 +110,72 @@ namespace Bookstore.ViewModels
 
             Task.Run(async () => await LoadBooksAsync());
         }
+        public AddOfferViewModel(ApiService apiService, BookService bookService, Guid requesterId, Offer offerToEdit)
+            : this(apiService, bookService, requesterId)
+
+        {
+            _offerToEdit = offerToEdit;
+
+            if (offerToEdit.FileId.HasValue)
+            {
+                Task.Run(async () =>
+                {
+                    var file = await _apiService.GetFileByIdAsync(offerToEdit.FileId.Value);
+                    SelectedFileName = file?.Name;
+                });
+            }
+
+            Task.Run(async () =>
+            {
+                await LoadBooksAsync();
+                SelectedBook = Books.FirstOrDefault(b => b.Id == offerToEdit.BookId);
+            });
+
+            Name = offerToEdit.Name;
+            Description = offerToEdit.Description;
+            Price = offerToEdit.Price;
+            IsDraft = offerToEdit.OfferStateEnum == 0;
+            IsPublic = offerToEdit.OfferStateEnum == 10;
+            IsPrivate = offerToEdit.OfferStateEnum == 20;
+
+            AddOfferCommand = new RelayCommand(async _ => await EditOfferAsync());
+        }
+        private async Task EditOfferAsync()
+        {
+            try
+            {
+                int? fileId = _offerToEdit.FileId;
+
+                if (!string.IsNullOrWhiteSpace(SelectedFilePath))
+                {
+                    var uploadedFile = await _apiService.UploadFileAsync(SelectedFilePath);
+                    fileId = uploadedFile?.Id;
+                }
+
+                _offerToEdit.Name = Name;
+                _offerToEdit.Description = Description;
+                _offerToEdit.Price = Price;
+                _offerToEdit.BookId = SelectedBook.Id;
+                _offerToEdit.FileId = fileId;
+                _offerToEdit.OfferStateEnum = IsDraft ? 0 : IsPublic ? 10 : 20;
+
+                var success = await _apiService.EditOfferAsync(_offerToEdit.Id, _offerToEdit);
+                if (success)
+                {
+                    MessageBox.Show("Oferta została zaktualizowana!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Application.Current.Windows.OfType<AddOfferWindow>().FirstOrDefault()?.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Nie udało się zaktualizować oferty.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas edycji oferty: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private async Task LoadBooksAsync()
         {

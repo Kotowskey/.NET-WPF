@@ -14,7 +14,6 @@ namespace Bookstore.Services
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "http://localhost:5257/api"; 
 
-
         public ApiService()
         {
             _httpClient = new HttpClient();
@@ -139,6 +138,12 @@ namespace Bookstore.Services
                 Console.WriteLine($"Błąd podczas wgrywania pliku: {ex.Message}");
                 return null;
             }
+        }
+
+        public async Task<bool> EditOfferAsync(int offerId, Offer updatedOffer)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/Offers/Edit/{offerId}", updatedOffer);
+            return response.IsSuccessStatusCode;
         }
     }
 }
