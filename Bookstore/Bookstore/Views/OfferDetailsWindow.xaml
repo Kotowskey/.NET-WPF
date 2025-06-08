@@ -27,18 +27,30 @@
                                Foreground="White"
                                TextWrapping="Wrap"/>
                 </materialDesign:ColorZone>
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Obraz -->
-                <Image Source="{Binding Offer.ImageSource}" 
-                       Height="100" 
-                       Margin="20" 
-                       Stretch="Uniform"
-                       Visibility="{Binding Offer.ImageSource, Converter={StaticResource NullToVisibilityConverter}}"/>
+                    <!-- Kolumna 0: obraz -->
+                    <Image Grid.Column="0"
+         Source="{Binding Offer.ImageSource}"
+         Height="100"
+         Margin="0,0,20,0"
+         Stretch="Uniform"
+         Visibility="{Binding Offer.ImageSource, Converter={StaticResource NullToVisibilityConverter}}"/>
 
-                <!-- Opis -->
-                <TextBlock Text="Opis" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
-                <TextBlock Text="{Binding Offer.Description}" Margin="20,0,20,20" TextWrapping="Wrap"/>
-                <Separator Margin="20,0,20,0"/>
+                    <!-- Kolumna 1: opis -->
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Opis"
+               FontSize="15"
+               FontWeight="Bold"
+               Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Offer.Description}"
+               TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Grid>
 
                 <!-- Szczegóły -->
                 <TextBlock Text="Szczegóły" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
