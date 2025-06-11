@@ -24,6 +24,7 @@ namespace Bookstore.ViewModels
             = new ObservableCollection<OfferItemViewModel>();
 
         public ICommand AddOfferCommand { get; }
+        public ICommand RemoveFromCartCommand { get; } // Dodane
 
         public CartViewModel(ConnectionHub connectionHub)
         {
@@ -31,6 +32,7 @@ namespace Bookstore.ViewModels
             _apiService = new ApiService();
             _bookService = new BookService();
             AddOfferCommand = new RelayCommand(async _ => await CreateOrderFromCart());
+            RemoveFromCartCommand = new RelayCommand(RemoveFromCart); // Dodane
             InitializeAsync();
         }
 
@@ -106,6 +108,20 @@ namespace Bookstore.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show($"Błąd podczas tworzenia zamówienia: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void RemoveFromCart(object parameter)
+        {
+            if (parameter is OfferItemViewModel vm)
+            {
+                var result = MessageBox.Show($"Czy na pewno chcesz usunąć '{vm.Name}' z koszyka?", "Potwierdź", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _cartService.Remove(vm.Model);
+                    CartOffers.Remove(vm);
+                    OnPropertyChanged(nameof(CartOffers));
+                }
             }
         }
 

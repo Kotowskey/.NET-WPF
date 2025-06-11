@@ -53,13 +53,13 @@ namespace Bookstore.ViewModels
         public OrdersViewModel()
         {
             _orderService = new OrderService();
-            Orders = new ObservableCollection<Order>();
+            _orders = new ObservableCollection<Order>();
             _allOrders = new ObservableCollection<Order>();
 
             LoadOrdersCommand = new RelayCommand(async _ => await LoadOrdersAsync());
             RefreshCommand = new RelayCommand(async _ => await LoadOrdersAsync());
 
-            LoadOrdersAsync().ConfigureAwait(false);
+            _ = LoadOrdersAsync();
         }
 
         private async Task LoadOrdersAsync()
@@ -84,7 +84,7 @@ namespace Bookstore.ViewModels
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Błąd podczas ładowania zamówień: {ex.Message}", 
+                System.Windows.MessageBox.Show($"Błąd podczas ładowania zamówień: {ex.Message}",
                     "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             finally
@@ -95,23 +95,20 @@ namespace Bookstore.ViewModels
 
         private void FilterOrders()
         {
-            if (_allOrders == null) return;
+            if (_allOrders == null || Orders == null) return;
 
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                Orders = new ObservableCollection<Order>(_allOrders);
-            }
-            else
-            {
-                var searchText = SearchText.ToLower();
-                var filteredOrders = _allOrders.Where(o =>
-                    (o.CustomerName?.ToLower().Contains(searchText) ?? false) ||
-                    (o.BookTitle?.ToLower().Contains(searchText) ?? false) ||
-                    (o.Status?.ToLower().Contains(searchText) ?? false)
-                ).ToList();
+            Orders.Clear();
 
-                Orders = new ObservableCollection<Order>(filteredOrders);
-            }
+            var filtered = string.IsNullOrWhiteSpace(SearchText)
+                ? _allOrders
+                : _allOrders.Where(o =>
+                    (o.CustomerName?.ToLower().Contains(SearchText.ToLower()) ?? false) ||
+                    (o.BookTitle?.ToLower().Contains(SearchText.ToLower()) ?? false) ||
+                    (o.Status?.ToLower().Contains(SearchText.ToLower()) ?? false)
+                );
+
+            foreach (var order in filtered)
+                Orders.Add(order);
 
             UpdateResultsVisibility();
         }

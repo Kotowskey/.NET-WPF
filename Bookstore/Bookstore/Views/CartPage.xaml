@@ -40,6 +40,12 @@
                                 <TextBlock Text="{Binding BookTitle}" />
                                 <TextBlock Text="{Binding PriceDisplay}" />
                             </StackPanel>
+                            <!-- Dodany przycisk usuwania -->
+                            <Button Content="Usuń"
+                                    Command="{Binding DataContext.RemoveFromCartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Margin="10,0,0,0"
+                                    Style="{StaticResource MaterialDesignFlatButton}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
