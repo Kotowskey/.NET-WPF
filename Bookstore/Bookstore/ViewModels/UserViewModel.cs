@@ -13,7 +13,7 @@ namespace Bookstore.ViewModels
         public ObservableCollection<UserModel> Users = new ObservableCollection<UserModel>();
         private ObservableCollection<UserModel> _allUsers;
 
-        private readonly UserService _userService = new UserService();
+        private readonly UserService _userService = new UserService(App.Auth.CookieContainer);
         private bool _isLoading = false;
         public bool IsLoading
         {

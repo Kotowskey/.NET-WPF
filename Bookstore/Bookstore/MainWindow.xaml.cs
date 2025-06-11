@@ -1,5 +1,4 @@
-﻿using Bookstore.SignalRHub;
-using Bookstore.Translation;
+﻿using Bookstore.Translation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,15 +23,13 @@ namespace Bookstore
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ConnectionHub _connection;
         private bool _isAdmin;
         private Guid UserId;
 
-        public MainWindow(bool IsAdmin, ConnectionHub connection)
+        public MainWindow(bool IsAdmin)
         {
             InitializeComponent();
             _isAdmin = IsAdmin;
-            _connection = connection;
             this.Loaded += MainWindow_Loaded;
             CheckAdmin();
         }
@@ -44,12 +41,6 @@ namespace Bookstore
             if (DashboardView != null)
             {
                 DashboardView.Visibility = Visibility.Visible;
-            }
-
-            // Initialize StatsView with connection
-            if (StatsView != null)
-            {
-                StatsView.Initialize(_connection);
             }
         }
         private void CheckAdmin()
@@ -110,7 +101,6 @@ namespace Bookstore
         }
         private async void GetGuidIdAndOpenForm()
         {
-            UserId = await _connection.GetUserId();
             var form = new Views.ContactForm(UserId);
             form.ShowDialog();
         }
@@ -146,14 +136,15 @@ namespace Bookstore
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new SingInUp(_connection);
+            _ = App.Auth.LogoutAsync();
+            var loginWindow = new SingInUp();
             loginWindow.Show();
             this.Close();
         }
 
         private void GoToAdmin_Page(object sender, RoutedEventArgs e)
         {
-            Window adminPage = new AdminPage(_connection);
+            Window adminPage = new AdminPage();
             this.Hide();
             adminPage.ShowDialog();
             this.Show();

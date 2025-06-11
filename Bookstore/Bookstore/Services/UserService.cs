@@ -2,23 +2,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 using System.Windows;
-
 
 namespace Bookstore.Services
 {
     public class UserService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "http://localhost:5257/api";
+        private const string BaseUrl = "https://localhost:7109";
         private List<UserModel> _cachedUsers;
 
-        public UserService()
+        public UserService(CookieContainer cookieContainer)
         {
-            _httpClient = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                UseCookies = true,
+                CookieContainer = cookieContainer
+            };
+            _httpClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri(BaseUrl)
+            };
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -28,20 +36,18 @@ namespace Bookstore.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/User/Add", user);
+                var response = await _httpClient.PostAsJsonAsync("api/User/Add", user);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<UserModel>();
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to add user. Status code: {response.StatusCode}");
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding user: {ex.Message}");
                 return null;
             }
         }
@@ -51,31 +57,30 @@ namespace Bookstore.Services
             try
             {
                 if (user == null || userId == Guid.Empty)
-                {
                     throw new ArgumentException("Nieprawidłowe dane użytkownika lub ID.");
-                }
 
-                var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/User/Edit/{userId}", user);
+                var response = await _httpClient.PutAsJsonAsync($"api/User/Edit/{userId}", user);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = await response.Content.ReadFromJsonAsync<EditUserResponse>();
-                    return responseData?.User ?? throw new Exception("Nie udało się pobrać zaktualizowanego użytkownika.");
+                    return responseData?.User
+                        ?? throw new Exception("UserService.EditUserAsync: nie udało się pobrać zaktualizowanego użytkownika.");
                 }
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Nie udało się edytować użytkownika. Status: {response.StatusCode}, Treść: {errorContent}");
+                    throw new Exception(
+                        $"UserService.EditUserAsync failed: Status={response.StatusCode}, Treść={errorContent}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd podczas edycji użytkownika: {ex.Message}");
                 throw;
             }
         }
 
-        public class EditUserResponse
+        private class EditUserResponse
         {
             public string Message { get; set; }
             public UserModel User { get; set; }
@@ -85,14 +90,13 @@ namespace Bookstore.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"{BaseUrl}/User/Delete/{userId}");
+                var response = await _httpClient.DeleteAsync($"api/User/Delete/{userId}");
                 response.EnsureSuccessStatusCode();
-                _cachedUsers = null; // Invalidate cache
+                _cachedUsers = null;
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting user: {userId}: {ex.Message}");
                 return false;
             }
         }
@@ -101,14 +105,12 @@ namespace Bookstore.Services
         {
             try
             {
-                var users = await _httpClient.GetFromJsonAsync<List<UserModel>>($"{BaseUrl}/User/GetAll");
+                var users = await _httpClient.GetFromJsonAsync<List<UserModel>>("api/User/GetAll");
                 _cachedUsers = users;
-                
                 return users;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching users: {ex.Message}");
                 return new List<UserModel>();
             }
         }
@@ -117,52 +119,43 @@ namespace Bookstore.Services
         {
             try
             {
-                var user = await _httpClient.GetFromJsonAsync<UserModel>($"{BaseUrl}/User/GetById/{userId}");
-                return user ?? throw new Exception("Nie znaleziono użytkownika.");
+                var user = await _httpClient.GetFromJsonAsync<UserModel>($"api/User/GetById/{userId}");
+                return user ?? throw new Exception("UserService.GetByIdAsync: Nie znaleziono użytkownika.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching user: {ex.Message}");
                 throw;
             }
         }
 
-        // Opcjonalnie: wyszukiwanie użytkowników przez API lub lokalnie w cache
         public async Task<List<UserModel>> SearchUsersAsync(string searchPhrase)
         {
             try
             {
-                // Jeśli masz endpoint API do wyszukiwania:
-                try
+                var response = await _httpClient.GetAsync($"Search?searchPhrase={WebUtility.UrlEncode(searchPhrase)}");
+                if (response.IsSuccessStatusCode)
                 {
-                    return await _httpClient.GetFromJsonAsync<List<UserModel>>(
-                        $"{BaseUrl}/User/Search?phrase={Uri.EscapeDataString(searchPhrase)}");
+                    return await response.Content.ReadFromJsonAsync<List<UserModel>>();
                 }
-                catch
+
+                if (_cachedUsers == null || _cachedUsers.Count == 0)
                 {
-                    // Jeśli API nie jest dostępne, użyj lokalnego filtrowania
-                    if (_cachedUsers == null || _cachedUsers.Count == 0)
-                    {
-                        _cachedUsers = await GetAllAsync();
-                    }
-
-                    if (string.IsNullOrWhiteSpace(searchPhrase))
-                    {
-                        return _cachedUsers;
-                    }
-
-                    searchPhrase = searchPhrase.ToLower();
-                    return _cachedUsers.Where(user =>
-                        (user.Email?.ToLower().Contains(searchPhrase) ?? false) ||
-                        (user.Username?.ToLower().Contains(searchPhrase) ?? false) ||
-                        (user.FirstName?.ToLower().Contains(searchPhrase) ?? false) ||
-                        (user.LastName?.ToLower().Contains(searchPhrase) ?? false)
-                    ).ToList();
+                    _cachedUsers = await GetAllAsync();
                 }
+                if (string.IsNullOrWhiteSpace(searchPhrase))
+                {
+                    return _cachedUsers;
+                }
+                var lowered = searchPhrase.ToLower();
+                return _cachedUsers.Where(u =>
+                    (u.Email?.ToLower().Contains(lowered) ?? false) ||
+                    (u.Username?.ToLower().Contains(lowered) ?? false) ||
+                    (u.FirstName?.ToLower().Contains(lowered) ?? false) ||
+                    (u.LastName?.ToLower().Contains(lowered) ?? false)
+                ).ToList();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error searching users: {ex.Message}");
                 return new List<UserModel>();
             }
         }

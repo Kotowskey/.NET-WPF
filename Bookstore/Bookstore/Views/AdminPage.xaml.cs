@@ -1,5 +1,4 @@
-﻿using Bookstore.SignalRHub;
-using Bookstore.Translation;
+﻿using Bookstore.Translation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +21,9 @@ namespace Bookstore.Views
     /// </summary>
     public partial class AdminPage : Window
     {
-        private ConnectionHub _connection;
-
-        public AdminPage(ConnectionHub connection)
+        public AdminPage()
         {
             InitializeComponent();
-            _connection = connection;
             this.Loaded += MainWindow_Loaded;
         }
 
@@ -43,7 +39,7 @@ namespace Bookstore.Views
             // Initialize StatsView with connection
             if (StatsView != null)
             {
-                StatsView.Initialize(_connection);
+                StatsView.Initialize();
             }
         }
 
@@ -112,7 +108,8 @@ namespace Bookstore.Views
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new SingInUp(_connection);
+            _ = App.Auth.LogoutAsync();
+            var loginWindow = new SingInUp();
             loginWindow.Show();
             this.Close();
         }

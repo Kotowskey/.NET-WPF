@@ -219,6 +219,7 @@
     <Compile Include="Models\StatisticsModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Services\ApiService.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\ContactFormService.cs" />
     <Compile Include="Services\OrderService.cs" />

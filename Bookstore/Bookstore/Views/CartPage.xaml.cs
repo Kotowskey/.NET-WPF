@@ -25,7 +25,7 @@ namespace Bookstore.Views
         public CartPage()
         {
             InitializeComponent();
-            DataContext = new CartViewModel(App._connectionHub);
+            DataContext = new CartViewModel();
             this.IsVisibleChanged += CartPage_IsVisibleChanged;
         }
         private async void CartPage_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

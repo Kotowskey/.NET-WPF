@@ -1,7 +1,6 @@
 ﻿using Bookstore.Models;
 using Bookstore.Models.Enums;
 using Bookstore.Services;
-using Bookstore.SignalRHub;
 using Bookstore.Views;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ namespace Bookstore.ViewModels
 {
     public class MyOfferViewModel : INotifyPropertyChanged
     {
-        private readonly ConnectionHub _connectionHub;
         private readonly ApiService _apiService;
         private readonly BookService _bookService;
         private Guid _currentUserId;
@@ -66,11 +64,10 @@ namespace Bookstore.ViewModels
         public ICommand OfferSelectedCommand { get; }
         public ICommand SearchCommand { get; }
 
-        public MyOfferViewModel(ConnectionHub connectionHub)
+        public MyOfferViewModel()
         {
             _apiService = new ApiService();
             _bookService = new BookService();
-            _connectionHub = connectionHub;
 
             Offers = new ObservableCollection<Offer>();
             _allOffers = new ObservableCollection<Offer>();
@@ -84,7 +81,7 @@ namespace Bookstore.ViewModels
 
         private async void LoadUserIdAsync()
         {
-            _currentUserId = await _connectionHub.GetUserId();
+            _currentUserId = await App.Auth.GetUserIdAsync();
             await LoadOffersAsync();
         }
 

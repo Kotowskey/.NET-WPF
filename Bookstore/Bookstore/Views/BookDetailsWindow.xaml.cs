@@ -2,7 +2,6 @@
 using Bookstore.ViewModels;
 using System;
 using System.Windows;
-using Bookstore.SignalRHub;
 
 namespace Bookstore.Views
 {
@@ -40,8 +39,7 @@ namespace Bookstore.Views
         private async void IsAdmin()
         {
             // Sprawdzenie, czy użytkownik jest administratorem    
-            var con = new ConnectionHub();
-            _isAdmin = await con.IsAdmin();
+            _isAdmin = await App.Auth.IsAdminAsync();
             CheckAdmin();
 
         }

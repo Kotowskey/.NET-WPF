@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using Bookstore.Models;
 
-namespace Bookstore.SignalRHub
+namespace Bookstore.SignalRHub1
 {
     //Tej klasy musi byc tylko 1 globalna instancja, bo jak utworzymy 2 to
     //Wtedy będą 2 połączenia do serwera, więc trzeba tą instancje a raczej referencje do
@@ -16,11 +16,11 @@ namespace Bookstore.SignalRHub
     //Narazie stworzenie tej instancji jest w pliku App.xaml.cs
     //i przekazywana jest do SingInUp.xaml.cs na starcie
     //a potem SingInUp.xaml.cs przekazuje ją do MainWindow.xaml.cs
-    public class ConnectionHub
+    public class ConnectionHub1
     {
         static HubConnection _connection;
 
-        public ConnectionHub()
+        public ConnectionHub1()
         {
             //InitSignalR();
         }

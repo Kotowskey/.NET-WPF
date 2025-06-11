@@ -1,6 +1,5 @@
 ﻿using Bookstore.Models;
 using Bookstore.Services;
-using Bookstore.SignalRHub;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +13,6 @@ namespace Bookstore.ViewModels
 {
     public class CartViewModel : INotifyPropertyChanged
     {
-        private readonly ConnectionHub _connectionHub;
         private readonly ApiService _apiService;
         private readonly BookService _bookService;
         private CartService _cartService;
@@ -26,9 +24,8 @@ namespace Bookstore.ViewModels
         public ICommand AddOfferCommand { get; }
         public ICommand RemoveFromCartCommand { get; } // Dodane
 
-        public CartViewModel(ConnectionHub connectionHub)
+        public CartViewModel()
         {
-            _connectionHub = connectionHub;
             _apiService = new ApiService();
             _bookService = new BookService();
             AddOfferCommand = new RelayCommand(async _ => await CreateOrderFromCart());
@@ -40,7 +37,7 @@ namespace Bookstore.ViewModels
         {
             try
             {
-                _userId = await _connectionHub.GetUserId();
+                _userId = await App.Auth.GetUserIdAsync();
                 _cartService = new CartService(_userId);
                 await RefreshAsync();
             }

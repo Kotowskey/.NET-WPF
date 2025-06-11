@@ -48,7 +48,7 @@ namespace Bookstore.ViewModels
 
         public CustomerViewModel()
         {
-            _userService = new UserService();
+            _userService = new UserService(App.Auth.CookieContainer);
             Customers = new ObservableCollection<UserModel>();
         }
 
@@ -78,7 +78,7 @@ namespace Bookstore.ViewModels
             {
                 IsLoading = true;
                 var addedCustomer = await _userService.AddUserAsync(customer);
-                
+
                 if (addedCustomer != null)
                 {
                     await LoadCustomersAsync(); // Odświeżamy listę
@@ -105,7 +105,7 @@ namespace Bookstore.ViewModels
             {
                 IsLoading = true;
                 var updatedCustomer = await _userService.EditUserAsync(customer.Id, customer);
-                
+
                 if (updatedCustomer != null)
                 {
                     await LoadCustomersAsync(); // Odświeżamy listę
@@ -132,7 +132,7 @@ namespace Bookstore.ViewModels
             {
                 IsLoading = true;
                 var success = await _userService.DeleteUserAsync(customer.Id);
-                
+
                 if (success)
                 {
                     await LoadCustomersAsync(); // Odświeżamy listę

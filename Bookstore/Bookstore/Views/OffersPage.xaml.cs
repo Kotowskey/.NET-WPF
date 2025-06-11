@@ -30,7 +30,7 @@ namespace Bookstore.Views
 
             // Load offers when the page is loaded
             Loaded += async (s, e) => {
-                _currentUserId = await App._connectionHub.GetUserId();
+                _currentUserId = await App.Auth.GetUserIdAsync();
                 _cartService = new CartService(_currentUserId);
                 await LoadOffers();
             };

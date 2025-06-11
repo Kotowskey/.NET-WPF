@@ -1,5 +1,4 @@
 using Bookstore.Models;
-using Bookstore.SignalRHub;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,7 +11,6 @@ namespace Bookstore.Views
     /// </summary>
     public partial class StatsPage : UserControl
     {
-        private ConnectionHub _connection;
         private StatisticsModel _statistics;
 
         public StatsPage()
@@ -21,17 +19,13 @@ namespace Bookstore.Views
         }
 
         // Initialize the connection hub
-        public void Initialize(ConnectionHub connectionHub)
+        public void Initialize()
         {
-            _connection = connectionHub;
             LoadData();
         }
 
         private async void LoadData()
         {
-            if (_connection == null)
-                return;
-
             // Show loading, hide content and error
             LoadingCard.Visibility = Visibility.Visible;
             ContentGrid.Visibility = Visibility.Collapsed;
@@ -39,7 +33,7 @@ namespace Bookstore.Views
 
             try
             {
-                _statistics = await _connection.GetStatistics();
+                _statistics = await App.Auth.GetStatisticsAsync();
                 DataContext = _statistics;
                 
                 // Show content, hide loading and error

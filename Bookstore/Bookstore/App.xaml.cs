@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Bookstore.SignalRHub;
 using Bookstore;
 using Bookstore.Translation;
+using Bookstore.Services;
 
 namespace Bookstore
 {
@@ -16,15 +16,15 @@ namespace Bookstore
     /// </summary>
     public partial class App : Application
     {
-        public static ConnectionHub _connectionHub;
-
+        public static AuthService Auth { get; private set; }
+        public static UserService Users { get; private set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             LocalizationManager.ChangeLanguage("pl");
-            _connectionHub = new ConnectionHub();
-            _connectionHub.InitSignalR();
-            var loginWindow = new SingInUp(_connectionHub);
+            Auth = new AuthService();
+            Users = new UserService(Auth.CookieContainer);
+            var loginWindow = new SingInUp();
             loginWindow.Show();
         }
     }

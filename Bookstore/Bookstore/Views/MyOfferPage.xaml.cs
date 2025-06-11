@@ -24,7 +24,7 @@ namespace Bookstore.Views
         public MyOfferPage()
         {
             InitializeComponent();
-            DataContext = new MyOfferViewModel(App._connectionHub);
+            DataContext = new MyOfferViewModel();
         }
     }
 }
