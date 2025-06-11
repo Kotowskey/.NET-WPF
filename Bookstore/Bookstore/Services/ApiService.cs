@@ -145,5 +145,19 @@ namespace Bookstore.Services
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/Offers/Edit/{offerId}", updatedOffer);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> CreateOrderFromCartAsync(object createOrderDto)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/Order/CreateFromCart", createOrderDto);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating order from cart: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

@@ -2,10 +2,13 @@
 using Bookstore.Services;
 using Bookstore.SignalRHub;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Bookstore.ViewModels
 {
@@ -15,15 +18,19 @@ namespace Bookstore.ViewModels
         private readonly ApiService _apiService;
         private readonly BookService _bookService;
         private CartService _cartService;
+        private Guid _userId;
 
         public ObservableCollection<OfferItemViewModel> CartOffers { get; }
             = new ObservableCollection<OfferItemViewModel>();
+
+        public ICommand AddOfferCommand { get; }
 
         public CartViewModel(ConnectionHub connectionHub)
         {
             _connectionHub = connectionHub;
             _apiService = new ApiService();
             _bookService = new BookService();
+            AddOfferCommand = new RelayCommand(async _ => await CreateOrderFromCart());
             InitializeAsync();
         }
 
@@ -31,8 +38,8 @@ namespace Bookstore.ViewModels
         {
             try
             {
-                var userId = await _connectionHub.GetUserId();
-                _cartService = new CartService(userId);
+                _userId = await _connectionHub.GetUserId();
+                _cartService = new CartService(_userId);
                 await RefreshAsync();
             }
             catch (Exception ex)
@@ -60,8 +67,56 @@ namespace Bookstore.ViewModels
             OnPropertyChanged(nameof(CartOffers));
         }
 
+        private async Task CreateOrderFromCart()
+        {
+            try
+            {
+                if (!CartOffers.Any())
+                {
+                    MessageBox.Show("Koszyk jest pusty!", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var result = MessageBox.Show("Czy chcesz utworzyć zamówienie z przedmiotów w koszyku?",
+                    "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    var createOrderDto = new CreateOrderDto
+                    {
+                        BuyerId = _userId,
+                        OfferIds = CartOffers.Select(co => co.Model.Id).ToList()
+                    };
+
+                    var success = await _apiService.CreateOrderFromCartAsync(createOrderDto);
+                    if (success)
+                    {
+                        MessageBox.Show("Zamówienie zostało utworzone pomyślnie!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // Clear cart after successful order creation
+                        _cartService.SaveCart(new List<Offer>());
+                        await RefreshAsync();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nie udało się utworzyć zamówienia.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas tworzenia zamówienia: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+    public class CreateOrderDto
+    {
+        public Guid BuyerId { get; set; }
+        public List<int> OfferIds { get; set; } = new List<int>();
     }
 }

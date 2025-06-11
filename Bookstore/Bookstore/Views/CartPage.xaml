@@ -20,9 +20,12 @@
             <TextBlock Text="Koszyk" Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
             <Button Style="{StaticResource MaterialDesignRaisedButton}"
                 Command="{Binding AddOfferCommand}"
-                    ToolTip="Dodaj do zamówienia"
+                ToolTip="Utwórz zamówienie z koszyka"
                 Margin="20 0 0 0">
-                <materialDesign:PackIcon Kind="PackageDown" />
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="PackageDown" Margin="0 0 5 0" />
+                    <TextBlock Text="Utwórz zamówienie" />
+                </StackPanel>
             </Button>
         </StackPanel>
 
