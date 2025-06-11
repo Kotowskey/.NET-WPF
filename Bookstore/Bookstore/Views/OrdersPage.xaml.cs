@@ -16,5 +16,10 @@ namespace Bookstore.Views
             ViewModel = new OrdersViewModel();
             DataContext = ViewModel;
         }
+
+        private async void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await ViewModel.LoadOrdersAsync();
+        }
     }
 }

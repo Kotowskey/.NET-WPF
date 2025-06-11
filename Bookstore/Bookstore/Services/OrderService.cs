@@ -11,7 +11,7 @@ namespace Bookstore.Services
     public class OrderService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "http://localhost:5257/api";
+        private const string BaseUrl = "https://localhost:7109/api";
 
         public OrderService()
         {
@@ -62,13 +62,13 @@ namespace Bookstore.Services
                         CustomerId = detailedOrder.BuyerId,
                         CustomerName = detailedOrder.CustomerName,
                         BookTitle = string.Join(", ", bookTitles),
-                        OrderDate = DateTime.Now, // You might want to add CreatedDate to backend
+                        OrderDate = DateTime.Now,
                         Price = totalPrice,
                         Status = GetStatusDisplayName(detailedOrder.OrderStateEnum)
                     });
                 }
 
-                return orders;
+                return orders.OrderByDescending(o => o.OrderDate).ToList();
             }
             catch (Exception ex)
             {
@@ -90,7 +90,8 @@ namespace Bookstore.Services
                 return allOrders.Where(o =>
                     (o.CustomerName?.ToLower().Contains(searchPhrase) ?? false) ||
                     (o.BookTitle?.ToLower().Contains(searchPhrase) ?? false) ||
-                    (o.Status?.ToLower().Contains(searchPhrase) ?? false)
+                    (o.Status?.ToLower().Contains(searchPhrase) ?? false) ||
+                    o.Id.ToString().Contains(searchPhrase)
                 ).ToList();
             }
             catch (Exception ex)
@@ -128,7 +129,7 @@ namespace Bookstore.Services
     {
         public int Id { get; set; }
         public Guid BuyerId { get; set; }
-        public string CustomerName { get; set; }
+        public string CustomerName { get; set; } = string.Empty;
         public int OrderStateEnum { get; set; }
         public List<OrderItemDetailModel> OrderItems { get; set; } = new List<OrderItemDetailModel>();
     }
@@ -136,7 +137,7 @@ namespace Bookstore.Services
     public class OrderItemDetailModel
     {
         public int OfferId { get; set; }
-        public string OfferName { get; set; }
+        public string OfferName { get; set; } = string.Empty;
         public float Price { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Bookstore.ViewModels
@@ -21,7 +22,12 @@ namespace Bookstore.ViewModels
         public ObservableCollection<Order> Orders
         {
             get => _orders;
-            set { _orders = value; OnPropertyChanged(nameof(Orders)); }
+            set 
+            { 
+                _orders = value; 
+                OnPropertyChanged(nameof(Orders));
+                UpdateResultsVisibility();
+            }
         }
 
         public string SearchText
@@ -31,24 +37,32 @@ namespace Bookstore.ViewModels
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
-                FilterOrders();
+                _ = Task.Run(async () => await FilterOrdersAsync());
             }
         }
 
         public bool IsLoading
         {
             get => _isLoading;
-            set { _isLoading = value; OnPropertyChanged(nameof(IsLoading)); }
+            set 
+            { 
+                _isLoading = value; 
+                OnPropertyChanged(nameof(IsLoading));
+            }
         }
 
         public bool NoResults
         {
             get => _noResults;
-            set { _noResults = value; OnPropertyChanged(nameof(NoResults)); }
+            set 
+            { 
+                _noResults = value; 
+                OnPropertyChanged(nameof(NoResults));
+            }
         }
 
-        public ICommand LoadOrdersCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
+        public ICommand SearchCommand { get; private set; }
 
         public OrdersViewModel()
         {
@@ -56,36 +70,44 @@ namespace Bookstore.ViewModels
             _orders = new ObservableCollection<Order>();
             _allOrders = new ObservableCollection<Order>();
 
-            LoadOrdersCommand = new RelayCommand(async _ => await LoadOrdersAsync());
             RefreshCommand = new RelayCommand(async _ => await LoadOrdersAsync());
+            SearchCommand = new RelayCommand(async _ => await FilterOrdersAsync());
 
-            _ = LoadOrdersAsync();
+            // Load orders on initialization
+            _ = Task.Run(async () => await LoadOrdersAsync());
         }
 
-        private async Task LoadOrdersAsync()
+        public async Task LoadOrdersAsync()
         {
-            IsLoading = true;
-            NoResults = false;
-
             try
             {
+                IsLoading = true;
+                NoResults = false;
+
                 var orders = await _orderService.GetAllAsync();
 
-                _allOrders.Clear();
-                Orders.Clear();
-
-                foreach (var order in orders)
+                // Update on UI thread
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    _allOrders.Add(order);
-                    Orders.Add(order);
-                }
+                    _allOrders.Clear();
+                    Orders.Clear();
 
-                UpdateResultsVisibility();
+                    foreach (var order in orders)
+                    {
+                        _allOrders.Add(order);
+                        Orders.Add(order);
+                    }
+
+                    UpdateResultsVisibility();
+                });
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Błąd podczas ładowania zamówień: {ex.Message}",
-                    "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show($"Błąd podczas ładowania zamówień: {ex.Message}",
+                        "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
             }
             finally
             {
@@ -93,24 +115,34 @@ namespace Bookstore.ViewModels
             }
         }
 
-        private void FilterOrders()
+        private async Task FilterOrdersAsync()
         {
-            if (_allOrders == null || Orders == null) return;
+            if (_allOrders == null) return;
 
-            Orders.Clear();
+            try
+            {
+                var filteredOrders = string.IsNullOrWhiteSpace(SearchText)
+                    ? _allOrders.ToList()
+                    : await _orderService.SearchOrdersAsync(SearchText);
 
-            var filtered = string.IsNullOrWhiteSpace(SearchText)
-                ? _allOrders
-                : _allOrders.Where(o =>
-                    (o.CustomerName?.ToLower().Contains(SearchText.ToLower()) ?? false) ||
-                    (o.BookTitle?.ToLower().Contains(SearchText.ToLower()) ?? false) ||
-                    (o.Status?.ToLower().Contains(SearchText.ToLower()) ?? false)
-                );
-
-            foreach (var order in filtered)
-                Orders.Add(order);
-
-            UpdateResultsVisibility();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Orders.Clear();
+                    foreach (var order in filteredOrders)
+                    {
+                        Orders.Add(order);
+                    }
+                    UpdateResultsVisibility();
+                });
+            }
+            catch (Exception ex)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show($"Błąd podczas wyszukiwania zamówień: {ex.Message}",
+                        "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
+            }
         }
 
         private void UpdateResultsVisibility()
