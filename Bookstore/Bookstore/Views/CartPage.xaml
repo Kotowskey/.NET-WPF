@@ -13,34 +13,57 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Nagłówek -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 20">
             <TextBlock Text="Koszyk" Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
-            <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                Command="{Binding AddOfferCommand}"
-                    ToolTip="Dodaj do zamówienia"
-                Margin="20 0 0 0">
-                <materialDesign:PackIcon Kind="PackageDown" />
-            </Button>
         </StackPanel>
 
+        <!-- Lista produktów w koszyku -->
         <StackPanel Grid.Row="1">
             <ListBox ItemsSource="{Binding CartOffers}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
-                            <StackPanel>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Image Grid.Column="0" Source="{Binding ImageSource}" Width="50" Height="50" Margin="0,0,10,0"/>
+                            
+                            <StackPanel Grid.Column="1">
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" />
                                 <TextBlock Text="{Binding BookTitle}" />
                                 <TextBlock Text="{Binding PriceDisplay}" />
                             </StackPanel>
-                        </StackPanel>
+                            
+                            <Button Grid.Column="2" 
+                                    Command="{Binding DataContext.RemoveFromCartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    ToolTip="Usuń z koszyka">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+        </StackPanel>
+
+        <!-- Przyciski akcji -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding CreateOrderCommand}"
+                    Content="Złóż zamówienie"
+                    Margin="10,0,0,0">
+                <Button.ToolTip>
+                    <ToolTip Content="Utwórz zamówienie z produktów w koszyku"/>
+                </Button.ToolTip>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

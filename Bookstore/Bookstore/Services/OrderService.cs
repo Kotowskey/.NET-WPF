@@ -100,6 +100,26 @@ namespace Bookstore.Services
             }
         }
 
+        public async Task<bool> CreateOrderFromCartAsync(Guid buyerId, List<int> offerIds)
+        {
+            try
+            {
+                var request = new
+                {
+                    BuyerId = buyerId,
+                    OfferIds = offerIds
+                };
+
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/ContactForm/create-order", request);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating order from cart: {ex.Message}");
+                return false;
+            }
+        }
+
         private string GetStatusDisplayName(int orderStateEnum)
         {
             switch (orderStateEnum)

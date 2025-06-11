@@ -185,9 +185,9 @@ namespace Bookstore.ViewModels
         {
             _bookService = new BookService();
             AddGenreCommand = new RelayCommand(param => AddGenre(param as string));
-            GenreKeyDownCommand = new RelayCommand<KeyEventArgs>(OnGenreKeyDown);
+            GenreKeyDownCommand = new RelayCommand(param => OnGenreKeyDown(param as KeyEventArgs));
             AddAuthorCommand = new RelayCommand(param => AddAuthor(param as string));
-            AuthorKeyDownCommand = new RelayCommand<KeyEventArgs>(OnAuthorKeyDown);
+            AuthorKeyDownCommand = new RelayCommand(param => OnAuthorKeyDown(param as KeyEventArgs));
             AddBookCommand = new RelayCommand(async param => await AddBookAsync());
             Task.Run(async () => await LoadAvailableDataAsync());
         }
