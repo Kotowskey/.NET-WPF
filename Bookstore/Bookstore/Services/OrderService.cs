@@ -25,6 +25,7 @@ namespace Bookstore.Services
         {
             try
             {
+                // Use the new OrderController endpoint
                 return await _httpClient.GetFromJsonAsync<List<OrderDetailModel>>($"{BaseUrl}/Order/GetAllDetailed") 
                        ?? new List<OrderDetailModel>();
             }
@@ -44,12 +45,10 @@ namespace Bookstore.Services
 
                 foreach (var detailedOrder in detailedOrders)
                 {
-                    var totalPrice = 0m;
                     var bookTitles = new List<string>();
 
                     foreach (var item in detailedOrder.OrderItems)
                     {
-                        totalPrice += (decimal)item.Price;
                         if (!string.IsNullOrEmpty(item.OfferName))
                         {
                             bookTitles.Add(item.OfferName);
@@ -63,7 +62,7 @@ namespace Bookstore.Services
                         CustomerName = detailedOrder.CustomerName,
                         BookTitle = string.Join(", ", bookTitles),
                         OrderDate = DateTime.Now, // You might want to add CreatedDate to backend
-                        Price = totalPrice,
+                        Price = (decimal)detailedOrder.TotalPrice, // Use the calculated total price
                         Status = GetStatusDisplayName(detailedOrder.OrderStateEnum)
                     });
                 }
@@ -151,6 +150,7 @@ namespace Bookstore.Services
         public string CustomerName { get; set; }
         public int OrderStateEnum { get; set; }
         public List<OrderItemDetailModel> OrderItems { get; set; } = new List<OrderItemDetailModel>();
+        public float TotalPrice { get; set; }
     }
 
     public class OrderItemDetailModel
