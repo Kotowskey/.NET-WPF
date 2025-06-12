@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace Bookstore.ViewModels
 {
@@ -84,7 +85,22 @@ namespace Bookstore.ViewModels
                 IsLoading = true;
                 NoResults = false;
 
-                var orders = await _orderService.GetAllAsync();
+                List<Order> orders;
+
+                // Check if user is admin
+                bool isAdmin = await App.Auth.IsAdminAsync();
+                
+                if (isAdmin)
+                {
+                    // Admin sees all orders
+                    orders = await _orderService.GetAllAsync();
+                }
+                else
+                {
+                    // Regular user sees only their orders
+                    var userId = await App.Auth.GetUserIdAsync();
+                    orders = await _orderService.GetByUserIdAsync(userId);
+                }
 
                 // Update on UI thread
                 Application.Current.Dispatcher.Invoke(() =>

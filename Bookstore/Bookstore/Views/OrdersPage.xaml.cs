@@ -19,6 +19,7 @@ namespace Bookstore.Views
 
         private async void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            // Refresh orders every time the page is loaded to ensure current data
             await ViewModel.LoadOrdersAsync();
         }
     }

@@ -35,46 +35,79 @@ namespace Bookstore.Services
             }
         }
 
+        public async Task<List<OrderDetailModel>> GetDetailedByUserIdAsync(Guid userId)
+        {
+            try
+            {
+                return await _httpClient.GetFromJsonAsync<List<OrderDetailModel>>($"{BaseUrl}/Order/GetDetailedByUserId/{userId}") 
+                       ?? new List<OrderDetailModel>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching user orders: {ex.Message}");
+                return new List<OrderDetailModel>();
+            }
+        }
+
         public async Task<List<Order>> GetAllAsync()
         {
             try
             {
                 var detailedOrders = await GetAllDetailedAsync();
-                var orders = new List<Order>();
-
-                foreach (var detailedOrder in detailedOrders)
-                {
-                    var totalPrice = 0m;
-                    var bookTitles = new List<string>();
-
-                    foreach (var item in detailedOrder.OrderItems)
-                    {
-                        totalPrice += (decimal)item.Price;
-                        if (!string.IsNullOrEmpty(item.OfferName))
-                        {
-                            bookTitles.Add(item.OfferName);
-                        }
-                    }
-
-                    orders.Add(new Order
-                    {
-                        Id = detailedOrder.Id,
-                        CustomerId = detailedOrder.BuyerId,
-                        CustomerName = detailedOrder.CustomerName,
-                        BookTitle = string.Join(", ", bookTitles),
-                        OrderDate = DateTime.Now,
-                        Price = totalPrice,
-                        Status = GetStatusDisplayName(detailedOrder.OrderStateEnum)
-                    });
-                }
-
-                return orders.OrderByDescending(o => o.OrderDate).ToList();
+                return ConvertToOrders(detailedOrders);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching orders: {ex.Message}");
                 return new List<Order>();
             }
+        }
+
+        public async Task<List<Order>> GetByUserIdAsync(Guid userId)
+        {
+            try
+            {
+                var detailedOrders = await GetDetailedByUserIdAsync(userId);
+                return ConvertToOrders(detailedOrders);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching user orders: {ex.Message}");
+                return new List<Order>();
+            }
+        }
+
+        private List<Order> ConvertToOrders(List<OrderDetailModel> detailedOrders)
+        {
+            var orders = new List<Order>();
+
+            foreach (var detailedOrder in detailedOrders)
+            {
+                var totalPrice = 0m;
+                var bookTitles = new List<string>();
+
+                foreach (var item in detailedOrder.OrderItems)
+                {
+                    totalPrice += (decimal)item.Price;
+                    if (!string.IsNullOrEmpty(item.OfferName))
+                    {
+                        bookTitles.Add(item.OfferName);
+                    }
+                }
+
+                orders.Add(new Order
+                {
+                    Id = detailedOrder.Id,
+                    CustomerId = detailedOrder.BuyerId,
+                    CustomerName = detailedOrder.CustomerName,
+                    BookTitle = string.Join(", ", bookTitles),
+                    OrderDate = DateTime.Now,
+                    Price = totalPrice,
+                    Status = GetStatusDisplayName(detailedOrder.OrderStateEnum)
+                });
+            }
+
+            return orders.OrderByDescending(o => o.OrderDate).ToList();
         }
 
         public async Task<List<Order>> SearchOrdersAsync(string searchPhrase)
