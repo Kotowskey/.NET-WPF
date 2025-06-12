@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Bookstore.Services;
 using Bookstore.Models;
+using Bookstore.Translation;
 
 namespace Bookstore.Views
 {
@@ -56,7 +57,7 @@ namespace Bookstore.Views
         private void RemoveText(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
-            if (tb.Text == "Temat" || tb.Text == "Wiadomość" || tb.Text.Contains("GUID"))
+            if (tb.Text == LocalizationManager.Get("SubjectPlaceholder") || tb.Text == LocalizationManager.Get("MessagePlaceholder") || tb.Text.Contains("GUID"))
             {
                 tb.Text = "";
                 tb.Foreground = Brushes.Black;
@@ -68,8 +69,8 @@ namespace Bookstore.Views
             TextBox tb = (TextBox)sender;
             if (string.IsNullOrWhiteSpace(tb.Text))
             {
-                if (tb == SubjectBox) tb.Text = "Temat";
-                else if (tb == MessageBox) tb.Text = "Wiadomość";
+                if (tb == SubjectBox) tb.Text = LocalizationManager.Get("SubjectPlaceholder");
+                else if (tb == MessageBox) tb.Text = LocalizationManager.Get("MessagePlaceholder");
                 tb.Foreground = Brushes.Gray;
             }
         }

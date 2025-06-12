@@ -68,7 +68,7 @@
                                  IsIndeterminate="True"
                                  Width="24" Height="24"
                                  Margin="0,0,16,0"/>
-                    <TextBlock Text="Ładowanie zamówień..." 
+                    <TextBlock Text="{DynamicResource LoadingOrders}" 
                                VerticalAlignment="Center"/>
                 </StackPanel>
             </materialDesign:Card>
@@ -138,7 +138,7 @@
                                         Foreground="{DynamicResource MaterialDesignBodyLight}"
                                         HorizontalAlignment="Center"/>
                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                           Text="Brak zamówień do wyświetlenia"
+                           Text="{DynamicResource NoOrdersToDisplay}"
                            HorizontalAlignment="Center"
                            Margin="0,16,0,0"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>

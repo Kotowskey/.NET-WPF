@@ -23,7 +23,7 @@ namespace Bookstore.Translation
             }
 
             var existingDict = Application.Current.Resources.MergedDictionaries
-                                   .FirstOrDefault(d => d.Source?.OriginalString.StartsWith("Resources/StringResources.") == true);
+                                   .FirstOrDefault(d => d.Source?.OriginalString.StartsWith("Translation/StringResources.") == true);
 
             if (existingDict != null)
                 Application.Current.Resources.MergedDictionaries.Remove(existingDict);

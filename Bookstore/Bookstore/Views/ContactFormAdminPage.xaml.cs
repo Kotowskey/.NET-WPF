@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Bookstore.ViewModels;
+using Bookstore.Translation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace Bookstore.Views
         {
             if (MessagesDataGrid.SelectedItem is ContactFormModel selectedMessage)
             {
-                var result = MessageBox.Show("Czy na pewno chcesz oznaczyć tę wiadomość jako Archived?", "Potwierdź", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show(LocalizationManager.Get("ConfirmArchive"), LocalizationManager.Get("Confirm"), MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     await ViewModel.ArchiveMessageAsync(selectedMessage);
@@ -50,7 +51,7 @@ namespace Bookstore.Views
             }
             else
             {
-                MessageBox.Show("Zaznacz wiadomość do archiwizacji.");
+                MessageBox.Show(LocalizationManager.Get("SelectMessage"));
             }
         }
     }

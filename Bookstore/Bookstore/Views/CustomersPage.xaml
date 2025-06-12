@@ -81,7 +81,7 @@
                 </DataGrid>
                 
                 <!-- Informacja o braku wyników -->
-                <TextBlock Text="Brak wyników wyszukiwania" 
+                <TextBlock Text="{DynamicResource NoResultsSearch}"
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center"
                            FontSize="18"

@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Bookstore.ViewModels;
+using Bookstore.Translation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,7 @@ namespace Bookstore.Views
             }
             else
             {
-                MessageBox.Show("Zaznacz użytkownika do edycji.");
+                MessageBox.Show(LocalizationManager.Get("SelectUser"));
             }
         }
 
@@ -82,7 +83,7 @@ namespace Bookstore.Views
         {
             if (UsersDataGrid.SelectedItem is UserModel selectedUser)
             {
-                var result = MessageBox.Show("Na pewno usunąć użytkownika?", "Potwierdź", MessageBoxButton.YesNo);
+                var result = MessageBox.Show(LocalizationManager.Get("ConfirmDelete"), LocalizationManager.Get("Confirm"), MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     await ViewModel.DeleteUserAsync(selectedUser);
@@ -90,7 +91,7 @@ namespace Bookstore.Views
             }
             else
             {
-                MessageBox.Show("Zaznacz użytkownika do usunięcia.");
+                MessageBox.Show(LocalizationManager.Get("SelectUserDelete"));
             }
         }
 
@@ -103,7 +104,7 @@ namespace Bookstore.Views
             }
             else
             {
-                MessageBox.Show("Zaznacz użytkownika do podglądu.");
+                MessageBox.Show(LocalizationManager.Get("SelectUserDetails"));
             }
         }
 

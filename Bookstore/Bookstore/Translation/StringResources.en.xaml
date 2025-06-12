@@ -57,4 +57,71 @@
     <!-- ADMIN PAGE -->
     <sys:String x:Key="AdminHeaderText">Administrator Panel</sys:String>
     <sys:String x:Key="Message">Messages</sys:String>
+    
+    <!-- LOADING AND STATUS -->
+    <sys:String x:Key="LoadingData">Loading data...</sys:String>
+    <sys:String x:Key="LoadingOffers">Loading offers...</sys:String>
+    <sys:String x:Key="LoadingOrders">Loading orders...</sys:String>
+    <sys:String x:Key="LoadingMessages">Loading messages...</sys:String>
+    <sys:String x:Key="NoResultsSearch">No search results</sys:String>
+    <sys:String x:Key="NoOffersAvailable">No offers available</sys:String>
+    <sys:String x:Key="NoOrdersToDisplay">No orders to display</sys:String>
+    <sys:String x:Key="MessagesList">Messages list</sys:String>
+    
+    <!-- BUTTONS AND ACTIONS -->
+    <sys:String x:Key="CreateOrder">Create order</sys:String>
+    <sys:String x:Key="Send">Send</sys:String>
+    <sys:String x:Key="Archive">Mark as Read</sys:String>
+    <sys:String x:Key="AddBookFromHtml">Add book from swiatksiazki.pl</sys:String>
+    
+    <!-- PLACEHOLDERS -->
+    <sys:String x:Key="SubjectPlaceholder">Subject</sys:String>
+    <sys:String x:Key="MessagePlaceholder">Message</sys:String>
+    <sys:String x:Key="SearchPlaceholder">Search...</sys:String>
+    
+    <!-- ERRORS AND CONFIRMATIONS -->
+    <sys:String x:Key="SelectUser">Select user to edit.</sys:String>
+    <sys:String x:Key="SelectUserDelete">Select user to delete.</sys:String>
+    <sys:String x:Key="SelectUserDetails">Select user to view details.</sys:String>
+    <sys:String x:Key="SelectCustomer">Select customer to edit.</sys:String>
+    <sys:String x:Key="SelectCustomerDelete">Select customer to delete.</sys:String>
+    <sys:String x:Key="SelectCustomerDetails">Select customer to view details.</sys:String>
+    <sys:String x:Key="SelectMessage">Select message to archive.</sys:String>
+    <sys:String x:Key="ConfirmDelete">Are you sure you want to delete user?</sys:String>
+    <sys:String x:Key="ConfirmDeleteCustomer">Are you sure you want to delete customer?</sys:String>
+    <sys:String x:Key="ConfirmArchive">Are you sure you want to mark this message as Archived?</sys:String>
+    <sys:String x:Key="Confirm">Confirm</sys:String>
+    <sys:String x:Key="MessageArchived">Message has been marked as archived.</sys:String>
+    <sys:String x:Key="ArchiveError">Failed to archive message.</sys:String>
+    <sys:String x:Key="SearchError">Error while searching orders</sys:String>
+    <sys:String x:Key="EditError">Error while editing offer</sys:String>
+    <sys:String x:Key="UpdateError">Failed to update offer.</sys:String>
+    <sys:String x:Key="NoStatusChange">No changes made to order status.</sys:String>
+    <sys:String x:Key="Information">Information</sys:String>
+    <sys:String x:Key="ConfirmStatusChange">Are you sure you want to change order #{0} status from '{1}' to '{2}'?</sys:String>
+    <sys:String x:Key="ConfirmChange">Confirm change</sys:String>
+    <sys:String x:Key="StatusUpdated">Order status has been updated successfully.</sys:String>
+    <sys:String x:Key="StatusUpdateError">Failed to update order status.</sys:String>
+    <sys:String x:Key="OrderUpdateError">An error occurred while updating the order</sys:String>
+    
+    <!-- WINDOW TITLES -->
+    <sys:String x:Key="EditOrder">Edit order</sys:String>
+    <sys:String x:Key="OrderDetails">Order details</sys:String>
+    
+    <!-- ORDER STATUS -->
+    <sys:String x:Key="Unpaid">Unpaid</sys:String>
+    <sys:String x:Key="Paid">Paid</sys:String>
+    <sys:String x:Key="Shipped">Shipped</sys:String>
+    <sys:String x:Key="ReturnedShipped">Returned (shipped)</sys:String>
+    <sys:String x:Key="Received">Received</sys:String>
+    <sys:String x:Key="ReturnedReceived">Returned (received)</sys:String>
+    <sys:String x:Key="Cancelled">Cancelled</sys:String>
+    
+    <!-- SHOPPING CART -->
+    <sys:String x:Key="ShoppingCart">Shopping Cart</sys:String>
+    <sys:String x:Key="Cart">Cart</sys:String>
+    <sys:String x:Key="AddToCart">Add to Cart</sys:String>
+    <sys:String x:Key="RemoveFromCart">Remove from Cart</sys:String>
+    <sys:String x:Key="CartEmpty">Cart is empty!</sys:String>
+    <sys:String x:Key="CartItems">Cart Items</sys:String>
 </ResourceDictionary>

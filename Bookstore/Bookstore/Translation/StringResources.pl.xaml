@@ -57,4 +57,71 @@
     <!-- ADMIN PAGE -->
     <sys:String x:Key="AdminHeaderText">Panel Administratora</sys:String>
     <sys:String x:Key="Message">Wiadomości</sys:String>
+    
+    <!-- LOADING AND STATUS -->
+    <sys:String x:Key="LoadingData">Ładowanie danych...</sys:String>
+    <sys:String x:Key="LoadingOffers">Ładowanie ofert...</sys:String>
+    <sys:String x:Key="LoadingOrders">Ładowanie zamówień...</sys:String>
+    <sys:String x:Key="LoadingMessages">Ładowanie wiadomości...</sys:String>
+    <sys:String x:Key="NoResultsSearch">Brak wyników wyszukiwania</sys:String>
+    <sys:String x:Key="NoOffersAvailable">Brak dostępnych ofert</sys:String>
+    <sys:String x:Key="NoOrdersToDisplay">Brak zamówień do wyświetlenia</sys:String>
+    <sys:String x:Key="MessagesList">Lista wiadomości</sys:String>
+    
+    <!-- BUTTONS AND ACTIONS -->
+    <sys:String x:Key="CreateOrder">Utwórz zamówienie</sys:String>
+    <sys:String x:Key="Send">Wyślij</sys:String>
+    <sys:String x:Key="Archive">Oznacz jako Przeczytane</sys:String>
+    <sys:String x:Key="AddBookFromHtml">Dodaj książkę z swiatksiazki.pl</sys:String>
+    
+    <!-- PLACEHOLDERS -->
+    <sys:String x:Key="SubjectPlaceholder">Temat</sys:String>
+    <sys:String x:Key="MessagePlaceholder">Wiadomość</sys:String>
+    <sys:String x:Key="SearchPlaceholder">Szukaj...</sys:String>
+    
+    <!-- ERRORS AND CONFIRMATIONS -->
+    <sys:String x:Key="SelectUser">Zaznacz użytkownika do edycji.</sys:String>
+    <sys:String x:Key="SelectUserDelete">Zaznacz użytkownika do usunięcia.</sys:String>
+    <sys:String x:Key="SelectUserDetails">Zaznacz użytkownika do podglądu.</sys:String>
+    <sys:String x:Key="SelectCustomer">Zaznacz klienta do edycji.</sys:String>
+    <sys:String x:Key="SelectCustomerDelete">Zaznacz klienta do usunięcia.</sys:String>
+    <sys:String x:Key="SelectCustomerDetails">Zaznacz klienta do podglądu.</sys:String>
+    <sys:String x:Key="SelectMessage">Zaznacz wiadomość do archiwizacji.</sys:String>
+    <sys:String x:Key="ConfirmDelete">Na pewno usunąć użytkownika?</sys:String>
+    <sys:String x:Key="ConfirmDeleteCustomer">Na pewno usunąć klienta?</sys:String>
+    <sys:String x:Key="ConfirmArchive">Czy na pewno chcesz oznaczyć tę wiadomość jako Archived?</sys:String>
+    <sys:String x:Key="Confirm">Potwierdź</sys:String>
+    <sys:String x:Key="MessageArchived">Wiadomość została oznaczona jako archiwalna.</sys:String>
+    <sys:String x:Key="ArchiveError">Nie udało się zarchiwizować wiadomości.</sys:String>
+    <sys:String x:Key="SearchError">Błąd podczas wyszukiwania zamówień</sys:String>
+    <sys:String x:Key="EditError">Błąd podczas edycji oferty</sys:String>
+    <sys:String x:Key="UpdateError">Nie udało się zaktualizować oferty.</sys:String>
+    <sys:String x:Key="NoStatusChange">Nie wprowadzono zmian w statusie zamówienia.</sys:String>
+    <sys:String x:Key="Information">Informacja</sys:String>
+    <sys:String x:Key="ConfirmStatusChange">Czy na pewno chcesz zmienić status zamówienia #{0} z '{1}' na '{2}'?</sys:String>
+    <sys:String x:Key="ConfirmChange">Potwierdź zmianę</sys:String>
+    <sys:String x:Key="StatusUpdated">Status zamówienia został zaktualizowany pomyślnie.</sys:String>
+    <sys:String x:Key="StatusUpdateError">Nie udało się zaktualizować statusu zamówienia.</sys:String>
+    <sys:String x:Key="OrderUpdateError">Wystąpił błąd podczas aktualizacji zamówienia</sys:String>
+    
+    <!-- WINDOW TITLES -->
+    <sys:String x:Key="EditOrder">Edytuj zamówienie</sys:String>
+    <sys:String x:Key="OrderDetails">Szczegóły zamówienia</sys:String>
+    
+    <!-- ORDER STATUS -->
+    <sys:String x:Key="Unpaid">Nieopłacone</sys:String>
+    <sys:String x:Key="Paid">Opłacone</sys:String>
+    <sys:String x:Key="Shipped">Wysłane</sys:String>
+    <sys:String x:Key="ReturnedShipped">Zwrócone (wysłane)</sys:String>
+    <sys:String x:Key="Received">Odebrane</sys:String>
+    <sys:String x:Key="ReturnedReceived">Zwrócone (odebrane)</sys:String>
+    <sys:String x:Key="Cancelled">Anulowane</sys:String>
+    
+    <!-- SHOPPING CART -->
+    <sys:String x:Key="ShoppingCart">Koszyk</sys:String>
+    <sys:String x:Key="Cart">Koszyk</sys:String>
+    <sys:String x:Key="AddToCart">Dodaj do koszyka</sys:String>
+    <sys:String x:Key="RemoveFromCart">Usuń z koszyka</sys:String>
+    <sys:String x:Key="CartEmpty">Koszyk jest pusty!</sys:String>
+    <sys:String x:Key="CartItems">Przedmioty w koszyku</sys:String>
 </ResourceDictionary>

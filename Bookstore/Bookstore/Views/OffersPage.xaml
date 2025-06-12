@@ -81,7 +81,7 @@
             </ListView>
 
             <TextBlock x:Name="NoResultsText" 
-                       Text="Brak dostępnych ofert" 
+                       Text="{DynamicResource NoOffersAvailable}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"

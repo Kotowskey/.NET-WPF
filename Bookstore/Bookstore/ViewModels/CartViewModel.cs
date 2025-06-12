@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Bookstore.Services;
+using Bookstore.Translation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -72,7 +73,7 @@ namespace Bookstore.ViewModels
             {
                 if (!CartOffers.Any())
                 {
-                    MessageBox.Show("Koszyk jest pusty!", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(LocalizationManager.Get("CartEmpty"), LocalizationManager.Get("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 

@@ -53,7 +53,7 @@
                 </Grid>
 
                 <!-- Szczegóły -->
-                <TextBlock Text="Szczegóły" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
+                <TextBlock Text="{DynamicResource Details}" FontSize="15" FontWeight="Bold" Margin="20,20,0,10"/>
                 <StackPanel Margin="20,0,20,20" Orientation="Horizontal">
                     <StackPanel>
                         <TextBlock Text="Tytuł książki:" Margin="0,0,0,8"/>

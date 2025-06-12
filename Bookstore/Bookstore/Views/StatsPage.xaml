@@ -29,7 +29,7 @@
             <materialDesign:Card Padding="32" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <StackPanel>
                     <ProgressBar IsIndeterminate="True" Width="100" Margin="0 0 0 16"/>
-                    <TextBlock Text="Ładowanie danych..." Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource LoadingData}" Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Center"/>
                 </StackPanel>
             </materialDesign:Card>
         </Grid>
