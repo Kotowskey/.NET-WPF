@@ -1,4 +1,5 @@
 using Bookstore.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Bookstore.Views
@@ -8,19 +9,22 @@ namespace Bookstore.Views
     /// </summary>
     public partial class OrdersPage : UserControl
     {
-        public OrdersViewModel ViewModel { get; set; }
+        private OrdersViewModel _viewModel;
 
         public OrdersPage()
         {
             InitializeComponent();
-            ViewModel = new OrdersViewModel();
-            DataContext = ViewModel;
+            _viewModel = new OrdersViewModel();
+            DataContext = _viewModel;
         }
 
-        private async void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Refresh orders every time the page is loaded to ensure current data
-            await ViewModel.LoadOrdersAsync();
+            // Odświeżenie danych przy załadowaniu kontrolki
+            if (_viewModel != null)
+            {
+                _viewModel.RefreshCommand.Execute(null);
+            }
         }
     }
 }

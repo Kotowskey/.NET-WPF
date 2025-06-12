@@ -156,6 +156,66 @@ namespace Bookstore.Services
                     return "Nieznany";
             }
         }
+
+        // Konwertuje nazwę statusu na odpowiednią wartość Enum
+        public int GetOrderStateEnumFromDisplayName(string statusDisplayName)
+        {
+            switch (statusDisplayName.Trim())
+            {
+                case "Nieopłacone": return 0;
+                case "Opłacone": return 10;
+                case "Wysłane": return 20;
+                case "Zwrócone (wysłane)": return 25;
+                case "Odebrane": return 30;
+                case "Zwrócone (odebrane)": return 35;
+                case "Anulowane": return 40;
+                default: return 0;
+            }
+        }
+
+        // Pobiera listę dostępnych statusów zamówień
+        public List<string> GetAvailableOrderStatuses()
+        {
+            return new List<string>
+            {
+                "Nieopłacone",
+                "Opłacone",
+                "Wysłane",
+                "Zwrócone (wysłane)",
+                "Odebrane",
+                "Zwrócone (odebrane)",
+                "Anulowane"
+            };
+        }
+
+        // Aktualizuje status zamówienia
+        public async Task<bool> UpdateOrderStatusAsync(int orderId, string newStatus)
+        {
+            try
+            {
+                // Pobierz aktualne zamówienie
+                var orderDetail = await _httpClient.GetFromJsonAsync<OrderDetailModel>($"{BaseUrl}/Order/GetById/{orderId}");
+                if (orderDetail == null)
+                    return false;
+
+                // Przygotuj obiekt do aktualizacji
+                var orderToUpdate = new
+                {
+                    Id = orderId,
+                    BuyerId = orderDetail.BuyerId,
+                    OrderStateEnum = GetOrderStateEnumFromDisplayName(newStatus)
+                };
+
+                // Wywołaj API do aktualizacji
+                var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/Order/Edit/{orderId}", orderToUpdate);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating order status: {ex.Message}");
+                return false;
+            }
+        }
     }
 
     public class OrderDetailModel

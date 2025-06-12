@@ -1,5 +1,6 @@
 using Bookstore.Models;
 using Bookstore.Services;
+using Bookstore.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace Bookstore.ViewModels
         private string _searchText;
         private bool _isLoading;
         private bool _noResults;
+        private bool _isAdmin;
 
         public ObservableCollection<Order> Orders
         {
@@ -62,8 +64,19 @@ namespace Bookstore.ViewModels
             }
         }
 
+        public bool IsAdmin
+        {
+            get => _isAdmin;
+            set
+            {
+                _isAdmin = value;
+                OnPropertyChanged(nameof(IsAdmin));
+            }
+        }
+
         public ICommand RefreshCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
+        public ICommand EditOrderCommand { get; private set; }
 
         public OrdersViewModel()
         {
@@ -73,9 +86,15 @@ namespace Bookstore.ViewModels
 
             RefreshCommand = new RelayCommand(async _ => await LoadOrdersAsync());
             SearchCommand = new RelayCommand(async _ => await FilterOrdersAsync());
+            EditOrderCommand = new RelayCommand(OpenEditOrderWindow);
 
             // Load orders on initialization
-            _ = Task.Run(async () => await LoadOrdersAsync());
+            _ = Task.Run(async () => 
+            {
+                // Check if user is admin
+                IsAdmin = await App.Auth.IsAdminAsync();
+                await LoadOrdersAsync();
+            });
         }
 
         public async Task LoadOrdersAsync()
@@ -164,6 +183,16 @@ namespace Bookstore.ViewModels
         private void UpdateResultsVisibility()
         {
             NoResults = Orders == null || Orders.Count == 0;
+        }
+
+        private void OpenEditOrderWindow(object parameter)
+        {
+            if (parameter is Order order)
+            {
+                var editWindow = new EditOrderWindow(order, async () => await LoadOrdersAsync());
+                editWindow.Owner = Application.Current.MainWindow;
+                editWindow.ShowDialog();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
